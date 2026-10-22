@@ -1,0 +1,906 @@
+---
+import { services, wa } from "../../data/site";
+
+// Configuraciones visuales y de fondo para cada servicio
+const serviceThemes = [
+  {
+    slug: "landing-page",
+    category: "Conversión & Campañas",
+    time: "4 a 7 días hábiles",
+    imgSrc: "/images/services/landing-page.jpg",
+    accentTone: "var(--c-amber)",
+    leadShort: "Páginas de alta conversión diseñadas para transformar clics de campañas en clientes reales.",
+  },
+  {
+    slug: "web-informativa",
+    category: "Autoridad Corporativa",
+    time: "7 a 14 días hábiles",
+    imgSrc: "/images/services/web-informativa.jpg",
+    accentTone: "var(--c-olive)",
+    leadShort: "Tu sede digital multipágina para presentar tus servicios, generar respaldo y posicionar en Google.",
+  },
+  {
+    slug: "tienda-online",
+    category: "E-Commerce 24/7",
+    time: "14 a 21 días hábiles",
+    imgSrc: "/images/services/tienda-online.jpg",
+    accentTone: "var(--c-sand)",
+    leadShort: "Catálogo completo con carrito de compras y pagos integrados con Yape, Plin y tarjetas.",
+  },
+  {
+    slug: "sistema-medida",
+    category: "Bespoke & Plataformas",
+    time: "3 a 5 semanas",
+    imgSrc: "/images/services/sistema-medida.jpg",
+    accentTone: "var(--c-sage)",
+    leadShort: "Plataformas web avanzadas, paneles administrativos y flujos de negocio a medida.",
+  },
+];
+---
+
+<section id="servicios" class="section services-editorial">
+  <div class="container-wide">
+    <!-- Encabezado de Sección: Nuestras Soluciones Web -->
+    <header class="sec-head-editorial">
+      <div class="she-left">
+        <h2 class="she-title">Nuestras Soluciones Web</h2>
+        <p class="she-desc">
+          Desde una primera cotización transparente hasta la entrega final, tendrás un proceso claro, atención personalizada y soporte continuo.
+        </p>
+      </div>
+
+      <div class="she-right">
+        <a href={wa("Hola Kamasqa 👋 Quisiera calcular un presupuesto personalizado para la web de mi negocio.")} target="_blank" rel="noopener noreferrer" class="btn-pill-action">
+          <span>Calcular presupuesto</span>
+          <span class="action-arrow-circle" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Grid de Tarjetas Verticales (Desktop: 4 cols | Mobile: Carrusel táctil snap) -->
+    <div class="cards-carousel-container">
+      <div class="cards-vertical-grid" id="services-grid-track">
+        {services.map((s, i) => {
+          const theme = serviceThemes[i] || serviceThemes[0];
+          return (
+            <article class="vertical-card" style={`--accent-card:${theme.accentTone}`} data-srv-card={i}>
+              <!-- Fondo Visual del Servicio -->
+              <div class="vc-bg-wrap" aria-hidden="true">
+                <img
+                  src={theme.imgSrc}
+                  alt={`Render 3D conceptual para ${s.name}`}
+                  class="vc-bg-img"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div class="vc-gradient"></div>
+              </div>
+
+              <!-- Botón de Flecha Circular Superior Derecha (↗) que lleva a la página de servicio -->
+              <a
+                href={`/servicios/${s.slug}`}
+                class="vc-arrow-btn"
+                aria-label={`Ver detalles completos de ${s.name}`}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </a>
+
+              <!-- Contenido Anclado al Fondo -->
+              <div class="vc-content">
+                <div class="vc-meta">
+                  <span class="vc-num-tag">0{i + 1}</span>
+                  <span class="vc-badge">{theme.category}</span>
+                  <span class="vc-time">⏱ {theme.time}</span>
+                </div>
+
+                <h3 class="vc-title">
+                  <a href={`/servicios/${s.slug}`} class="vc-title-link">{s.name}</a>
+                </h3>
+
+                <p class="vc-desc">{s.short}</p>
+
+                <div class="vc-footer">
+                  <span class="vc-pricing">A cotización formal</span>
+                  <a href={`/servicios/${s.slug}`} class="vc-cta-text">
+                    <span>Ver proyecto</span>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+      <!-- Indicadores de Carrusel en Móvil -->
+      <div class="srv-carousel-dots" id="srv-dots" aria-hidden="true">
+        {services.map((_, idx) => (
+          <button type="button" class={`s-dot ${idx === 0 ? "active" : ""}`} data-idx={idx} aria-label={`Ver tarjeta ${idx + 1}`}></button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Ticker 'Popular now': En Desktop: Fila horizontal. En Mobile: Stack superpuesto de tarjetas con auto-play cada 5s -->
+    <div class="popular-ticker-wrap">
+      <div class="pt-label-col">
+        <span class="pt-tag">Popular now</span>
+      </div>
+
+      <div class="pt-items-stage" id="popular-stage">
+        {services.map((s, i) => {
+          const theme = serviceThemes[i];
+          return (
+            <a
+              href={`/servicios/${s.slug}`}
+              class={`pt-item ${i === 0 ? "is-top" : ""}`}
+              data-pop-idx={i}
+              data-layer={i}
+              aria-label={`Ver servicio ${s.name}`}
+            >
+              <div class="pt-item-inner">
+                <div class="pt-item-head">
+                  <span class="pt-item-meta">{s.name} · {theme.time}</span>
+                  <span class="pt-item-badge">Destacado</span>
+                </div>
+                <p class="pt-item-title">{theme.leadShort}</p>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+
+      <!-- Controles móviles para el stack superpuesto de Popular Now -->
+      <div class="pop-stack-controls" id="pop-controls" aria-label="Controles de tarjetas destacadas">
+        <button type="button" class="pop-ctrl-btn prev" id="pop-prev" aria-label="Anterior destacada">‹</button>
+        <div class="pop-mini-dots" id="pop-mini-dots">
+          {services.map((_, i) => (
+            <span class={`pm-dot ${i === 0 ? "active" : ""}`} data-pdot={i}></span>
+          ))}
+        </div>
+        <button type="button" class="pop-ctrl-btn next" id="pop-next" aria-label="Siguiente destacada">›</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // ==========================================
+  // 1. Carrusel de Tarjetas de Servicios en Móvil
+  // ==========================================
+  const srvGrid = document.getElementById("services-grid-track");
+  const srvDots = document.querySelectorAll(".srv-carousel-dots .s-dot");
+
+  if (srvGrid && srvDots.length > 0) {
+    const updateSrvDots = () => {
+      const scrollLeft = srvGrid.scrollLeft;
+      const cardWidth = srvGrid.querySelector<HTMLElement>(".vertical-card")?.offsetWidth || 300;
+      const activeIdx = Math.round(scrollLeft / cardWidth);
+      srvDots.forEach((dot, idx) => {
+        dot.classList.toggle("active", idx === activeIdx);
+      });
+    };
+
+    srvGrid.addEventListener("scroll", updateSrvDots, { passive: true });
+
+    srvDots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        const idx = Number(dot.getAttribute("data-idx") || 0);
+        const card = srvGrid.querySelectorAll<HTMLElement>(".vertical-card")[idx];
+        if (card) {
+          card.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+        }
+      });
+    });
+  }
+
+  // ==========================================
+  // 2. Popular Now: Stack Superpuesto en Móvil (Auto-advance cada 5 segundos)
+  // ==========================================
+  const popStage = document.getElementById("popular-stage");
+  const popCards = Array.from(document.querySelectorAll<HTMLElement>(".pt-item"));
+  const popMiniDots = Array.from(document.querySelectorAll<HTMLElement>(".pop-mini-dots .pm-dot"));
+  const popPrevBtn = document.getElementById("pop-prev");
+  const popNextBtn = document.getElementById("pop-next");
+
+  if (popStage && popCards.length > 0) {
+    let currentIdx = 0;
+    const total = popCards.length;
+    let autoTimer: number | null = null;
+
+    const renderStack = () => {
+      // Solo aplicamos stack en móvil (<= 840px)
+      const isMobile = window.innerWidth <= 840;
+      if (!isMobile) {
+        popCards.forEach((c) => {
+          c.style.removeProperty("transform");
+          c.style.removeProperty("opacity");
+          c.style.removeProperty("z-index");
+          c.style.removeProperty("pointer-events");
+        });
+        return;
+      }
+
+      popCards.forEach((card, i) => {
+        // Distancia relativa respecto al índice activo
+        const rel = (i - currentIdx + total) % total;
+        if (rel === 0) {
+          // Activo al frente
+          card.style.transform = "translate3d(0, 0, 0) scale(1)";
+          card.style.opacity = "1";
+          card.style.zIndex = "10";
+          card.style.pointerEvents = "auto";
+        } else if (rel === 1) {
+          // Segundo detrás
+          card.style.transform = "translate3d(0, 12px, -20px) scale(0.95)";
+          card.style.opacity = "0.78";
+          card.style.zIndex = "8";
+          card.style.pointerEvents = "none";
+        } else if (rel === 2) {
+          // Tercero más atrás
+          card.style.transform = "translate3d(0, 24px, -40px) scale(0.90)";
+          card.style.opacity = "0.52";
+          card.style.zIndex = "6";
+          card.style.pointerEvents = "none";
+        } else {
+          // Cuarto al fondo
+          card.style.transform = "translate3d(0, 36px, -60px) scale(0.85)";
+          card.style.opacity = "0.25";
+          card.style.zIndex = "4";
+          card.style.pointerEvents = "none";
+        }
+      });
+
+      popMiniDots.forEach((dot, idx) => {
+        dot.classList.toggle("active", idx === currentIdx);
+      });
+    };
+
+    const nextPopCard = () => {
+      // Animación de salida de la carta frontal hacia el fondo
+      const topCard = popCards[currentIdx];
+      if (window.innerWidth <= 840 && topCard) {
+        topCard.style.transform = "translate3d(-100px, -20px, 0) rotate(-6deg) scale(0.88)";
+        topCard.style.opacity = "0";
+        window.setTimeout(() => {
+          currentIdx = (currentIdx + 1) % total;
+          renderStack();
+        }, 220);
+      } else {
+        currentIdx = (currentIdx + 1) % total;
+        renderStack();
+      }
+    };
+
+    const prevPopCard = () => {
+      currentIdx = (currentIdx - 1 + total) % total;
+      renderStack();
+    };
+
+    const resetTimer = () => {
+      if (autoTimer) window.clearInterval(autoTimer);
+      autoTimer = window.setInterval(() => {
+        if (window.innerWidth <= 840) {
+          nextPopCard();
+        }
+      }, 5000);
+    };
+
+    // Eventos de interacción
+    popMiniDots.forEach((dot, idx) => {
+      dot.addEventListener("click", (e) => {
+        e.stopPropagation();
+        currentIdx = idx;
+        renderStack();
+        resetTimer();
+      });
+    });
+
+    popNextBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      nextPopCard();
+      resetTimer();
+    });
+
+    popPrevBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      prevPopCard();
+      resetTimer();
+    });
+
+    // Touch swipe en móvil
+    let touchStartX = 0;
+    let touchStartY = 0;
+    popStage.addEventListener("touchstart", (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    popStage.addEventListener("touchend", (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const diffX = touchEndX - touchStartX;
+      const diffY = touchEndY - touchStartY;
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 35) {
+        if (diffX < 0) nextPopCard();
+        else prevPopCard();
+        resetTimer();
+      }
+    }, { passive: true });
+
+    window.addEventListener("resize", renderStack, { passive: true });
+    renderStack();
+    resetTimer();
+  }
+</script>
+
+<style>
+  .services-editorial {
+    padding: clamp(4rem, 9vw, 7.5rem) 0;
+    position: relative;
+    background: transparent;
+  }
+
+  /* Encabezado */
+  .sec-head-editorial {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: clamp(2rem, 4vw, 3.2rem);
+  }
+
+  .she-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 680px;
+  }
+
+  .she-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4.2vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+  }
+
+  .she-desc {
+    font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .she-btn-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.4rem;
+    border-radius: var(--radius-full);
+    border: 1.5px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .she-btn-pill:hover {
+    background: var(--ink);
+    color: var(--paper);
+    transform: translateY(-2px);
+  }
+
+  html[data-theme="dark"] .she-btn-pill {
+    border-color: rgba(255, 255, 255, 0.25);
+    color: var(--ink);
+  }
+
+  html[data-theme="dark"] .she-btn-pill:hover {
+    background: var(--c-sand);
+    border-color: var(--c-sand);
+    color: #121610;
+  }
+
+  /* Carrusel / Grid de Tarjetas Verticales */
+  .cards-carousel-container {
+    position: relative;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .cards-vertical-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(1.2rem, 2vw, 2rem);
+  }
+
+  /* Tarjeta Vertical Individual */
+  .vertical-card {
+    position: relative;
+    border-radius: 28px;
+    height: clamp(470px, 32vw, 530px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.8rem;
+    color: var(--c-white);
+    box-shadow: 0 16px 36px -12px rgba(27, 33, 20, 0.16);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    isolation: isolate;
+  }
+
+  .vertical-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 48px -12px rgba(27, 33, 20, 0.35);
+  }
+
+  /* Fondo con Mockups Digitales en Perspectiva (Propietarios y Locales) */
+  .vc-bg-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    background: #0B0F0B;
+  }
+
+  .vc-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 18%;
+    transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+    filter: brightness(0.94) contrast(1.05);
+  }
+
+  .vertical-card:hover .vc-bg-img {
+    transform: scale(1.06);
+    filter: brightness(1.02) contrast(1.08);
+  }
+
+  .vc-gradient {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      180deg,
+      rgba(11, 15, 11, 0.08) 0%,
+      rgba(11, 15, 11, 0.22) 36%,
+      rgba(8, 12, 8, 0.82) 70%,
+      rgba(8, 12, 8, 0.96) 92%,
+      #080C07 100%
+    );
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .vertical-card:hover .vc-gradient {
+    background: linear-gradient(
+      180deg,
+      rgba(11, 15, 11, 0.04) 0%,
+      rgba(11, 15, 11, 0.16) 32%,
+      rgba(8, 12, 8, 0.78) 68%,
+      rgba(8, 12, 8, 0.94) 90%,
+      #080C07 100%
+    );
+  }
+
+  /* Botón de Flecha Superior Derecha (↗) con Acento Arena de la Paleta */
+  .vc-arrow-btn {
+    position: absolute;
+    top: 1.4rem;
+    right: 1.4rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--c-sand);
+    color: #151D12;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s ease, color 0.2s ease;
+    z-index: 2;
+  }
+
+  .vertical-card:hover .vc-arrow-btn {
+    transform: scale(1.12) rotate(45deg);
+    background: var(--c-amber);
+    color: #FFFFFF;
+  }
+
+  .vc-num-tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--c-sand);
+    background: rgba(14, 20, 13, 0.7);
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(240, 196, 140, 0.35);
+  }
+
+  /* Contenido Inferior */
+  .vc-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .vc-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .vc-badge {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(8px);
+    color: var(--c-white);
+  }
+
+  .vc-time {
+    font-size: 0.75rem;
+    color: rgba(242, 245, 236, 0.82);
+    font-weight: 500;
+  }
+
+  .vc-title {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--c-white);
+    margin-bottom: 0.6rem;
+  }
+
+  .vc-title-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .vc-title-link:hover {
+    color: var(--accent-card);
+  }
+
+  .vc-desc {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: rgba(242, 245, 236, 0.85);
+    margin-bottom: 1.1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .vc-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    font-size: 0.8125rem;
+  }
+
+  .vc-pricing {
+    color: rgba(242, 245, 236, 0.75);
+    font-weight: 600;
+  }
+
+  .vc-cta-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--accent-card);
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
+
+  .vertical-card:hover .vc-cta-text {
+    transform: translateX(3px);
+  }
+
+  /* Dots de Carrusel Ocultos en Desktop */
+  .srv-carousel-dots {
+    display: none;
+  }
+
+  /* Popular Now Strip */
+  .popular-ticker-wrap {
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+
+  .pt-tag {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .pt-items-stage {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(1.2rem, 2.5vw, 2.5rem);
+  }
+
+  .pt-item {
+    text-decoration: none;
+    color: inherit;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    display: block;
+    transition: transform 0.2s ease;
+  }
+
+  .pt-item:hover {
+    transform: translateY(-2px);
+  }
+
+  .pt-item-inner {
+    padding: 0.5rem 0;
+  }
+
+  .pt-item-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.35rem;
+  }
+
+  .pt-item-meta {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .pt-item-badge {
+    display: none;
+  }
+
+  .pt-item-title {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+
+  .pt-item-action {
+    display: none;
+  }
+
+  .pop-stack-controls {
+    display: none;
+  }
+
+  /* ========================================================
+     MODO RESPONSIVE ESPECÍFICO (<= 840px)
+     ======================================================== */
+  @media (max-width: 840px) {
+    /* 1. Carrusel de Tarjetas de Servicios */
+    .cards-vertical-grid {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      gap: 1.1rem;
+      padding: 0.5rem 0.25rem 1rem;
+      scroll-padding: 0.5rem;
+      scrollbar-width: none;
+    }
+
+    .cards-vertical-grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .vertical-card {
+      flex: 0 0 84vw;
+      max-width: 340px;
+      height: 480px;
+      scroll-snap-align: center;
+    }
+
+    /* Dots interactivos para servicios */
+    .srv-carousel-dots {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .s-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--line-strong);
+      border: none;
+      cursor: pointer;
+      transition: width 0.2s ease, background 0.2s ease;
+      padding: 0;
+    }
+
+    .s-dot.active {
+      width: 22px;
+      border-radius: 4px;
+      background: var(--c-amber);
+    }
+
+    /* 2. Popular Now en Móvil: El texto "Popular now" NO se verá en responsive */
+    .popular-ticker-wrap {
+      display: block;
+      border-top: none;
+      padding-top: 1rem;
+    }
+
+    .pt-label-col {
+      display: none !important;
+    }
+
+    /* Stack de tarjetas superpuestas */
+    .pt-items-stage {
+      position: relative;
+      height: 155px;
+      width: 100%;
+      max-width: 370px;
+      margin: 0 auto;
+      display: block;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .pt-item {
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      background: var(--paper-card);
+      border: 1.5px solid var(--line);
+      box-shadow: 0 14px 30px -8px rgba(27, 33, 20, 0.16);
+      padding: 1.25rem 1.4rem;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+      will-change: transform, opacity;
+      transform-origin: center bottom;
+      backface-visibility: hidden;
+      color: inherit;
+    }
+
+    html[data-theme="dark"] .pt-item {
+      background: #171d13;
+      border-color: rgba(216, 224, 199, 0.22);
+      box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.6);
+    }
+
+    .pt-item-inner {
+      padding: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .pt-item-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--c-amber);
+      background: rgba(170, 114, 41, 0.12);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .pt-item-title {
+      font-size: 0.95rem;
+      line-height: 1.45;
+      margin: 0.5rem 0 0;
+      color: var(--ink);
+    }
+
+    /* Controles de Stack */
+    .pop-stack-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+    }
+
+    .pop-ctrl-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--paper-card);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      line-height: 1;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .pop-mini-dots {
+      display: flex;
+      gap: 0.35rem;
+    }
+
+    .pm-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--line-strong);
+      transition: width 0.2s ease, background 0.2s ease;
+    }
+
+    .pm-dot.active {
+      width: 16px;
+      border-radius: 3px;
+      background: var(--c-amber);
+    }
+  }
+
+  html[data-theme="dark"] .services-editorial {
+    background: transparent;
+  }
+
+  html[data-theme="dark"] .vertical-card {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  html[data-theme="dark"] .popular-ticker-wrap {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  html[data-theme="dark"] .pt-item {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  html[data-theme="dark"] .pop-ctrl-btn {
+    background: #151D12;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #FFFFFF;
+  }
+</style>

@@ -1,0 +1,506 @@
+---
+import { site, wa } from "../../data/site";
+
+// Nodos activos en el mapa mundial
+const activeNodes = [
+  { id: "lima", name: "Lima, PE (Sede Central)", cx: 275, cy: 300, isHQ: true, ping: true },
+  { id: "bogota", name: "Bogotá, CO", cx: 285, cy: 260, isHQ: false },
+  { id: "santiago", name: "Santiago, CL", cx: 295, cy: 380, isHQ: false },
+  { id: "buenos-aires", name: "Buenos Aires, AR", cx: 330, cy: 375, isHQ: false },
+  { id: "saopaulo", name: "São Paulo, BR", cx: 350, cy: 330, isHQ: false },
+  { id: "miami", name: "Miami, US", cx: 290, cy: 195, isHQ: false },
+  { id: "newyork", name: "New York, US", cx: 315, cy: 155, isHQ: false },
+  { id: "sf", name: "San Francisco, US", cx: 190, cy: 160, isHQ: false },
+  { id: "madrid", name: "Madrid, ES", cx: 505, cy: 165, isHQ: false },
+  { id: "london", name: "Londres, UK", cx: 505, cy: 130, isHQ: false },
+];
+---
+
+<section class="section-world-coverage" id="cobertura">
+  <div class="container-wide">
+    <div class="wc-grid">
+      <!-- Columna Izquierda: Copys de Alcance Global & Soporte en Perú -->
+      <div class="wc-copy-side">
+        <h2 class="wc-heading">
+          Proyectos y Cobertura Digital <span class="wc-highlight">sin fronteras</span>.
+        </h2>
+
+        <p class="wc-lead">
+          Nuestras plataformas operan sobre infraestructura en la nube distribuida globalmente (Edge CDN). Tu web cargará a velocidad instantánea en Perú y cualquier parte del mundo, respaldada por atención directa en tu propio huso horario.
+        </p>
+
+        <!-- Bloque de Métricas Clave de Conectividad con Iconos Vectoriales Oficiales -->
+        <div class="wc-features-list">
+          <div class="wc-feat-item">
+            <span class="wc-feat-icon-badge" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </span>
+            <div class="wc-feat-body">
+              <strong>Sede Central en Lima, Perú</strong>
+              <span>Atención técnica directa sin intermediarios de Lunes a Sábado.</span>
+            </div>
+          </div>
+
+          <div class="wc-feat-item">
+            <span class="wc-feat-icon-badge" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+            </span>
+            <div class="wc-feat-body">
+              <strong>Red de Distribución Edge CDN</strong>
+              <span>Contenido servido desde los 300+ centros de datos más cercanos a cada usuario.</span>
+            </div>
+          </div>
+
+          <div class="wc-feat-item">
+            <span class="wc-feat-icon-badge" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <polyline points="9 12 11 14 15 10"></polyline>
+              </svg>
+            </span>
+            <div class="wc-feat-body">
+              <strong>99.9% de Disponibilidad y Seguridad SSL</strong>
+              <span>Certificados criptográficos y protección nativa contra caídas de servidor.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="wc-action-wrap">
+          <a
+            href={wa("Hola Kamasqa 👋 Quisiera consultar sobre el desarrollo de mi web y su alcance internacional.")}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-pill-action"
+          >
+            <span>Conversar con un especialista</span>
+            <span class="action-arrow-circle" aria-hidden="true">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Columna Derecha: Mapa Vectorial Dotted (Dot Matrix World Map) -->
+      <div class="wc-map-side">
+        <div class="wc-map-canvas-wrap">
+          <!-- Tag Flotante Sede Central Lima -->
+          <div class="wc-hq-pill-floating">
+            <span class="wc-hq-text">Lima (HQ) · En Línea · UTC-5</span>
+          </div>
+
+          <!-- Mapa Dotted SVG -->
+          <svg
+            class="wc-dotted-map"
+            viewBox="0 0 1000 500"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-label="Mapa de cobertura global de Kamasqa"
+          >
+            <!-- Matriz de Puntos de Fondo (América del Norte) -->
+            <g class="dot-cluster continent-na">
+              <!-- Alaska / Canada -->
+              <circle cx="120" cy="80" r="3" class="map-dot" />
+              <circle cx="140" cy="75" r="3" class="map-dot" />
+              <circle cx="160" cy="70" r="3" class="map-dot" />
+              <circle cx="180" cy="65" r="3" class="map-dot" />
+              <circle cx="200" cy="70" r="3" class="map-dot" />
+              <circle cx="220" cy="75" r="3" class="map-dot" />
+              <circle cx="240" cy="80" r="3" class="map-dot" />
+              <circle cx="260" cy="85" r="3" class="map-dot" />
+              <circle cx="150" cy="95" r="3" class="map-dot" />
+              <circle cx="170" cy="90" r="3" class="map-dot" />
+              <circle cx="190" cy="90" r="3" class="map-dot" />
+              <circle cx="210" cy="95" r="3" class="map-dot" />
+              <circle cx="230" cy="100" r="3" class="map-dot" />
+              <circle cx="250" cy="105" r="3" class="map-dot" />
+              <circle cx="270" cy="110" r="3" class="map-dot" />
+              <circle cx="290" cy="115" r="3" class="map-dot" />
+              <!-- US West / Center / East -->
+              <circle cx="170" cy="130" r="3" class="map-dot" />
+              <circle cx="190" cy="135" r="3" class="map-dot" />
+              <circle cx="210" cy="130" r="3" class="map-dot" />
+              <circle cx="230" cy="130" r="3" class="map-dot" />
+              <circle cx="250" cy="135" r="3" class="map-dot" />
+              <circle cx="270" cy="135" r="3" class="map-dot" />
+              <circle cx="290" cy="140" r="3" class="map-dot" />
+              <circle cx="310" cy="135" r="3" class="map-dot" />
+              <circle cx="330" cy="140" r="3" class="map-dot" />
+              <circle cx="170" cy="160" r="3" class="map-dot" />
+              <circle cx="190" cy="160" r="3" class="map-dot" />
+              <circle cx="210" cy="160" r="3" class="map-dot" />
+              <circle cx="230" cy="160" r="3" class="map-dot" />
+              <circle cx="250" cy="165" r="3" class="map-dot" />
+              <circle cx="270" cy="165" r="3" class="map-dot" />
+              <circle cx="290" cy="165" r="3" class="map-dot" />
+              <circle cx="310" cy="165" r="3" class="map-dot" />
+              <circle cx="330" cy="165" r="3" class="map-dot" />
+              <!-- Mexico & Central America -->
+              <circle cx="210" cy="190" r="3" class="map-dot" />
+              <circle cx="230" cy="200" r="3" class="map-dot" />
+              <circle cx="250" cy="210" r="3" class="map-dot" />
+              <circle cx="260" cy="225" r="3" class="map-dot" />
+              <circle cx="275" cy="235" r="3" class="map-dot" />
+              <circle cx="290" cy="195" r="3" class="map-dot" />
+            </g>
+
+            <!-- Matriz de Puntos de Fondo (América del Sur) -->
+            <g class="dot-cluster continent-sa">
+              <!-- Colombia / Venezuela -->
+              <circle cx="285" cy="260" r="3" class="map-dot" />
+              <circle cx="305" cy="255" r="3" class="map-dot" />
+              <circle cx="325" cy="260" r="3" class="map-dot" />
+              <circle cx="345" cy="265" r="3" class="map-dot" />
+              <!-- Perú / Ecuador / Brasil Norte -->
+              <circle cx="275" cy="280" r="3" class="map-dot" />
+              <circle cx="295" cy="285" r="3" class="map-dot" />
+              <circle cx="315" cy="285" r="3" class="map-dot" />
+              <circle cx="335" cy="290" r="3" class="map-dot" />
+              <circle cx="355" cy="295" r="3" class="map-dot" />
+              <circle cx="375" cy="300" r="3" class="map-dot" />
+              <!-- Perú Central (Lima) / Bolivia / Brasil -->
+              <circle cx="275" cy="300" r="3" class="map-dot" />
+              <circle cx="295" cy="310" r="3" class="map-dot" />
+              <circle cx="315" cy="315" r="3" class="map-dot" />
+              <circle cx="335" cy="320" r="3" class="map-dot" />
+              <circle cx="355" cy="325" r="3" class="map-dot" />
+              <circle cx="375" cy="325" r="3" class="map-dot" />
+              <!-- Chile / Argentina / Brasil Sur -->
+              <circle cx="285" cy="340" r="3" class="map-dot" />
+              <circle cx="305" cy="340" r="3" class="map-dot" />
+              <circle cx="325" cy="345" r="3" class="map-dot" />
+              <circle cx="345" cy="350" r="3" class="map-dot" />
+              <circle cx="290" cy="370" r="3" class="map-dot" />
+              <circle cx="310" cy="370" r="3" class="map-dot" />
+              <circle cx="330" cy="375" r="3" class="map-dot" />
+              <circle cx="295" cy="400" r="3" class="map-dot" />
+              <circle cx="310" cy="405" r="3" class="map-dot" />
+              <circle cx="300" cy="430" r="3" class="map-dot" />
+            </g>
+
+            <!-- Matriz de Puntos de Fondo (Europa & África) -->
+            <g class="dot-cluster continent-eu-af">
+              <!-- Europa Norte & UK -->
+              <circle cx="490" cy="110" r="3" class="map-dot" />
+              <circle cx="510" cy="100" r="3" class="map-dot" />
+              <circle cx="530" cy="95" r="3" class="map-dot" />
+              <circle cx="550" cy="105" r="3" class="map-dot" />
+              <circle cx="505" cy="130" r="3" class="map-dot" />
+              <circle cx="525" cy="125" r="3" class="map-dot" />
+              <circle cx="545" cy="125" r="3" class="map-dot" />
+              <circle cx="565" cy="125" r="3" class="map-dot" />
+              <!-- España / Francia / Italia / Europa Central -->
+              <circle cx="485" cy="155" r="3" class="map-dot" />
+              <circle cx="505" cy="155" r="3" class="map-dot" />
+              <circle cx="525" cy="150" r="3" class="map-dot" />
+              <circle cx="545" cy="150" r="3" class="map-dot" />
+              <circle cx="565" cy="150" r="3" class="map-dot" />
+              <circle cx="495" cy="175" r="3" class="map-dot" />
+              <circle cx="515" cy="175" r="3" class="map-dot" />
+              <circle cx="535" cy="175" r="3" class="map-dot" />
+              <circle cx="555" cy="175" r="3" class="map-dot" />
+              <!-- Norte & Centro África -->
+              <circle cx="480" cy="210" r="3" class="map-dot" />
+              <circle cx="505" cy="210" r="3" class="map-dot" />
+              <circle cx="530" cy="215" r="3" class="map-dot" />
+              <circle cx="555" cy="220" r="3" class="map-dot" />
+              <circle cx="490" cy="245" r="3" class="map-dot" />
+              <circle cx="515" cy="250" r="3" class="map-dot" />
+              <circle cx="540" cy="255" r="3" class="map-dot" />
+              <circle cx="565" cy="260" r="3" class="map-dot" />
+              <circle cx="520" cy="285" r="3" class="map-dot" />
+              <circle cx="545" cy="290" r="3" class="map-dot" />
+              <circle cx="570" cy="295" r="3" class="map-dot" />
+              <!-- Sur de África -->
+              <circle cx="535" cy="330" r="3" class="map-dot" />
+              <circle cx="555" cy="340" r="3" class="map-dot" />
+              <circle cx="545" cy="375" r="3" class="map-dot" />
+              <circle cx="560" cy="390" r="3" class="map-dot" />
+            </g>
+
+            <!-- Matriz de Puntos de Fondo (Asia & Oceanía) -->
+            <g class="dot-cluster continent-asia-oc">
+              <!-- Asia Norte & Rusia -->
+              <circle cx="610" cy="95" r="3" class="map-dot" />
+              <circle cx="640" cy="90" r="3" class="map-dot" />
+              <circle cx="670" cy="95" r="3" class="map-dot" />
+              <circle cx="700" cy="90" r="3" class="map-dot" />
+              <circle cx="730" cy="95" r="3" class="map-dot" />
+              <circle cx="760" cy="100" r="3" class="map-dot" />
+              <!-- Medio Oriente / India / China / Japón -->
+              <circle cx="600" cy="180" r="3" class="map-dot" />
+              <circle cx="625" cy="190" r="3" class="map-dot" />
+              <circle cx="650" cy="210" r="3" class="map-dot" />
+              <circle cx="680" cy="230" r="3" class="map-dot" />
+              <circle cx="710" cy="200" r="3" class="map-dot" />
+              <circle cx="740" cy="190" r="3" class="map-dot" />
+              <circle cx="770" cy="180" r="3" class="map-dot" />
+              <circle cx="800" cy="170" r="3" class="map-dot" />
+              <circle cx="730" cy="230" r="3" class="map-dot" />
+              <circle cx="760" cy="245" r="3" class="map-dot" />
+              <!-- Sudeste Asiático & Australia -->
+              <circle cx="750" cy="285" r="3" class="map-dot" />
+              <circle cx="780" cy="305" r="3" class="map-dot" />
+              <circle cx="810" cy="325" r="3" class="map-dot" />
+              <circle cx="790" cy="370" r="3" class="map-dot" />
+              <circle cx="820" cy="375" r="3" class="map-dot" />
+              <circle cx="850" cy="370" r="3" class="map-dot" />
+              <circle cx="810" cy="405" r="3" class="map-dot" />
+              <circle cx="840" cy="410" r="3" class="map-dot" />
+            </g>
+
+            <!-- Líneas de Enlace Curvas y Conectividad (Ligeras, elegantes) -->
+            <path
+              d="M275 300 Q 380 210, 505 165"
+              class="map-connection-line"
+            />
+            <path
+              d="M275 300 Q 230 220, 190 160"
+              class="map-connection-line"
+            />
+            <path
+              d="M275 300 Q 290 220, 315 155"
+              class="map-connection-line"
+            />
+            <path
+              d="M275 300 Q 310 340, 330 375"
+              class="map-connection-line"
+            />
+
+            <!-- Nodos Activos Brillantes (Lime Glowing Dots) -->
+            {activeNodes.map((node) => (
+              <g class={`map-node ${node.isHQ ? "is-hq" : ""}`} id={`node-${node.id}`}>
+                {node.isHQ && (
+                  <circle cx={node.cx} cy={node.cy} r="14" class="node-ripple-pulse" />
+                )}
+                <circle cx={node.cx} cy={node.cy} r={node.isHQ ? "6.5" : "4.5"} class="node-glow-ring" />
+                <circle cx={node.cx} cy={node.cy} r={node.isHQ ? "4" : "2.8"} class="node-core" />
+              </g>
+            ))}
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-world-coverage {
+    padding: clamp(4rem, 8vw, 7rem) 0;
+    background-color: transparent;
+    color: var(--ink);
+    position: relative;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .wc-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1.35fr;
+    gap: clamp(2.5rem, 5vw, 6rem);
+    align-items: center;
+  }
+
+  @media (max-width: 1024px) {
+    .wc-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Copys Izquierda */
+  .wc-copy-side {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.35rem;
+  }
+
+  .wc-heading {
+    font-family: var(--font-display);
+    font-size: clamp(2.1rem, 3.6vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+
+  .wc-highlight {
+    color: var(--c-olive-dark);
+  }
+
+  html[data-theme="dark"] .wc-highlight {
+    color: var(--c-sand);
+  }
+
+  .wc-lead {
+    font-size: clamp(1rem, 1.15vw, 1.125rem);
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
+  /* Lista de Características */
+  .wc-features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+    width: 100%;
+    margin-top: 0.25rem;
+  }
+
+  .wc-feat-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.1rem;
+  }
+
+  .wc-feat-icon-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(110, 125, 78, 0.15);
+    color: var(--c-olive);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    border: 1px solid rgba(110, 125, 78, 0.3);
+  }
+
+  html[data-theme="dark"] .wc-feat-icon-badge {
+    background: rgba(110, 125, 78, 0.25);
+    color: #D8E0C7;
+    border-color: rgba(216, 224, 199, 0.25);
+  }
+
+  .wc-feat-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .wc-feat-body strong {
+    font-family: var(--font-display);
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .wc-feat-body span {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    line-height: 1.45;
+  }
+
+  .wc-action-wrap {
+    margin-top: 0.75rem;
+  }
+
+  /* Mapa Derecha */
+  .wc-map-side {
+    position: relative;
+    width: 100%;
+  }
+
+  .wc-map-canvas-wrap {
+    position: relative;
+    background: var(--paper-subtle);
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    padding: clamp(1.5rem, 3.5vw, 2.5rem);
+    box-shadow: 0 16px 40px -12px rgba(14, 20, 13, 0.08);
+    overflow: hidden;
+  }
+
+  .wc-hq-pill-floating {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 1rem;
+    background: rgba(14, 20, 13, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+    backdrop-filter: blur(8px);
+    color: #FFFFFF;
+    font-size: 0.8rem;
+    font-weight: 700;
+    z-index: 5;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  }
+
+  .wc-dotted-map {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 2 / 1;
+  }
+
+  /* Puntos del Mapa */
+  .map-dot {
+    fill: rgba(14, 20, 13, 0.18);
+    transition: fill 0.2s ease, transform 0.2s ease;
+  }
+
+  html[data-theme="dark"] .map-dot {
+    fill: rgba(255, 255, 255, 0.2);
+  }
+
+  .map-connection-line {
+    stroke: rgba(240, 196, 140, 0.45);
+    stroke-width: 1.5;
+    stroke-dasharray: 4 4;
+    animation: wc-dash 25s linear infinite;
+  }
+
+  @keyframes wc-dash {
+    to { stroke-dashoffset: -100; }
+  }
+
+  /* Nodos Activos */
+  .map-node .node-core {
+    fill: var(--c-amber);
+  }
+
+  .map-node .node-glow-ring {
+    fill: rgba(170, 114, 41, 0.35);
+  }
+
+  .map-node.is-hq .node-core {
+    fill: var(--c-sand);
+    filter: drop-shadow(0 0 5px var(--c-amber));
+  }
+
+  .node-ripple-pulse {
+    fill: none;
+    stroke: var(--c-sand);
+    stroke-width: 1.5;
+    opacity: 0.75;
+    animation: wc-ripple 2.4s ease-out infinite;
+  }
+
+  @keyframes wc-ripple {
+    0% { r: 6; opacity: 1; }
+    100% { r: 24; opacity: 0; }
+  }
+
+  html[data-theme="dark"] .section-world-coverage {
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  html[data-theme="dark"] .wc-map-canvas-wrap {
+    background-color: #141A12;
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.6);
+  }
+</style>

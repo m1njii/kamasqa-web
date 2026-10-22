@@ -1,0 +1,1068 @@
+---
+import { nav, wa, site } from "../data/site";
+---
+
+<header class="header" id="header">
+  <div class="container-wide header-container">
+    <!-- Logotipo: Icono + AMASQA -->
+    <a href="/" class="logo" aria-label="KAMASQA, ir al inicio">
+      <span class="logo-mark" aria-hidden="true">
+        <img src="/icon.png" alt="" width="32" height="32" decoding="async" />
+      </span>
+      <span class="logo-text">AMASQA</span>
+    </a>
+
+    <!-- Navegación Central Editorial -->
+    <nav class="nav-links" aria-label="Navegación principal">
+      {nav.map((l) => (
+        <a href={l.href} data-nav={l.href} class="nav-item">
+          <span data-i18n-nav={l.label}>{l.label}</span>
+        </a>
+      ))}
+    </nav>
+
+    <!-- Acciones Derecha: Idioma + Tema + CTA Pill -->
+    <div class="actions">
+      <!-- Selector de Idioma ES / EN -->
+      <div class="lang-dropdown" id="lang-dropdown">
+        <button
+          type="button"
+          class="lang-trigger"
+          id="lang-trigger"
+          aria-haspopup="listbox"
+          aria-expanded="false"
+          aria-label="Cambiar idioma / Change language"
+        >
+          <span class="flag-slot" id="active-flag">
+            <svg class="flag-svg" viewBox="0 0 24 16" width="18" height="12" aria-hidden="true">
+              <rect width="24" height="16" rx="2" fill="#D91023" />
+              <rect x="8" width="8" height="16" fill="#FFFFFF" />
+            </svg>
+          </span>
+          <span class="lang-code" id="active-lang-code">ES</span>
+          <svg class="lang-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <ul class="lang-menu" id="lang-menu" role="listbox" aria-label="Seleccionar idioma">
+          <li role="option" aria-selected="true" data-lang-opt="es" class="lang-opt active">
+            <svg class="flag-svg" viewBox="0 0 24 16" width="18" height="12" aria-hidden="true">
+              <rect width="24" height="16" rx="2" fill="#D91023" />
+              <rect x="8" width="8" height="16" fill="#FFFFFF" />
+            </svg>
+            <span class="opt-code">ES</span>
+            <span class="opt-check">✓</span>
+          </li>
+          <li role="option" aria-selected="false" data-lang-opt="en" class="lang-opt">
+            <svg class="flag-svg" viewBox="0 0 24 16" width="18" height="12" aria-hidden="true">
+              <rect width="24" height="16" rx="2" fill="#B22234" />
+              <path d="M0 2.46h24M0 4.92h24M0 7.38h24M0 9.85h24M0 12.31h24M0 14.77h24" stroke="#FFFFFF" stroke-width="1.23" />
+              <rect width="10.5" height="8.62" rx="1" fill="#3C3B6E" />
+              <circle cx="2.2" cy="2" r="0.6" fill="#FFF" />
+              <circle cx="5.2" cy="2" r="0.6" fill="#FFF" />
+              <circle cx="8.2" cy="2" r="0.6" fill="#FFF" />
+              <circle cx="3.7" cy="4.3" r="0.6" fill="#FFF" />
+              <circle cx="6.7" cy="4.3" r="0.6" fill="#FFF" />
+              <circle cx="2.2" cy="6.6" r="0.6" fill="#FFF" />
+              <circle cx="5.2" cy="6.6" r="0.6" fill="#FFF" />
+              <circle cx="8.2" cy="6.6" r="0.6" fill="#FFF" />
+            </svg>
+            <span class="opt-code">EN</span>
+            <span class="opt-check">✓</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Alternador Modo Día / Modo Noche -->
+      <button
+        type="button"
+        class="theme-toggle"
+        id="theme-toggle"
+        aria-label="Cambiar modo claro / oscuro"
+        title="Alternar tema"
+      >
+        <span class="theme-icon sun-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4.2"></circle>
+            <line x1="12" y1="2" x2="12" y2="4.5"></line>
+            <line x1="12" y1="19.5" x2="12" y2="22"></line>
+            <line x1="4.22" y1="4.22" x2="5.8" y2="5.8"></line>
+            <line x1="18.2" y1="18.2" x2="19.78" y2="19.78"></line>
+            <line x1="2" y1="12" x2="4.5" y2="12"></line>
+            <line x1="19.5" y1="12" x2="22" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.8" y2="18.2"></line>
+            <line x1="18.2" y1="5.8" x2="19.78" y2="4.22"></line>
+          </svg>
+        </span>
+        <span class="theme-icon moon-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.8 14.2A8.6 8.6 0 0 1 9.8 3.2a8.6 8.6 0 1 0 11 11Z"></path>
+          </svg>
+        </span>
+      </button>
+
+      <!-- Botón de Contacto Directo -->
+      <a href={wa()} target="_blank" rel="noopener noreferrer" class="cta-pill">
+        <span data-i18n-cta="Escríbenos">Escríbenos</span>
+        <span class="cta-lime-circle" aria-hidden="true">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </span>
+      </a>
+
+      <!-- Hamburguesa Móvil -->
+      <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-drawer">
+        <span class="b-line top"></span>
+        <span class="b-line bot"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Backdrop con efecto difuminado que deja ver la web debajo -->
+  <div class="drawer-backdrop" id="drawer-backdrop" aria-hidden="true"></div>
+
+  <!-- Mobile Drawer: Diseño Minimalista, Arquitectónico y Compacto -->
+  <div class="mobile-drawer" id="mobile-drawer" inert>
+    <div class="drawer-inner">
+      <!-- 1. Cabecera con Marca y Botón Cerrar -->
+      <div class="md-header">
+        <a href="/" class="md-brand" aria-label="KAMASQA, ir al inicio">
+          <img src="/icon.png" alt="" width="26" height="26" decoding="async" />
+          <span class="md-brand-name">AMASQA</span>
+        </a>
+        <button type="button" class="md-close-btn" id="drawer-close-btn" aria-label="Cerrar menú">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- 2. Lista de Navegación Editorial -->
+      <nav class="md-nav-list" aria-label="Navegación móvil">
+        <a href="/" class="md-nav-item" data-nav="/">
+          <span class="md-nav-num">01</span>
+          <span class="md-nav-title" data-i18n-nav="Inicio">Inicio</span>
+          <span class="md-nav-arrow" aria-hidden="true">↗</span>
+        </a>
+        <a href="/#servicios" class="md-nav-item" data-nav="/#servicios">
+          <span class="md-nav-num">02</span>
+          <div class="md-nav-copy">
+            <span class="md-nav-title" data-i18n-nav="Servicios">Servicios</span>
+            <span class="md-nav-sub">Landing pages, tiendas y desarrollo</span>
+          </div>
+          <span class="md-nav-arrow" aria-hidden="true">↗</span>
+        </a>
+        <a href="/#metodo" class="md-nav-item" data-nav="/#metodo">
+          <span class="md-nav-num">03</span>
+          <div class="md-nav-copy">
+            <span class="md-nav-title" data-i18n-nav="Método">Método</span>
+            <span class="md-nav-sub">Proceso claro en 4 fases</span>
+          </div>
+          <span class="md-nav-arrow" aria-hidden="true">↗</span>
+        </a>
+        <a href="/#faq" class="md-nav-item" data-nav="/#faq">
+          <span class="md-nav-num">04</span>
+          <div class="md-nav-copy">
+            <span class="md-nav-title" data-i18n-nav="Preguntas">Preguntas</span>
+            <span class="md-nav-sub">Dudas y cotizaciones resueltas</span>
+          </div>
+          <span class="md-nav-arrow" aria-hidden="true">↗</span>
+        </a>
+        <a href="/perfil" class="md-nav-item" data-nav="/perfil">
+          <span class="md-nav-num">05</span>
+          <div class="md-nav-copy">
+            <span class="md-nav-title" data-i18n-nav="Perfil">Perfil</span>
+            <span class="md-nav-sub">Filosofía, estándares y equipo</span>
+          </div>
+          <span class="md-nav-arrow" aria-hidden="true">↗</span>
+        </a>
+      </nav>
+
+      <!-- 3. Dock de Preferencias: Selector de Idioma y Tema -->
+      <div class="md-dock">
+        <!-- Idioma ES / EN en píldora segmentada -->
+        <div class="md-lang-group" role="group" aria-label="Idioma">
+          <button type="button" class="md-lang-btn active" data-drawer-lang="es">
+            <span>ES</span>
+          </button>
+          <button type="button" class="md-lang-btn" data-drawer-lang="en">
+            <span>EN</span>
+          </button>
+        </div>
+
+        <!-- Botón de Modo con Icono Idéntico al Header -->
+        <button
+          type="button"
+          class="theme-toggle md-theme-toggle"
+          id="drawer-theme-btn"
+          aria-label="Cambiar modo claro / oscuro"
+          title="Alternar tema"
+        >
+          <span class="theme-icon sun-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4.2"></circle>
+              <line x1="12" y1="2" x2="12" y2="4.5"></line>
+              <line x1="12" y1="19.5" x2="12" y2="22"></line>
+              <line x1="4.22" y1="4.22" x2="5.8" y2="5.8"></line>
+              <line x1="18.2" y1="18.2" x2="19.78" y2="19.78"></line>
+              <line x1="2" y1="12" x2="4.5" y2="12"></line>
+              <line x1="19.5" y1="12" x2="22" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.8" y2="18.2"></line>
+              <line x1="18.2" y1="5.8" x2="19.78" y2="4.22"></line>
+            </svg>
+          </span>
+          <span class="theme-icon moon-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.8 14.2A8.6 8.6 0 0 1 9.8 3.2a8.6 8.6 0 1 0 11 11Z"></path>
+            </svg>
+          </span>
+        </button>
+      </div>
+
+      <!-- 4. Botón de Acción Principal (WhatsApp Directo) -->
+      <a href={wa()} target="_blank" rel="noopener noreferrer" class="btn-pill-action md-cta">
+        <span>Iniciar chat directo</span>
+        <span class="action-arrow-circle" aria-hidden="true">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </span>
+      </a>
+
+      <!-- 5. Pie de Drawer: Contacto y Enlaces -->
+      <div class="md-foot">
+        <span class="md-contact-val">{site.phone} · {site.email}</span>
+        <div class="md-legals">
+          <a href="/politica-de-privacidad">Privacidad</a>
+          <span>·</span>
+          <a href="/terminos-y-condiciones">Términos</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById("header")!;
+  const btn = document.getElementById("burger")!;
+  const drawer = document.getElementById("mobile-drawer")!;
+  const backdrop = document.getElementById("drawer-backdrop");
+  const closeBtn = document.getElementById("drawer-close-btn");
+  const drawerLangBtns = Array.from(document.querySelectorAll<HTMLElement>("[data-drawer-lang]"));
+  const drawerThemeBtn = document.getElementById("drawer-theme-btn");
+  const drawerThemeLabel = document.getElementById("drawer-theme-label");
+  const drawerThemeIcon = document.getElementById("drawer-theme-icon");
+
+  // Control del menú móvil y estado
+  const setMenu = (open: boolean) => {
+    btn.setAttribute("aria-expanded", String(open));
+    btn.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+    btn.classList.toggle("open", open);
+    drawer.classList.toggle("open", open);
+    backdrop?.classList.toggle("open", open);
+    drawer.toggleAttribute("inert", !open);
+    if (open) {
+      document.documentElement.classList.add("drawer-open");
+    } else {
+      document.documentElement.classList.remove("drawer-open");
+    }
+  };
+
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const isExpanded = btn.getAttribute("aria-expanded") === "true";
+    setMenu(!isExpanded);
+  });
+
+  closeBtn?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    setMenu(false);
+  });
+
+  backdrop?.addEventListener("click", () => setMenu(false));
+
+  drawer.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+
+  drawer.querySelectorAll("a").forEach((a) => {
+    a.addEventListener("click", () => setMenu(false));
+  });
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") setMenu(false);
+  });
+
+  window.matchMedia("(min-width: 901px)").addEventListener("change", (e) => {
+    if (e.matches) setMenu(false);
+  });
+
+  // Transparencia vs Scrolled
+  const onScroll = () => {
+    header.classList.toggle("scrolled", window.scrollY > 20);
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  // Selector Desplegable de Idioma
+  const langDropdown = document.getElementById("lang-dropdown");
+  const langTrigger = document.getElementById("lang-trigger");
+  const activeFlag = document.getElementById("active-flag");
+  const activeCode = document.getElementById("active-lang-code");
+  const langOpts = Array.from(document.querySelectorAll<HTMLElement>("[data-lang-opt]"));
+
+  const flagSVGs: Record<string, string> = {
+    es: `<svg class="flag-svg" viewBox="0 0 24 16" width="18" height="12" aria-hidden="true"><rect width="24" height="16" rx="2" fill="#D91023"/><rect x="8" width="8" height="16" fill="#FFFFFF"/></svg>`,
+    en: `<svg class="flag-svg" viewBox="0 0 24 16" width="18" height="12" aria-hidden="true"><rect width="24" height="16" rx="2" fill="#B22234"/><path d="M0 2.46h24M0 4.92h24M0 7.38h24M0 9.85h24M0 12.31h24M0 14.77h24" stroke="#FFFFFF" stroke-width="1.23"/><rect width="10.5" height="8.62" rx="1" fill="#3C3B6E"/><circle cx="2.2" cy="2" r="0.6" fill="#FFF"/><circle cx="5.2" cy="2" r="0.6" fill="#FFF"/><circle cx="8.2" cy="2" r="0.6" fill="#FFF"/><circle cx="3.7" cy="4.3" r="0.6" fill="#FFF"/><circle cx="6.7" cy="4.3" r="0.6" fill="#FFF"/><circle cx="2.2" cy="6.6" r="0.6" fill="#FFF"/><circle cx="5.2" cy="6.6" r="0.6" fill="#FFF"/><circle cx="8.2" cy="6.6" r="0.6" fill="#FFF"/></svg>`,
+  };
+
+  const toggleLangMenu = (force?: boolean) => {
+    if (!langDropdown || !langTrigger) return;
+    const isOpen = force !== undefined ? force : !langDropdown.classList.contains("open");
+    langDropdown.classList.toggle("open", isOpen);
+    langTrigger.setAttribute("aria-expanded", String(isOpen));
+  };
+
+  langTrigger?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleLangMenu();
+  });
+
+  document.addEventListener("click", (e) => {
+    if (langDropdown && !langDropdown.contains(e.target as Node)) {
+      toggleLangMenu(false);
+    }
+  });
+
+  const applyHeaderLang = (lang: "es" | "en") => {
+    if (activeFlag) activeFlag.innerHTML = flagSVGs[lang] || flagSVGs.es;
+    if (activeCode) activeCode.textContent = lang.toUpperCase();
+    langOpts.forEach((opt) => {
+      const match = opt.dataset.langOpt === lang;
+      opt.classList.toggle("active", match);
+      opt.setAttribute("aria-selected", String(match));
+    });
+    drawerLangBtns.forEach((btn) => {
+      btn.classList.toggle("active", btn.dataset.drawerLang === lang);
+    });
+    document.documentElement.lang = lang;
+    localStorage.setItem("kamasqa_lang", lang);
+    window.dispatchEvent(new CustomEvent("kamasqa:lang", { detail: { lang } }));
+  };
+
+  langOpts.forEach((opt) => {
+    opt.addEventListener("click", () => {
+      const chosen = (opt.dataset.langOpt as "es" | "en") || "es";
+      applyHeaderLang(chosen);
+      toggleLangMenu(false);
+    });
+  });
+
+  drawerLangBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const chosen = (btn.dataset.drawerLang as "es" | "en") || "es";
+      applyHeaderLang(chosen);
+    });
+  });
+
+  const savedLang = (localStorage.getItem("kamasqa_lang") as "es" | "en") || "es";
+  applyHeaderLang(savedLang);
+
+  // Alternador Modo Día / Noche
+  const themeToggle = document.getElementById("theme-toggle");
+  const applyTheme = (theme: "light" | "dark") => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("kamasqa_theme", theme);
+    if (themeToggle) {
+      themeToggle.setAttribute("data-active-theme", theme);
+      themeToggle.setAttribute("aria-label", theme === "dark" ? "Activar Modo Claro" : "Activar Modo Oscuro");
+    }
+    if (drawerThemeBtn && drawerThemeLabel && drawerThemeIcon) {
+      if (theme === "dark") {
+        drawerThemeLabel.textContent = "Modo Claro";
+        drawerThemeIcon.textContent = "☀️";
+      } else {
+        drawerThemeLabel.textContent = "Modo Oscuro";
+        drawerThemeIcon.textContent = "🌙";
+      }
+    }
+  };
+
+  const savedTheme = (localStorage.getItem("kamasqa_theme") as "light" | "dark") || "light";
+  applyTheme(savedTheme);
+
+  const toggleTheme = () => {
+    const current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    applyTheme(current === "dark" ? "light" : "dark");
+  };
+
+  themeToggle?.addEventListener("click", toggleTheme);
+  drawerThemeBtn?.addEventListener("click", toggleTheme);
+</script>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 1.15rem 0;
+    transition: padding 0.25s ease;
+    background: transparent;
+  }
+
+  /* Usamos ::before para el fondo y blur, de modo que <header> nunca actúe como containing block para hijos fixed */
+  .header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background: transparent;
+    transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .header.scrolled {
+    padding: 0.65rem 0;
+  }
+
+  .header.scrolled::before {
+    background: rgba(18, 22, 16, 0.90);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  }
+
+  html[data-theme="light"] .header.scrolled::before {
+    background: rgba(250, 249, 245, 0.92);
+    border-bottom: 1px solid rgba(27, 33, 20, 0.08);
+  }
+
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 1001;
+  }
+
+  /* Logo */
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    text-decoration: none;
+    color: var(--c-white);
+    transition: opacity 0.2s ease;
+  }
+
+  html[data-theme="light"] .header.scrolled .logo {
+    color: var(--ink);
+  }
+
+  .logo-mark img {
+    border-radius: 8px;
+    display: block;
+  }
+
+  .logo-text {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* Navegación Central */
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .nav-item {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.82);
+    transition: color 0.2s ease;
+    text-decoration: none;
+  }
+
+  .nav-item:hover {
+    color: var(--c-sand);
+  }
+
+  html[data-theme="light"] .header.scrolled .nav-item {
+    color: var(--ink-soft);
+  }
+
+  html[data-theme="light"] .header.scrolled .nav-item:hover {
+    color: var(--c-amber);
+  }
+
+  /* Acciones */
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  /* Dropdown Idioma */
+  .lang-dropdown {
+    position: relative;
+  }
+
+  .lang-trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.4rem 0.7rem;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(0, 0, 0, 0.25);
+    color: var(--c-white);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: all 0.2s ease;
+  }
+
+  html[data-theme="light"] .header.scrolled .lang-trigger {
+    border-color: rgba(27, 33, 20, 0.15);
+    background: rgba(255, 255, 255, 0.6);
+    color: var(--ink);
+  }
+
+  .lang-caret {
+    transition: transform 0.2s ease;
+  }
+
+  .lang-dropdown.open .lang-caret {
+    transform: rotate(180deg);
+  }
+
+  .lang-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: #192015;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 0.35rem;
+    min-width: 110px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+    display: none;
+    z-index: 110;
+  }
+
+  .lang-dropdown.open .lang-menu {
+    display: block;
+  }
+
+  html[data-theme="light"] .lang-menu {
+    background: #FFFFFF;
+    border-color: rgba(27, 33, 20, 0.12);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  }
+
+  .lang-opt {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.65rem;
+    border-radius: 8px;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    transition: background 0.18s ease;
+  }
+
+  html[data-theme="light"] .lang-opt {
+    color: var(--ink);
+  }
+
+  .lang-opt:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  html[data-theme="light"] .lang-opt:hover {
+    background: var(--paper-subtle);
+  }
+
+  .opt-check {
+    margin-left: auto;
+    font-size: 0.75rem;
+    opacity: 0;
+  }
+
+  .lang-opt.active .opt-check {
+    opacity: 1;
+    color: var(--c-amber);
+  }
+
+  /* Theme Toggle */
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(0, 0, 0, 0.25);
+    color: var(--c-white);
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: all 0.2s ease;
+  }
+
+  html[data-theme="light"] .header.scrolled .theme-toggle {
+    border-color: rgba(27, 33, 20, 0.15);
+    background: rgba(255, 255, 255, 0.6);
+    color: var(--ink);
+  }
+
+  .sun-icon { display: block; }
+  .moon-icon { display: none; }
+
+  html[data-theme="dark"] .sun-icon { display: none; }
+  html[data-theme="dark"] .moon-icon { display: block; }
+
+  /* Pill Button CTA (Inspirado en 'Subscribe' de la imagen) */
+  .cta-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.38rem 0.45rem 0.38rem 1.15rem;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: var(--c-white);
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16);
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .cta-lime-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--c-sand);
+    color: #1A2115;
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .cta-pill:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.28);
+    border-color: rgba(240, 196, 140, 0.45);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.24);
+  }
+
+  .cta-pill:hover .cta-lime-circle {
+    transform: translate(2px, -2px);
+    background: var(--c-amber);
+    color: #FFFFFF;
+  }
+
+  html[data-theme="light"] .header.scrolled .cta-pill {
+    background: #0E140D;
+    border-color: #0E140D;
+    color: #FFFFFF;
+  }
+
+  html[data-theme="light"] .header.scrolled .cta-pill:hover {
+    background: #1A2318;
+    border-color: #1A2318;
+    color: #FFFFFF;
+  }
+
+  /* Hamburguesa */
+  .burger {
+    display: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(0, 0, 0, 0.25);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    color: var(--c-white);
+  }
+
+  html[data-theme="light"] .header.scrolled .burger {
+    border-color: rgba(27, 33, 20, 0.15);
+    background: rgba(255, 255, 255, 0.6);
+    color: var(--ink);
+  }
+
+  .b-line {
+    width: 18px;
+    height: 2px;
+    background: currentColor;
+    transition: transform 0.2s ease;
+  }
+
+  .burger.open .top {
+    transform: translateY(3.5px) rotate(45deg);
+  }
+  .burger.open .bot {
+    transform: translateY(-3.5px) rotate(-45deg);
+  }
+
+  /* Backdrop Oscuro y Difuminado */
+  .drawer-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(6, 10, 5, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  html[data-theme="light"] .drawer-backdrop {
+    background: rgba(27, 33, 20, 0.38);
+  }
+
+  .drawer-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Mobile Drawer */
+  .mobile-drawer {
+    display: none;
+  }
+
+  @media (max-width: 900px) {
+    .nav-links {
+      display: none;
+    }
+
+    .lang-dropdown,
+    .theme-toggle:not(.md-theme-toggle),
+    .cta-pill {
+      display: none !important;
+    }
+
+    .burger {
+      display: flex;
+    }
+
+    .drawer-backdrop {
+      display: block;
+    }
+
+    /* Mobile Drawer: Minimalista, Flotante y Editorial */
+    .mobile-drawer {
+      display: block;
+      position: fixed;
+      top: clamp(60px, 8.5vh, 70px);
+      left: 12px;
+      right: 12px;
+      max-width: 440px;
+      margin: 0 auto;
+      max-height: calc(100dvh - 82px);
+      background: #0E140D;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.04);
+      z-index: 999;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      transform: translateY(-12px) scale(0.98);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease;
+    }
+
+    html[data-theme="light"] .mobile-drawer {
+      background: #FFFFFF;
+      border-color: rgba(14, 20, 13, 0.1);
+      box-shadow: 0 24px 60px rgba(14, 20, 13, 0.12), 0 0 0 1px rgba(14, 20, 13, 0.04);
+    }
+
+    .mobile-drawer.open {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .drawer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      padding: 1.25rem 1.25rem 1.15rem;
+    }
+
+    /* 1. Cabecera */
+    .md-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    html[data-theme="light"] .md-header {
+      border-color: rgba(14, 20, 13, 0.08);
+    }
+
+    .md-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      text-decoration: none;
+    }
+
+    .md-brand img {
+      border-radius: 6px;
+    }
+
+    .md-brand-name {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      color: #FFFFFF;
+    }
+
+    html[data-theme="light"] .md-brand-name {
+      color: var(--ink);
+    }
+
+    .md-close-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.06);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    html[data-theme="light"] .md-close-btn {
+      border-color: rgba(14, 20, 13, 0.12);
+      background: rgba(14, 20, 13, 0.05);
+      color: var(--ink);
+    }
+
+    .md-close-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: scale(1.05);
+    }
+
+    /* 2. Lista de Enlaces */
+    .md-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .md-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.75rem 0.95rem;
+      border-radius: 14px;
+      text-decoration: none;
+      color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid transparent;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    html[data-theme="light"] .md-nav-item {
+      color: var(--ink);
+      background: var(--paper-subtle);
+    }
+
+    .md-nav-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(240, 196, 140, 0.35);
+      transform: translateX(2px);
+    }
+
+    html[data-theme="light"] .md-nav-item:hover {
+      background: rgba(216, 224, 199, 0.25);
+      border-color: rgba(110, 125, 78, 0.25);
+    }
+
+    .md-nav-num {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--c-amber);
+      opacity: 0.9;
+    }
+
+    .md-nav-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      flex: 1;
+    }
+
+    .md-nav-title {
+      font-family: var(--font-display);
+      font-size: 0.98rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .md-nav-sub {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.3;
+    }
+
+    html[data-theme="light"] .md-nav-sub {
+      color: var(--ink-soft);
+    }
+
+    .md-nav-arrow {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.35);
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    html[data-theme="light"] .md-nav-arrow {
+      color: var(--ink-muted);
+    }
+
+    .md-nav-item:hover .md-nav-arrow {
+      transform: translate(2px, -2px);
+      color: var(--c-sand);
+    }
+
+    /* 3. Dock de Preferencias */
+    .md-dock {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding-top: 0.35rem;
+    }
+
+    .md-lang-group {
+      display: inline-flex;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 3px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      gap: 2px;
+    }
+
+    html[data-theme="light"] .md-lang-group {
+      background: rgba(14, 20, 13, 0.05);
+      border-color: rgba(14, 20, 13, 0.1);
+    }
+
+    .md-lang-btn {
+      border: none;
+      background: transparent;
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-full);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    html[data-theme="light"] .md-lang-btn {
+      color: var(--ink-soft);
+    }
+
+    .md-lang-btn.active {
+      background: var(--c-olive);
+      color: #FFFFFF;
+    }
+
+    .md-theme-toggle {
+      display: flex !important;
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+    }
+
+    /* 4. CTA Botón */
+    .md-cta {
+      width: 100%;
+      justify-content: space-between;
+      padding: 0.65rem 0.65rem 0.65rem 1.35rem;
+      border-radius: var(--radius-full);
+      margin-top: 0.25rem;
+    }
+
+    /* 5. Pie de Drawer */
+    .md-foot {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      padding-top: 0.65rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.74rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    html[data-theme="light"] .md-foot {
+      border-color: rgba(14, 20, 13, 0.08);
+      color: var(--ink-muted);
+    }
+
+    .md-contact-val {
+      font-family: var(--font-body);
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    html[data-theme="light"] .md-contact-val {
+      color: var(--ink-soft);
+    }
+
+    .md-legals {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .md-legals a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .md-legals a:hover {
+      color: var(--c-sand);
+    }
+  }
+</style>

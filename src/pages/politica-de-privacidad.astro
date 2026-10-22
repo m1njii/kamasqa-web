@@ -1,0 +1,845 @@
+---
+import Base from "../layouts/Base.astro";
+import { site, wa } from "../data/site";
+
+const lastUpdatedEs = "17 de octubre de 2026";
+const lastUpdatedEn = "October 17, 2026";
+---
+
+<Base
+  title="Política de Privacidad | KAMASQA - Ingeniería y Diseño Web"
+  description="Conoce cómo KAMASQA (INNOVATE OUTSOURCING SOLUTIONS S.A.C.) recopila, utiliza y protege tus datos personales conforme a la Ley N.° 29733 en Perú."
+  canonicalURL="/politica-de-privacidad"
+>
+  <div class="legal-page">
+    <div class="container-wide">
+      <!-- Encabezado / Hero del Documento Legal -->
+      <header class="legal-hero">
+        <a href="/" class="back-link">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          <span>Volver al inicio</span>
+        </a>
+
+        <div class="hero-badge-wrap">
+          <span class="legal-badge">
+            <span class="lb-dot" aria-hidden="true"></span>
+            <span>DOCUMENTO LEGAL · PROTECCIÓN DE DATOS</span>
+          </span>
+          <span class="legal-norm-pill">Ley N.° 29733 (Perú)</span>
+        </div>
+
+        <h1 class="legal-title">
+          Política de <em class="mark-olive">Privacidad</em>
+        </h1>
+
+        <p class="legal-lead">
+          Transparencia, seguridad y tratamiento responsable de tus datos personales en el sitio web oficial y en la contratación de los servicios de KAMASQA.
+        </p>
+
+        <div class="legal-meta-strip">
+          <div class="meta-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span>Última actualización: <strong>{lastUpdatedEs}</strong></span>
+          </div>
+          <span class="meta-sep" aria-hidden="true">·</span>
+          <div class="meta-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            <span>D.S. N.° 016-2024-JUS</span>
+          </div>
+          <span class="meta-sep" aria-hidden="true">·</span>
+          <div class="meta-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+            <span>INNOVATE OUTSOURCING SOLUTIONS S.A.C.</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Cuerpo del Documento -->
+      <div class="legal-grid-wrap">
+        <!-- Índice Rápido Interactivo -->
+        <aside class="legal-toc-aside">
+          <nav class="legal-toc" aria-label="Índice de contenidos de privacidad">
+            <div class="toc-header">
+              <span class="toc-bullet" aria-hidden="true"></span>
+              <strong>ÍNDICE DE CONTENIDOS</strong>
+            </div>
+            <ul class="toc-list">
+              <li><a href="#responsable" class="toc-link"><span class="toc-badge">01</span><span>Responsable y alcance</span></a></li>
+              <li><a href="#datos-recopilados" class="toc-link"><span class="toc-badge">02</span><span>Datos personales que recopilamos</span></a></li>
+              <li><a href="#finalidad-base-legal" class="toc-link"><span class="toc-badge">03</span><span>Finalidades y base legal</span></a></li>
+              <li><a href="#cookies-analitica" class="toc-link"><span class="toc-badge">04</span><span>Cookies y analítica web</span></a></li>
+              <li><a href="#destinatarios" class="toc-link"><span class="toc-badge">05</span><span>Con quién compartimos tus datos</span></a></li>
+              <li><a href="#conservacion-seguridad" class="toc-link"><span class="toc-badge">06</span><span>Conservación y seguridad</span></a></li>
+              <li><a href="#derechos-arco" class="toc-link"><span class="toc-badge">07</span><span>Tus derechos ARCO</span></a></li>
+              <li><a href="#menores" class="toc-link"><span class="toc-badge">08</span><span>Menores de edad</span></a></li>
+              <li><a href="#encargo-clientes" class="toc-link"><span class="toc-badge">09</span><span>Datos por encargo de clientes</span></a></li>
+              <li><a href="#contacto-cambios" class="toc-link"><span class="toc-badge">10</span><span>Contacto y modificaciones</span></a></li>
+            </ul>
+          </nav>
+        </aside>
+
+        <!-- Contenido de las Cláusulas -->
+        <main class="legal-article">
+          <!-- 1. Responsable -->
+          <section id="responsable" class="legal-sec">
+            <header class="sec-head">
+              <span class="sec-num">01</span>
+              <h2>Responsable del tratamiento y alcance</h2>
+            </header>
+            <p>
+              El presente documento establece los términos bajo los cuales <strong>KAMASQA</strong> recopila, almacena, utiliza y protege los datos personales facilitados por sus usuarios, clientes y potenciales clientes, en estricto cumplimiento de la <strong>Ley N.° 29733</strong> (Ley de Protección de Datos Personales de la República del Perú) y su Reglamento aprobado mediante Decreto Supremo N.° 003-2013-JUS, modificado por el Decreto Supremo N.° 016-2024-JUS.
+            </p>
+
+            <div class="company-card">
+              <div class="cc-row">
+                <span class="cc-label">Titular del Banco de Datos:</span>
+                <strong>INNOVATE OUTSOURCING SOLUTIONS S.A.C.</strong>
+              </div>
+              <div class="cc-row">
+                <span class="cc-label">Nombre Comercial:</span>
+                <strong class="color-amber">KAMASQA</strong>
+              </div>
+              <div class="cc-row">
+                <span class="cc-label">RUC:</span>
+                <strong>20615299970</strong>
+              </div>
+              <div class="cc-row">
+                <span class="cc-label">Domicilio Legal:</span>
+                <span>Lima, Perú</span>
+              </div>
+              <div class="cc-row">
+                <span class="cc-label">Canal Oficial de Privacidad:</span>
+                <a href={`mailto:${site.email}`} class="inline-link">{site.email}</a>
+              </div>
+              <div class="cc-row">
+                <span class="cc-label">Teléfono & WhatsApp:</span>
+                <a href={wa()} target="_blank" rel="noopener noreferrer" class="inline-link">{site.phone}</a>
+              </div>
+            </div>
+
+            <p>
+              Esta Política aplica a todos los datos personales recabados a través del sitio web <a href="https://kamasqa.pe" class="inline-link">kamasqa.pe</a>, canales de mensajería instantánea (WhatsApp oficial), correos electrónicos corporativos, reuniones virtuales y formularios de cotización.
+            </p>
+          </section>
+
+          <!-- 2. Datos recopilados -->
+          <section id="datos-recopilados" class="legal-sec">
+            <header class="sec-head">
+              <span class="sec-num">02</span>
+              <h2>Datos personales que recopilamos</h2>
+            </header>
+            <p>
+              Recopilamos únicamente los datos necesarios y pertinentes para atender tus solicitudes de cotización y ejecutar los servicios web contratados:
+            </p>
+            <ul class="legal-bullets">
+              <li><strong>Datos de Identificación y Contacto:</strong> Nombres y apellidos, dirección de correo electrónico profesional o personal, número de teléfono o WhatsApp, ciudad y país de residencia.</li>
+              <li><strong>Datos de la Empresa o Negocio:</strong> Razón social, RUC o identificación tributaria, nombre comercial, sector de actividad y enlace al sitio web o redes actuales.</li>
+              <li><strong>Datos del Proyecto:</strong> Requerimientos técnicos, tipo de sitio web (landing page, web corporativa, tienda online o software a medida), presupuesto estimado y plazos de entrega esperados.</li>
+              <li><strong>Datos de Facturación:</strong> Dirección fiscal y datos de facturación para la emisión de Facturas o Boletas Electrónicas ante SUNAT una vez contratado el servicio.</li>
+              <li><strong>Datos de Navegación Técnica:</strong> Dirección IP anonimizada, tipo de navegador, sistema operativo y páginas visitadas dentro de kamasqa.pe mediante cookies de analítica.</li>
+            </ul>
+          </section>
+
+          <!-- 3. Finalidad y Base Legal -->
+          <section id="finalidad-base-legal" class="legal-sec">
+            <header class="sec-head">
+              <span class="sec-num">03</span>
+              <h2>Finalidades y base legal del tratamiento</h2>
+            </header>
+            <p>
+              Tratamos tus datos personales con fines legítimos, transparentes y directamente vinculados a nuestra relación comercial:
+            </p>
+            <ul class="legal-bullets">
+              <li><strong>Atención de Consultas y Diagnósticos:</strong> Gestionar las solicitudes de información, coordinar la reunión inicial de 15 minutos sin compromiso y resolver dudas técnicas.</li>
+              <li><strong>Emisión de Cotizaciones Formales:</strong> Estructurar propuestas comerciales personalizadas con el cronograma y alcance del proyecto solicitado.</li>
+              <li><strong>Ejecución Contractual:</strong> Desarrollar, maquetar, desplegar y entregar los sitios web y plataformas contratadas conforme a los Términos y Condiciones.</li>
+              <li><strong>Gestión Administrativa y Tributaria:</strong> Facturación electrónica, registro contable y cumplimiento de las normativas de SUNAT.</li>
+              <li><strong>Soporte Técnico y Garantía:</strong> Brindar atención durante los 30 días de garantía técnica post-lanzamiento o planes de mantenimiento suscritos.</li>
+            </ul>
+
+            <div class="notice-box">
+              <p>
+                <strong>Base Legal:</strong> El tratamiento se fundamenta en el <strong>consentimiento libre, previo, expreso e informado</strong> otorgado por el usuario al remitir sus datos mediante nuestros formularios o canales de contacto, así como en la <strong>relación contractual o precontractual</strong> para la prestación de servicios profesionales.
+              </p>
+            </div>
+          </section>
+
+          <!-- 4. Cookies y Analítica -->
+          <section id="cookies-analitica" class="legal-sec">
+            <header class="sec-head">
+              <span class="sec-num">04</span>
+              <h2>Cookies y analítica web</h2>
+            </header>
+            <p>
+              En <a href="https://kamasqa.pe" class="inline-link">kamasqa.pe</a> utilizamos cookies de forma responsable y orientada a la experiencia de navegación del usuario:
+            </p>
+            <ul class="legal-bullets">
+              <li><strong>Cookies Técnicas Esenciales:</strong> Necesarias para recordar tus preferencias de navegación, tales como el tema visual (Modo Claro / Modo Oscuro) y el idioma seleccionado (Español / Inglés). No recopilan información personal identificable.</li>
+              <li><strong>Cookies de Analítica y Rendimiento:</strong> Implementamos Google Analytics 4 con anonimización de direcciones IP para medir el tráfico agregado, tiempos de carga y comportamiento de uso general sin rastrear la identidad individual del visitante.</li>
+            </ul>
+            <p class="legal-note">
+              Puedes configurar tu navegador web en cualquier momento para bloquear o eliminar las cookies instaladas. Ten en cuenta que algunas funcionalidades técnicas de preferencias visuales podrían verse afectadas.
+            </p>
+          </section>
+
+          <!-- 5. Destinatarios -->
+          <section id="destinatarios" class="legal-sec">
+            <header class="sec-head">
+              <span class="sec-num">05</span>
+              <h2>Con quién compartimos tus datos</h2>
+            </header>
+            <p>
+              KAMASQA <strong>no vende, no alquila ni comercializa</strong> tus datos personales con terceros para fines publicitarios o comerciales bajo ninguna circunstancia.
+            </p>
+            <p>
+              Únicamente podemos compartir información con proveedores tecnológicos esenciales para la correcta operación del servicio (encargados de tratamiento), bajo estrictos acuerdos de confidencialidad y estándares de seguridad:
+            </p>
+            <ul class="legal-bullets">
+              <li><strong>Infraestructura y Alojamiento Cloud:</strong> Proveedores líderes de infraestructura en la nube (Cloudflare, AWS, Vercel) con servidores de alta seguridad y cifrado en tránsito y en reposo.</li>
+              <li><strong>Pasarelas de Pago Seguras:</strong> Entidades financieras reguladas en Perú para el procesamiento de pagos digitales (Yape, Plin, pasarelas de tarjetas de crédito).</li>
+              <li><strong>Superintendencia Nacional de Administración Tributaria (SUNAT):</strong> Exclusivamente la información fiscal requerida por ley para la emisión de comprobantes de pago electrónicos.</li>
+            </ul>
+          </section>
+
+          <!-- 6. Conservación y Seguridad -->
+          <section id="conservacion-seguridad" class="legal-sec">
+            <header class="sec-head">
+              <span class="sec-num">06</span>
+              <h2>Plazos de conservación y medidas de seguridad</h2>
+            </header>
+            <p>
+              Conservamos tus datos personales únicamente durante el tiempo estrictamente necesario para cumplir con las finalidades descritas o para responder a requerimientos legales y tributarios (5 años para comprobantes fiscales conforme al Código Tributario peruano).
+            </p>
+            <p>
+              Implementamos medidas de seguridad técnicas, organizativas y legales para proteger tus datos contra accesos no autorizados, pérdida o alteración:
+            </p>
+            <ul class="legal-bullets">
+              <li><strong>Cifrado SSL / TLS de Extremo a Extremo:</strong> Toda la transmisión de información en el sitio web se ejecuta mediante protocolos HTTPS con certificados criptográficos actualizados.</li>
+              <li><strong>Control de Acceso Restringido:</strong> Solo el personal técnico directamente asignado al proyecto tiene acceso a la información estrictamente necesaria para la prestación del servicio.</li>
+              <li><strong>Copias de Seguridad y Auditoría:</strong> Respaldo periódico y almacenamiento en entornos protegidos con autenticación de dos factores (2FA).</li>
+            </ul>
+          </section>
+
+          <!-- 7. Derechos ARCO -->
+          <section id="derechos-arco" class="legal-sec">
+            <header class="sec-head">
+              <span class="sec-num">07</span>
+              <h2>Tus derechos ARCO y cómo ejercerlos</h2>
+            </header>
+            <p>
+              Conforme a la Ley N.° 29733, eres titular de los derechos de Acceso, Rectificación, Cancelación y Oposición (ARCO) sobre tus datos personales:
+            </p>
+
+            <div class="arco-grid">
+              <div class="arco-card">
+                <span class="arco-tag">Acceso</span>
+                <strong>Conocer tus datos</strong>
+                <p>Solicitar información sobre qué datos personales tuyos están siendo tratados por KAMASQA.</p>
+              </div>
+              <div class="arco-card">
+                <span class="arco-tag">Rectificación</span>
+                <strong>Actualizar o corregir</strong>
+                <p>Pedir la corrección de datos inexactos, desactualizados o incompletos.</p>
+              </div>
+              <div class="arco-card">
+                <span class="arco-tag">Cancelación</span>
+                <strong>Supresión total</strong>
+                <p>Solicitar la eliminación de tus datos cuando consideres que ya no son necesarios para el fin que fueron recabados.</p>
+              </div>
+              <div class="arco-card">
+                <span class="arco-tag">Oposición</span>
+                <strong>Oponerte al uso</strong>
+                <p>Oponerte a que tus datos sean tratados para fines específicos cuando existan motivos fundados.</p>
+              </div>
+            </div>
+
+            <p>
+              <strong>Procedimiento para ejercer tus derechos ARCO:</strong> Envía una comunicación al correo <a href={`mailto:${site.email}?subject=Solicitud%20Derechos%20ARCO`} class="inline-link">{site.email}</a> indicando como asunto <em>"Ejercicio de Derechos ARCO - [Tu Nombre]"</em>, adjuntando una copia legible de tu DNI o Carné de Extranjería para verificar tu identidad y detallando el derecho específico que deseas ejercer.
+            </p>
+            <p class="legal-note">
+              Atenderemos tu solicitud dentro de los plazos legales máximos fijados por la Autoridad Nacional de Protección de Datos Personales (10 días hábiles para rectificación, cancelación y oposición; 20 días hábiles para acceso).
+            </p>
+          </section>
+
+          <!-- 8. Menores -->
+          <section id="menores" class="legal-sec">
+            <header class="sec-head">
+              <span class="sec-num">08</span>
+              <h2>Menores de edad</h2>
+            </header>
+            <p>
+              Los servicios profesionales y contenidos de KAMASQA están orientados exclusivamente a personas naturales y jurídicas con capacidad legal para contratar (mayores de 18 años). No recopilamos conscientemente datos personales de menores de edad. Si tomamos conocimiento de que un menor nos ha suministrado datos personales, procederemos a eliminarlos de forma inmediata.
+            </p>
+          </section>
+
+          <!-- 9. Datos por encargo -->
+          <section id="encargo-clientes" class="legal-sec">
+            <header class="sec-head">
+              <span class="sec-num">09</span>
+              <h2>Tratamiento de datos por encargo de nuestros clientes</h2>
+            </header>
+            <p>
+              En la prestación de servicios de diseño y desarrollo web para nuestros clientes, KAMASQA actúa como <strong>Encargado del Tratamiento</strong> (artículo 16 de la Ley N.° 29733) respecto a las bases de datos de clientes, usuarios finales o suscriptores que los propios clientes gestionen en las plataformas que desarrollamos:
+            </p>
+            <ul class="legal-bullets">
+              <li>El cliente contratante es el único <strong>Titular del Banco de Datos</strong> de sus propios usuarios y es responsable de recabar el consentimiento de sus visitantes en su respectivo sitio web.</li>
+              <li>KAMASQA únicamente implementa la infraestructura técnica acordada y no utilizará ni accederá a las bases de datos de los clientes para ningún fin ajeno al mantenimiento y soporte contratado.</li>
+            </ul>
+          </section>
+
+          <!-- 10. Contacto y Cambios -->
+          <section id="contacto-cambios" class="legal-sec">
+            <header class="sec-head">
+              <span class="sec-num">10</span>
+              <h2>Contacto, Libro de Reclamaciones y modificaciones</h2>
+            </header>
+            <p>
+              KAMASQA se reserva el derecho de actualizar o modificar esta Política de Privacidad para adecuarla a reformas legislativas o mejoras tecnológicas. Cualquier modificación sustancial será comunicada a través de este sitio web con la actualización de la fecha de vigencia.
+            </p>
+            <p>
+              Ponemos a disposición de nuestros usuarios el <strong>Libro de Reclamaciones Virtual</strong> para asentar quejas o reclamos formales relacionados con nuestros servicios.
+            </p>
+
+            <div class="contact-box">
+              <h3>¿Tienes consultas sobre cómo protegemos tu información?</h3>
+              <p>Nuestro equipo legal y de privacidad está a tu disposición para atender cualquier solicitud o duda:</p>
+              <div class="cb-actions">
+                <a href={wa("Hola KAMASQA, tengo una consulta sobre su Política de Privacidad.")} target="_blank" rel="noopener noreferrer" class="btn-pill-action">
+                  <span>Escribir por WhatsApp</span>
+                  <span class="action-arrow-circle" aria-hidden="true">↗</span>
+                </a>
+                <a href={`mailto:${site.email}?subject=Consulta%20sobre%20Privacidad`} class="btn-outline">
+                  <span>Escribir a Privacidad</span>
+                </a>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .legal-page {
+    padding: clamp(6.5rem, 12vh, 8.5rem) 0 clamp(4rem, 8vw, 6rem);
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Header / Hero */
+  .legal-hero {
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    max-width: 860px;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+    text-decoration: none;
+    margin-bottom: 1.5rem;
+    padding: 0.4rem 0.85rem;
+    border-radius: var(--radius-full);
+    background: var(--paper-subtle);
+    border: 1px solid var(--line);
+    transition: all 0.2s ease;
+  }
+
+  .back-link:hover {
+    color: var(--c-amber);
+    border-color: var(--c-amber);
+    transform: translateX(-2px);
+  }
+
+  .hero-badge-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 1rem;
+  }
+
+  .legal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: var(--radius-full);
+    background: rgba(110, 125, 78, 0.14);
+    border: 1px solid rgba(110, 125, 78, 0.3);
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    color: var(--c-olive-dark);
+  }
+
+  .lb-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--c-olive);
+  }
+
+  .legal-norm-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 0.8rem;
+    border-radius: var(--radius-full);
+    background: rgba(170, 114, 41, 0.12);
+    border: 1px solid rgba(240, 196, 140, 0.35);
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: var(--c-amber-dark);
+  }
+
+  .legal-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 1.15rem;
+  }
+
+  .mark-olive {
+    color: var(--c-olive-dark);
+    font-style: italic;
+  }
+
+  .legal-lead {
+    font-size: clamp(1.05rem, 1.35vw, 1.2rem);
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+  }
+
+  .legal-meta-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+  }
+
+  .meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .meta-sep {
+    opacity: 0.4;
+  }
+
+  /* Grid Layout (Aside Índice + Artículo) */
+  .legal-grid-wrap {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: clamp(2.5rem, 5vw, 4.5rem);
+    align-items: flex-start;
+  }
+
+  /* Sidebar Índice */
+  .legal-toc-aside {
+    position: sticky;
+    top: 6.5rem;
+  }
+
+  .legal-toc {
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 1.4rem 1.25rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .toc-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .toc-bullet {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--c-olive);
+  }
+
+  .toc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .toc-link {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.8125rem;
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding: 0.4rem 0.55rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+
+  .toc-link:hover {
+    color: var(--c-amber);
+    background: var(--paper-subtle);
+    transform: translateX(2px);
+  }
+
+  .toc-badge {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--c-olive);
+    background: rgba(110, 125, 78, 0.12);
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  /* Contenido del Artículo */
+  .legal-article {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2.5rem, 4vw, 3.5rem);
+    max-width: 820px;
+  }
+
+  .legal-sec {
+    scroll-margin-top: 6.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+  }
+
+  .sec-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .sec-num {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--c-sand);
+    background: #1C2418;
+    border: 1px solid rgba(216, 224, 199, 0.2);
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--radius-full);
+  }
+
+  .sec-head h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2vw, 1.7rem);
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .legal-sec p {
+    font-size: 0.98rem;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  .legal-bullets {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    padding-left: 1.25rem;
+    list-style-type: disc;
+    margin: 0;
+  }
+
+  .legal-bullets li {
+    font-size: 0.96rem;
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+
+  .legal-bullets strong {
+    color: var(--ink);
+  }
+
+  .inline-link {
+    color: var(--c-amber);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-weight: 600;
+    transition: color 0.2s ease;
+  }
+
+  .inline-link:hover {
+    color: var(--c-olive);
+  }
+
+  .color-amber {
+    color: var(--c-amber);
+  }
+
+  /* Tarjeta de Empresa */
+  .company-card {
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 1.4rem 1.6rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .cc-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    font-size: 0.9rem;
+  }
+
+  .cc-label {
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-muted);
+  }
+
+  /* Grid ARCO */
+  .arco-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 0.5rem 0;
+  }
+
+  .arco-card {
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .arco-tag {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--c-olive);
+    background: rgba(110, 125, 78, 0.12);
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-full);
+    align-self: flex-start;
+  }
+
+  .arco-card strong {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: var(--ink);
+  }
+
+  .arco-card p {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* Cajas de Aviso & Contacto */
+  .notice-box {
+    background: rgba(110, 125, 78, 0.08);
+    border-left: 3px solid var(--c-olive);
+    border-radius: 0 12px 12px 0;
+    padding: 1.15rem 1.35rem;
+  }
+
+  .notice-box p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .legal-note {
+    font-size: 0.88rem !important;
+    font-style: italic;
+    color: var(--ink-muted) !important;
+  }
+
+  .contact-box {
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    box-shadow: var(--shadow);
+    margin-top: 1rem;
+  }
+
+  .contact-box h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .cb-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.85rem;
+    margin-top: 0.5rem;
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.6rem 1.25rem;
+    border-radius: var(--radius-full);
+    border: 1.5px solid var(--line-strong);
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 0.88rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--c-amber);
+    color: var(--c-amber);
+    transform: translateY(-1px);
+  }
+
+  /* Responsive */
+  @media (max-width: 960px) {
+    .legal-grid-wrap {
+      grid-template-columns: 1fr;
+    }
+
+    .legal-toc-aside {
+      position: relative;
+      top: 0;
+      margin-bottom: 1.5rem;
+    }
+
+    .company-card {
+      grid-template-columns: 1fr;
+    }
+
+    .arco-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Modo Oscuro / Dark Theme */
+  html[data-theme="dark"] .legal-title {
+    color: #FFFFFF;
+  }
+
+  html[data-theme="dark"] .mark-olive {
+    color: #D8E0C7;
+  }
+
+  html[data-theme="dark"] .legal-lead {
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  html[data-theme="dark"] .sec-head h2,
+  html[data-theme="dark"] .arco-card strong,
+  html[data-theme="dark"] .legal-bullets strong,
+  html[data-theme="dark"] .contact-box h3,
+  html[data-theme="dark"] .toc-header {
+    color: #FFFFFF;
+  }
+
+  html[data-theme="dark"] .legal-sec p,
+  html[data-theme="dark"] .legal-bullets li,
+  html[data-theme="dark"] .arco-card p,
+  html[data-theme="dark"] .toc-link {
+    color: rgba(244, 247, 238, 0.85);
+  }
+
+  html[data-theme="dark"] .legal-badge {
+    background: rgba(110, 125, 78, 0.25);
+    color: #D8E0C7;
+    border-color: rgba(216, 224, 199, 0.2);
+  }
+
+  html[data-theme="dark"] .legal-norm-pill {
+    background: rgba(170, 114, 41, 0.22);
+    color: var(--c-sand);
+    border-color: rgba(240, 196, 140, 0.35);
+  }
+
+  html[data-theme="dark"] .legal-toc,
+  html[data-theme="dark"] .company-card,
+  html[data-theme="dark"] .arco-card,
+  html[data-theme="dark"] .contact-box {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(216, 224, 199, 0.12);
+  }
+
+  html[data-theme="dark"] .arco-tag {
+    color: #D8E0C7;
+    background: rgba(110, 125, 78, 0.3);
+  }
+
+  html[data-theme="dark"] .back-link {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  html[data-theme="dark"] .back-link:hover {
+    color: var(--c-sand);
+    border-color: var(--c-sand);
+  }
+
+  html[data-theme="dark"] .btn-outline {
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #FFFFFF;
+  }
+
+  html[data-theme="dark"] .btn-outline:hover {
+    border-color: var(--c-sand);
+    color: var(--c-sand);
+  }
+</style>

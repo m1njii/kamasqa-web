@@ -1,0 +1,388 @@
+---
+import { faqs, wa } from "../../data/site";
+---
+
+<section id="faq" class="section faq-editorial">
+  <div class="container-wide">
+    <div class="faq-editorial-grid">
+      <!-- Columna Lateral -->
+      <div class="faq-side">
+        <span class="eyebrow">Preguntas Frecuentes</span>
+        <h2 class="faq-headline">Respuestas claras antes de dar el primer paso</h2>
+        <p class="faq-lead">
+          Creemos en la transparencia desde el primer minuto. Si tienes una consulta específica sobre tu rubro, escríbenos directo.
+        </p>
+
+        <!-- Tarjeta Concierge Editorial de Consulta Rápida -->
+        <div class="faq-concierge-card">
+          <div class="fcc-badge">
+            <span class="fcc-pulse"></span>
+            <span class="fcc-badge-text">Atención en directo · Perú</span>
+          </div>
+          <h3 class="fcc-title">¿Dudas sobre el alcance de tu proyecto?</h3>
+          <p class="fcc-desc">
+            ¿Prefieres resolver tus dudas por chat o agendar los 15 minutos gratuitos? Te respondemos con transparencia técnica y cotización clara.
+          </p>
+          <a
+            href={wa("Hola Kamasqa 👋 Tengo una consulta sobre el desarrollo web para mi negocio.")}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-pill-action"
+          >
+            <span>Consultar por WhatsApp</span>
+            <span class="action-arrow-circle" aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Acordeón -->
+      <div class="faq-list" id="faq-accordion">
+        {faqs.map((f, i) => (
+          <div class={`faq-item-editorial ${i === 0 ? "is-open" : ""}`} data-faq-item>
+            <button
+              type="button"
+              class="faq-btn-editorial"
+              aria-expanded={i === 0 ? "true" : "false"}
+              aria-controls={`faq-body-${i}`}
+              id={`faq-btn-${i}`}
+            >
+              <span class="faq-num-pill">0{i + 1}</span>
+              <span class="faq-q-text">{f.q}</span>
+              <span class="faq-caret-icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+
+            <div
+              class="faq-body-editorial"
+              id={`faq-body-${i}`}
+              role="region"
+              aria-labelledby={`faq-btn-${i}`}
+            >
+              <div class="faq-inner-text">
+                <p>{f.a}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const accordion = document.getElementById("faq-accordion");
+  if (accordion) {
+    const items = accordion.querySelectorAll<HTMLElement>("[data-faq-item]");
+    items.forEach((item) => {
+      const btn = item.querySelector<HTMLButtonElement>("button");
+      btn?.addEventListener("click", () => {
+        const isOpen = item.classList.contains("is-open");
+        items.forEach((it) => {
+          it.classList.remove("is-open");
+          it.querySelector("button")?.setAttribute("aria-expanded", "false");
+        });
+        if (!isOpen) {
+          item.classList.add("is-open");
+          btn.setAttribute("aria-expanded", "true");
+        }
+      });
+    });
+  }
+</script>
+
+<style>
+  .faq-editorial {
+    padding: clamp(3.5rem, 7vw, 6rem) 0;
+    position: relative;
+    background: transparent;
+  }
+
+  .faq-editorial-grid {
+    display: grid;
+    grid-template-columns: 0.72fr 1.28fr;
+    gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: flex-start;
+  }
+
+  @media (max-width: 960px) {
+    .faq-editorial-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .faq-headline {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+
+  .faq-lead {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 2rem;
+  }
+
+  /* Tarjeta Concierge FAQ */
+  .faq-concierge-card {
+    background: linear-gradient(145deg, #161e13 0%, #0e150b 100%);
+    border: 1px solid rgba(110, 125, 78, 0.35);
+    border-radius: 20px;
+    padding: 1.75rem 1.6rem 1.6rem;
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  html[data-theme="light"] .faq-concierge-card {
+    background: linear-gradient(145deg, #FFFFFF 0%, #F4F7EF 100%);
+    border-color: rgba(110, 125, 78, 0.25);
+    box-shadow: 0 14px 35px rgba(27, 33, 20, 0.08);
+  }
+
+  .faq-concierge-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+  }
+
+  html[data-theme="light"] .faq-concierge-card:hover {
+    box-shadow: 0 18px 45px rgba(27, 33, 20, 0.12);
+  }
+
+  .fcc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 0.3rem 0.65rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 0.85rem;
+  }
+
+  html[data-theme="light"] .fcc-badge {
+    background: rgba(27, 33, 20, 0.05);
+    border-color: rgba(27, 33, 20, 0.08);
+  }
+
+  .fcc-pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--c-amber);
+    box-shadow: 0 0 7px rgba(170, 114, 41, 0.5);
+    animation: fcc-pulse-anim 2s infinite ease-in-out;
+  }
+
+  @keyframes fcc-pulse-anim {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.85); }
+  }
+
+  .fcc-badge-text {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--ink);
+  }
+
+  html[data-theme="dark"] .fcc-badge-text {
+    color: #FFFFFF;
+  }
+
+  .fcc-title {
+    font-family: var(--font-display);
+    font-size: 1.18rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--c-white);
+    margin-bottom: 0.55rem;
+    letter-spacing: -0.015em;
+  }
+
+  html[data-theme="light"] .fcc-title {
+    color: var(--ink);
+  }
+
+  .fcc-desc {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: rgba(242, 245, 236, 0.78);
+    margin-bottom: 1.35rem;
+  }
+
+  html[data-theme="light"] .fcc-desc {
+    color: var(--ink-soft);
+  }
+
+  .fcc-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.85rem 1.25rem;
+    border-radius: 999px;
+    background: var(--c-amber);
+    color: #121610;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(212, 148, 58, 0.35);
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .fcc-btn:hover {
+    transform: translateY(-1px);
+    background: var(--c-sand);
+    box-shadow: 0 8px 24px rgba(240, 196, 140, 0.45);
+  }
+
+  html[data-theme="light"] .fcc-btn {
+    background: var(--ink);
+    color: var(--c-white);
+    box-shadow: 0 6px 18px rgba(27, 33, 20, 0.2);
+  }
+
+  html[data-theme="light"] .fcc-btn:hover {
+    background: var(--c-amber);
+    color: var(--c-white);
+  }
+
+  /* Acordeón */
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .faq-item-editorial {
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    overflow: hidden;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .faq-item-editorial.is-open {
+    border-color: rgba(110, 125, 78, 0.45);
+    box-shadow: 0 8px 24px rgba(14, 20, 13, 0.08);
+  }
+
+  .faq-btn-editorial {
+    width: 100%;
+    padding: 1.3rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-align: left;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .faq-num-pill {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--c-sand);
+    background: #1C2418;
+    border: 1px solid rgba(216, 224, 199, 0.2);
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-full);
+    flex-shrink: 0;
+  }
+
+  .faq-q-text {
+    flex: 1;
+    line-height: 1.4;
+  }
+
+  .faq-caret-icon {
+    flex-shrink: 0;
+    color: var(--ink-muted);
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .faq-item-editorial.is-open .faq-caret-icon {
+    transform: rotate(180deg);
+    color: var(--c-amber);
+  }
+
+  .faq-body-editorial {
+    display: grid;
+    grid-template-rows: 0fr;
+    overflow: hidden;
+    transition: grid-template-rows 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .faq-item-editorial.is-open .faq-body-editorial {
+    grid-template-rows: 1fr;
+  }
+
+  .faq-inner-text {
+    min-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    opacity: 0;
+    padding: 0 1.5rem 0 3.6rem;
+    transition: visibility 0.25s ease, opacity 0.25s ease, padding 0.25s ease;
+  }
+
+  .faq-item-editorial.is-open .faq-inner-text {
+    visibility: visible;
+    opacity: 1;
+    padding: 0 1.5rem 1.4rem 3.6rem;
+  }
+
+  @media (max-width: 600px) {
+    .faq-inner-text {
+      padding: 0 1.25rem 0 1.25rem;
+    }
+
+    .faq-item-editorial.is-open .faq-inner-text {
+      padding: 0 1.25rem 1.25rem 1.25rem;
+    }
+  }
+
+  .faq-inner-text p {
+    margin: 0;
+    font-size: 0.925rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
+  html[data-theme="dark"] .faq-editorial {
+    background: transparent;
+  }
+
+  html[data-theme="dark"] .faq-item-editorial {
+    background: #151D12;
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  html[data-theme="dark"] .faq-item-editorial.is-open {
+    border-color: rgba(240, 196, 140, 0.45);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  html[data-theme="dark"] .faq-concierge-card {
+    background: #151D12;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+</style>

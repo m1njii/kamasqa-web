@@ -1,0 +1,11 @@
+# [SEO TEAM]: robots.txt estático básico.
+# Revisar las directivas antes de publicar. Se sirve en /robots.txt
+
+User-agent: *
+Allow: /
+
+# [SEO TEAM]: Bloquear rutas si corresponde, por ejemplo:
+# Disallow: /ruta-privada/
+
+# [SEO TEAM]: Descomentar cuando @astrojs/sitemap esté instalado (ver docs/SEO-SETUP.md)
+# Sitemap: https://kamasqa.pe/sitemap-index.xml

@@ -1,0 +1,118 @@
+---
+import { tools } from "../../data/site";
+
+// Duplicamos el listado para un ciclo infinito completamente fluido
+const marqueeList = [...tools, ...tools];
+---
+
+<div class="tech-marquee-ribbon" aria-label="Tecnologías y herramientas de alto rendimiento">
+  <div class="tmr-fade-track" aria-hidden="true">
+    <div class="tmr-scroll-container">
+      {marqueeList.map((t) => (
+        <div class="tmr-item">
+          <span class="tmr-lime-dot"></span>
+          <span class="tmr-name">{t.name}</span>
+          <span class="tmr-sep">/</span>
+          <span class="tmr-cat">{t.category}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .tech-marquee-ribbon {
+    position: relative;
+    z-index: 10;
+    background: var(--paper);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+    user-select: none;
+    padding: clamp(0.9rem, 1.8vw, 1.25rem) 0;
+  }
+
+  .tmr-fade-track {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+  }
+
+  .tmr-scroll-container {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    white-space: nowrap;
+    will-change: transform;
+    animation: tmr-loop 38s linear infinite;
+  }
+
+  .tmr-scroll-container:hover {
+    animation-play-state: paused;
+  }
+
+  /* Item de cada tecnología */
+  .tmr-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.35rem 0.6rem;
+    color: var(--ink);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .tmr-item:hover {
+    transform: translateY(-1px);
+  }
+
+  .tmr-item:hover .tmr-name {
+    color: var(--c-amber);
+  }
+
+  .tmr-lime-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--c-amber);
+    box-shadow: 0 0 5px rgba(170, 114, 41, 0.4);
+    flex-shrink: 0;
+  }
+
+  .tmr-name {
+    font-family: var(--font-body);
+    font-size: clamp(0.88rem, 1vw, 0.98rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .tmr-sep {
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+    opacity: 0.4;
+  }
+
+  .tmr-cat {
+    font-family: var(--font-body);
+    font-size: clamp(0.78rem, 0.9vw, 0.84rem);
+    font-weight: 500;
+    color: var(--ink-muted);
+  }
+
+  @keyframes tmr-loop {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(calc(-50% - 1.25rem), 0, 0);
+    }
+  }
+
+  html[data-theme="dark"] .tech-marquee-ribbon {
+    background: #0E140D;
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+</style>

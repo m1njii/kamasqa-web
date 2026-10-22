@@ -1,0 +1,294 @@
+---
+import { wa } from "../../data/site";
+---
+
+<section class="hero-fullbleed">
+  <!-- Fondo Full-Bleed Multimedia con Capa Atmosférica de Alto Contraste -->
+  <div class="hero-media" aria-hidden="true">
+    <video
+      class="hero-video"
+      src="/background.mp4"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+    ></video>
+    <div class="hero-gradient-overlay"></div>
+    <div class="hero-grain-mesh"></div>
+  </div>
+
+  <div class="container-wide hero-content-wrap">
+    <div class="hero-content">
+      <!-- Titular Principal de Alto Impacto Editorial -->
+      <h1 class="hero-headline">
+        Tu negocio, <em class="mark-olive">creciendo</em> en internet.
+      </h1>
+
+      <!-- Párrafo Descriptivo Flotante con Máxima Legibilidad -->
+      <p class="hero-lead">
+        Diseñamos y desarrollamos páginas web a tu medida: landing pages, webs informativas, tiendas online y sistemas a medida. Primero conversamos, sin compromiso; después cotizamos.
+      </p>
+
+      <!-- Botones de Acción Editorial -->
+      <div class="hero-actions">
+        <a href={wa()} target="_blank" rel="noopener noreferrer" class="btn-hero-primary">
+          <span>Agendar reunión sin compromiso</span>
+          <span class="hero-lime-arrow" aria-hidden="true">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </span>
+        </a>
+
+        <a href="#servicios" class="btn-hero-secondary">
+          <span>Ver servicios</span>
+        </a>
+      </div>
+
+      <!-- Ticks de Garantía y Confianza -->
+      <ul class="hero-ticks">
+        <li>
+          <span class="tick-icon">✓</span>
+          <span>Reunión sin compromiso</span>
+        </li>
+        <li>
+          <span class="tick-icon">✓</span>
+          <span>Cotización transparente</span>
+        </li>
+        <li>
+          <span class="tick-icon">✓</span>
+          <span>Pagos con Yape y Plin</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-fullbleed {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(7.5rem, 14vh, 9.5rem) 0 clamp(4.5rem, 8vh, 6.5rem);
+    color: var(--c-white);
+    background-color: #0d120a;
+    overflow: hidden;
+  }
+
+  /* Video & Textura a Pantalla Completa Total */
+  .hero-media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    transform: translate(-50%, -50%) scale(1.05);
+    filter: saturate(0.95) contrast(1.08);
+  }
+
+  /* Capa de contraste cinematográfico para legibilidad impecable */
+  .hero-gradient-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 50% 45%, rgba(13, 18, 11, 0.45) 0%, rgba(9, 13, 8, 0.78) 70%, rgba(7, 10, 6, 0.94) 100%),
+      linear-gradient(180deg, rgba(13, 18, 11, 0.75) 0%, rgba(13, 18, 11, 0.4) 40%, rgba(10, 14, 8, 0.88) 100%);
+  }
+
+  .hero-grain-mesh {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(216, 224, 199, 0.08) 1px, transparent 0);
+    background-size: 32px 32px;
+    opacity: 0.45;
+  }
+
+  /* Contenido Central */
+  .hero-content-wrap {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .hero-content {
+    max-width: 1140px;
+    width: 100%;
+  }
+
+  /* Badge Categoría */
+  .hero-badge-row {
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-category-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 1rem;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: var(--radius-full);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--c-white);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .badge-icon {
+    color: var(--c-sand);
+  }
+
+  /* Titular Principal */
+  .hero-headline {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 5.8vw, 5.2rem);
+    font-weight: 700;
+    line-height: 1.06;
+    letter-spacing: -0.03em;
+    color: var(--c-white);
+    margin-bottom: 1.4rem;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+  }
+
+  .mark-olive {
+    font-style: italic;
+    color: var(--c-sand);
+    font-weight: 600;
+  }
+
+  /* Descripción */
+  .hero-lead {
+    font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+    line-height: 1.6;
+    color: rgba(242, 245, 236, 0.92);
+    max-width: 860px;
+    margin-bottom: 2.2rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Botones */
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.1rem;
+    margin-bottom: 2.4rem;
+  }
+
+  .btn-hero-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.5rem 0.65rem 0.5rem 1.6rem;
+    border-radius: var(--radius-full);
+    background: #0E140D;
+    color: var(--c-white);
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 0 10px 28px -4px rgba(0, 0, 0, 0.55);
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .btn-hero-primary:hover {
+    transform: translateY(-2px);
+    background: #000000;
+    border-color: rgba(240, 196, 140, 0.5);
+    box-shadow: 0 14px 34px -4px rgba(0, 0, 0, 0.75);
+  }
+
+  .hero-lime-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--c-sand);
+    color: #172014;
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .btn-hero-primary:hover .hero-lime-arrow {
+    transform: translate(2px, -2px);
+    background: var(--c-amber);
+    color: #FFFFFF;
+  }
+
+  .btn-hero-secondary {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.85rem 1.7rem;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    color: var(--c-white);
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    backdrop-filter: blur(10px);
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  }
+
+  .btn-hero-secondary:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(240, 196, 140, 0.45);
+  }
+
+  /* Ticks */
+  .hero-ticks {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.6rem;
+    font-size: 0.875rem;
+    color: rgba(242, 245, 236, 0.85);
+  }
+
+  .hero-ticks li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .tick-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(110, 125, 78, 0.28);
+    color: #D8E0C7;
+    border: 1px solid rgba(216, 224, 199, 0.2);
+    font-size: 0.75rem;
+    font-weight: 900;
+  }
+</style>

@@ -1,0 +1,70 @@
+---
+/**
+ * ============================================================
+ *  SEO.astro — PLANTILLA TÉCNICA (SIN CONTENIDO FINAL)
+ * ============================================================
+ *  Este componente centraliza TODO lo que va en <head> y que
+ *  concierne a SEO / redes sociales / datos estructurados.
+ *
+ *  Estado actual: estructura lista, valores por defecto = TODO.
+ *  Responsable de completarlo: equipo SEO.
+ *
+ *  Se inyecta una sola vez desde src/layouts/Base.astro.
+ *  Cada página puede sobrescribir cualquier prop a través de <Base ...>.
+ *
+ *  Guía rápida de lo que hay que completar:
+ *   1. Defaults de title / description        (bloque DEFAULTS)
+ *   2. Imagen Open Graph por defecto           (DEFAULT_OG_IMAGE)
+ *   3. Lógica de canonical                     (bloque CANONICAL)
+ *   4. JSON-LD por tipo de página              (bloque JSON-LD)
+ *   5. Hreflang / idiomas                      (bloque HREFLANG)
+ *   6. Reglas de robots por página             (prop `noindex`)
+ * ============================================================
+ */
+
+export interface Props {
+  title?: string;
+  description?: string;
+  canonicalURL?: string;
+  ogImage?: string;
+}
+
+const {
+  title = "KAMASQA | Agencia Digital · Lima, Perú",
+  description = "Diseñamos y desarrollamos páginas web a tu medida: landing pages, webs informativas y tiendas online. Ingeniería web enfocada en conversión y crecimiento.",
+  canonicalURL = Astro.url.href,
+  ogImage = "/icon.png",
+} = Astro.props;
+
+// Schema Markup (JSON-LD) para Agencia Digital Local
+const schemaOrg = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "KAMASQA",
+  "image": new URL(ogImage, Astro.site || Astro.url).href,
+  "description": description,
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Lima",
+    "addressCountry": "PE"
+  },
+  "url": Astro.site ? Astro.site.href : Astro.url.origin,
+  "priceRange": "PEN 440 - 1490+",
+  "openingHours": "Mo-Sa 09:00-19:00"
+};
+---
+
+<!-- Etiquetas SEO Principales -->
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Open Graph (Metadatos para compartir en WhatsApp, Facebook, LinkedIn) -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={new URL(ogImage, Astro.site || Astro.url).href} />
+
+<!-- Datos estructurados (Schema.org) inyectados de forma segura -->
+<script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />

@@ -1,0 +1,473 @@
+---
+import { steps, site, wa } from "../../data/site";
+---
+
+<section id="metodo" class="section editorial-bottom-section">
+  <div class="container-wide">
+    <div class="method-layout-full">
+      <!-- Encabezado de Metodología -->
+      <header class="method-head-row">
+        <h2 class="method-main-title">Cómo trabajamos contigo en 4 pasos</h2>
+        <p class="method-lead">
+          Nuestra fórmula clara y sin rodeos para llevar tu negocio a internet con certeza absoluta en plazos, entregables y presupuesto.
+        </p>
+      </header>
+
+      <!-- Tarjeta Principal Destacada de Metodología -->
+      <article class="featured-card">
+        <div class="fc-media">
+          <img
+            src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=80"
+            alt="Metodología y desarrollo web Kamasqa"
+            class="fc-img"
+            loading="lazy"
+          />
+          <div class="fc-overlay"></div>
+          <span class="fc-badge">Metodología Ágil</span>
+          <span class="fc-time-tag">⏱ 4 a 14 días promedio</span>
+        </div>
+
+        <div class="fc-caption">
+          <h3 class="fc-title">De tu primera idea a tu web publicada</h3>
+          <p class="fc-desc">
+            Un sistema transparente de 4 fases diseñado para que tengas claridad absoluta en plazos, entregables e inversión desde el primer día.
+          </p>
+        </div>
+      </article>
+
+      <!-- Grilla / Carrusel en móvil de los 4 Pasos Detallados -->
+      <div class="steps-carousel-container">
+        <div class="steps-compact-grid" id="steps-track">
+          {steps.map((st) => (
+            <div class="step-card-editorial">
+              <div class="sce-top">
+                <span class="sce-num">{st.n}</span>
+              </div>
+              <h4 class="sce-title">{st.title}</h4>
+              <p class="sce-text">{st.text}</p>
+            </div>
+          ))}
+        </div>
+
+        <!-- Controles y Dots de navegación del carrusel (ÚNICAMENTE EN MÓVIL) -->
+        <div class="steps-carousel-controls" aria-label="Controles de fases de metodología">
+          <button type="button" class="step-ctrl-btn prev" id="step-prev" aria-label="Paso anterior">‹</button>
+          <div class="steps-carousel-dots" id="steps-dots" aria-hidden="true">
+            {steps.map((_, idx) => (
+              <button type="button" class={`st-dot ${idx === 0 ? "active" : ""}`} data-idx={idx} aria-label={`Paso ${idx + 1}`}></button>
+            ))}
+          </div>
+          <button type="button" class="step-ctrl-btn next" id="step-next" aria-label="Paso siguiente">›</button>
+        </div>
+      </div>
+
+      <div class="method-cta-bar">
+        <a
+          href={wa(
+            "Hola equipo de Kamasqa 👋\n\n" +
+              "Quisiera iniciar con la *Fase 01: Reunión sin compromiso (15 min)* para conversar sobre la web de mi negocio."
+          )}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-pill-action"
+        >
+          <span>Empezar con el paso 1 (15 min gratis)</span>
+          <span class="action-arrow-circle" aria-hidden="true">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Control de carrusel en móvil para los pasos de metodología con autoplay interactivo
+  const stepsTrack = document.getElementById("steps-track");
+  const stepsDots = document.querySelectorAll(".steps-carousel-dots .st-dot");
+  const stepPrevBtn = document.getElementById("step-prev");
+  const stepNextBtn = document.getElementById("step-next");
+
+  if (stepsTrack && stepsDots.length > 0) {
+    let currentStepIdx = 0;
+    const totalSteps = stepsDots.length;
+    let autoStepTimer: number | null = null;
+
+    const scrollToStep = (idx: number) => {
+      const cards = stepsTrack.querySelectorAll<HTMLElement>(".step-card-editorial");
+      const card = cards[idx];
+      if (card && stepsTrack) {
+        const leftPos = card.offsetLeft - (stepsTrack.clientWidth - card.clientWidth) / 2;
+        stepsTrack.scrollTo({
+          left: Math.max(0, leftPos),
+          behavior: "smooth",
+        });
+      }
+      currentStepIdx = idx;
+      updateStepDots(idx);
+    };
+
+    const updateStepDots = (forcedIdx?: number) => {
+      let activeIdx = forcedIdx;
+      if (activeIdx === undefined) {
+        const scrollLeft = stepsTrack.scrollLeft;
+        const cardWidth = stepsTrack.querySelector<HTMLElement>(".step-card-editorial")?.offsetWidth || 260;
+        activeIdx = Math.round(scrollLeft / cardWidth);
+      }
+      if (activeIdx < 0) activeIdx = 0;
+      if (activeIdx >= totalSteps) activeIdx = totalSteps - 1;
+      stepsDots.forEach((dot, idx) => {
+        dot.classList.toggle("active", idx === activeIdx);
+      });
+      currentStepIdx = activeIdx;
+    };
+
+    const startAutoStep = () => {
+      if (autoStepTimer) clearInterval(autoStepTimer);
+      if (window.innerWidth <= 840) {
+        autoStepTimer = window.setInterval(() => {
+          const nextIdx = (currentStepIdx + 1) % totalSteps;
+          scrollToStep(nextIdx);
+        }, 4500);
+      }
+    };
+
+    const stopAutoStep = () => {
+      if (autoStepTimer) {
+        clearInterval(autoStepTimer);
+        autoStepTimer = null;
+      }
+    };
+
+    stepsTrack.addEventListener("scroll", () => updateStepDots(), { passive: true });
+
+    let touchStartX = 0;
+    stepsTrack.addEventListener("touchstart", (e) => {
+      stopAutoStep();
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+
+    stepsTrack.addEventListener("touchend", (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const diffX = touchEndX - touchStartX;
+      if (Math.abs(diffX) > 35) {
+        if (diffX < 0) {
+          const nextIdx = (currentStepIdx + 1) % totalSteps;
+          scrollToStep(nextIdx);
+        } else {
+          const prevIdx = (currentStepIdx - 1 + totalSteps) % totalSteps;
+          scrollToStep(prevIdx);
+        }
+      }
+      window.setTimeout(startAutoStep, 3500);
+    }, { passive: true });
+
+    stepNextBtn?.addEventListener("click", () => {
+      stopAutoStep();
+      const nextIdx = (currentStepIdx + 1) % totalSteps;
+      scrollToStep(nextIdx);
+      window.setTimeout(startAutoStep, 4000);
+    });
+
+    stepPrevBtn?.addEventListener("click", () => {
+      stopAutoStep();
+      const prevIdx = (currentStepIdx - 1 + totalSteps) % totalSteps;
+      scrollToStep(prevIdx);
+      window.setTimeout(startAutoStep, 4000);
+    });
+
+    stepsDots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        stopAutoStep();
+        const idx = Number(dot.getAttribute("data-idx") || 0);
+        scrollToStep(idx);
+        window.setTimeout(startAutoStep, 4000);
+      });
+    });
+
+    startAutoStep();
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 840) {
+        stopAutoStep();
+      } else if (!autoStepTimer) {
+        startAutoStep();
+      }
+    });
+  }
+</script>
+
+<style>
+  .editorial-bottom-section {
+    padding: clamp(3.5rem, 8vw, 6.5rem) 0;
+    position: relative;
+    background: transparent;
+  }
+
+  .method-layout-full {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .method-head-row {
+    margin-bottom: clamp(1.8rem, 3.5vw, 2.5rem);
+    max-width: 740px;
+  }
+
+  .method-main-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 0.8rem;
+  }
+
+  .method-lead {
+    font-size: clamp(1rem, 1.15vw, 1.125rem);
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  /* Tarjeta Principal de Cabecera */
+  .featured-card {
+    position: relative;
+    border-radius: 26px;
+    overflow: hidden;
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+  }
+
+  .fc-media {
+    position: relative;
+    height: 320px;
+    overflow: hidden;
+  }
+
+  .fc-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .featured-card:hover .fc-img {
+    transform: scale(1.04);
+  }
+
+  .fc-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(14, 18, 12, 0.85) 100%);
+  }
+
+  .fc-badge {
+    position: absolute;
+    top: 1.25rem;
+    left: 1.25rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    background: rgba(14, 20, 13, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.35rem 0.85rem;
+    border-radius: var(--radius-full);
+    backdrop-filter: blur(8px);
+  }
+
+  .fc-time-tag {
+    position: absolute;
+    bottom: 1.25rem;
+    left: 1.25rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--c-sand);
+    background: rgba(0, 0, 0, 0.55);
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--radius-full);
+    backdrop-filter: blur(6px);
+  }
+
+  .fc-caption {
+    padding: clamp(1.4rem, 2.5vw, 2rem);
+  }
+
+  .fc-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 2vw, 1.8rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  .fc-desc {
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  /* Grilla 4 Pasos en Fila Horizontal */
+  .steps-carousel-container {
+    position: relative;
+    margin-bottom: 2rem;
+  }
+
+  .steps-compact-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+
+  .step-card-editorial {
+    padding: 1.6rem 1.4rem;
+    border-radius: 20px;
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .step-card-editorial:hover {
+    transform: translateY(-2px);
+    border-color: rgba(110, 125, 78, 0.45);
+    box-shadow: 0 10px 24px rgba(14, 20, 13, 0.08);
+  }
+
+  .sce-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+
+  .sce-num {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: var(--c-sand);
+    background: #1C2418;
+    border: 1px solid rgba(216, 224, 199, 0.2);
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-full);
+  }
+
+  .sce-title {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.45rem;
+  }
+
+  .sce-text {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  /* Controles de carrusel: OCULTOS ESTRICTAMENTE EN DESKTOP */
+  .steps-carousel-controls {
+    display: none;
+  }
+
+  .steps-carousel-dots {
+    display: none;
+  }
+
+  .method-cta-bar {
+    display: flex;
+    margin-top: 0.5rem;
+  }
+
+  /* MODO RESPONSIVE (MÓVIL <= 840px) */
+  @media (max-width: 840px) {
+    .steps-compact-grid {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      gap: 1rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .steps-compact-grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .step-card-editorial {
+      flex: 0 0 calc(85% - 0.5rem);
+      min-width: 260px;
+      scroll-snap-align: center;
+    }
+
+    /* Mostrar controles únicamente en móvil */
+    .steps-carousel-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .step-ctrl-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--paper-card);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .step-ctrl-btn:active {
+      transform: scale(0.92);
+    }
+
+    .steps-carousel-dots {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .st-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--line-strong);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: all 0.2s ease;
+    }
+
+    .st-dot.active {
+      width: 18px;
+      border-radius: 4px;
+      background: var(--c-amber);
+    }
+  }
+
+  html[data-theme="dark"] .editorial-bottom-section {
+    background: transparent;
+  }
+
+  html[data-theme="dark"] .featured-card,
+  html[data-theme="dark"] .step-card-editorial {
+    background: #151B12;
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+</style>

@@ -1,0 +1,1490 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import WhatsAppFab from "../components/WhatsAppFab.astro";
+import SEO from "../components/SEO.astro";
+import type { Props as SEOProps } from "../components/SEO.astro";
+
+// Todas las props SEO se reenvían a <SEO />. Ver src/components/SEO.astro
+type Props = SEOProps;
+
+const seoProps = Astro.props;
+const GTM_ID = "GTM-K7DDXNNW";
+---
+
+<!doctype html>
+<html lang="es" id="top">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#192416" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" type="image/png" href="/icon.png" />
+    <link rel="apple-touch-icon" href="/icon.png" />
+
+    <!-- SEO On-Page -->
+    <SEO {...seoProps} />
+
+    <!-- Google Tag Manager (Partytown Web Worker) -->
+    <script
+      type="text/partytown"
+      is:inline
+      set:html={`
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','${GTM_ID}');
+      `}
+    />
+    <!-- End Google Tag Manager -->
+
+    <!-- [SEO TEAM]: Si se agrega sitemap, enlazarlo aquí:
+         <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" /> -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=JetBrains+Mono:wght@500;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script is:inline>
+      document.documentElement.classList.add("js");
+      try {
+        const savedTheme = localStorage.getItem("kamasqa_theme") || "light";
+        document.documentElement.setAttribute("data-theme", savedTheme);
+        if (sessionStorage.getItem("kamasqa_first_load") === "1") {
+          document.documentElement.classList.add("skip-preloader");
+        }
+      } catch (_) {}
+    </script>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript fallback) -->
+    <noscript>
+      <iframe
+        src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+        title="Google Tag Manager"
+      ></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- Animación de Carga Inicial (Solo se ejecuta la primera vez que se ingresa al sitio) -->
+    <div class="kamasqa-preloader" id="kamasqa-preloader" aria-hidden="true">
+      <div class="preloader-box">
+        <div class="preloader-logo">
+          <img src="/icon.png" alt="" width="38" height="38" />
+          <span>AMASQA</span>
+        </div>
+        <span class="preloader-sub">INGENIERÍA & DISEÑO WEB</span>
+        <div class="preloader-bar">
+          <div class="preloader-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lienzo de Fondo con Efecto Luciérnagas Kamasqa (Zero-Lag Hardware Accelerated) -->
+    <div class="scroll-ambient-canvas" id="scroll-ambient-canvas" aria-hidden="true">
+      <canvas id="fireflies-canvas" class="fireflies-canvas"></canvas>
+      <div class="sac-ambient-orb sac-orb-primary"></div>
+      <div class="sac-ambient-orb sac-orb-secondary"></div>
+      <div class="sac-vignette"></div>
+    </div>
+
+    <a href="#main" class="skip">Saltar al contenido</a>
+    <Header />
+    <main id="main" class="site-main">
+      <slot />
+    </main>
+    <Footer />
+    <WhatsAppFab />
+  </body>
+</html>
+
+<script>
+  // Control de animación de carga inicial (solo en el primer ingreso a la web)
+  const preloader = document.getElementById("kamasqa-preloader");
+  if (preloader && !document.documentElement.classList.contains("skip-preloader")) {
+    try {
+      sessionStorage.setItem("kamasqa_first_load", "1");
+    } catch (_) {}
+    window.setTimeout(() => {
+      preloader.classList.add("is-done");
+      window.setTimeout(() => {
+        preloader.remove();
+      }, 550);
+    }, 820);
+  } else if (preloader) {
+    preloader.remove();
+  }
+
+  // Observador de apariciones al hacer scroll
+  const initReveal = () => {
+    const items = document.querySelectorAll<HTMLElement>(".reveal:not(.in)");
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("in");
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -4% 0px" },
+    );
+    items.forEach((el) => io.observe(el));
+  };
+  initReveal();
+
+  // Control de iluminación ambiental sutil reactiva al scroll (Zero Lag 60/120 FPS)
+  const initScrollAmbient = () => {
+    const canvas = document.getElementById("scroll-ambient-canvas");
+    if (!canvas) return;
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+          const progress = maxScroll > 0 ? Math.min(1, Math.max(0, window.scrollY / maxScroll)) : 0;
+          document.documentElement.style.setProperty("--sp-progress", progress.toFixed(4));
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  };
+  initScrollAmbient();
+
+  // ========================================================
+  // SISTEMA DE LUCIÉRNAGAS KAMASQA (ZERO-LAG 60/120 FPS)
+  // Partículas luminosas orgánicas con deriva sinusoidal,
+  // pulso de intensidad real y adaptación de tono día/noche.
+  // ========================================================
+  const initFireflies = () => {
+    const canvas = document.getElementById("fireflies-canvas") as HTMLCanvasElement | null;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let animId = 0;
+    let isDark = document.documentElement.getAttribute("data-theme") === "dark";
+
+    const themeObserver = new MutationObserver(() => {
+      isDark = document.documentElement.getAttribute("data-theme") === "dark";
+    });
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+    interface Firefly {
+      x: number;
+      y: number;
+      baseRadius: number;
+      radius: number;
+      vx: number;
+      vy: number;
+      alpha: number;
+      pulseAngle: number;
+      pulseSpeed: number;
+      colorType: number;
+    }
+
+    const COUNT = window.innerWidth < 768 ? 20 : 36;
+    const fireflies: Firefly[] = [];
+
+    const resize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.scale(dpr, dpr);
+    };
+
+    const createFirefly = (): Firefly => ({
+      x: Math.random() * (width || window.innerWidth),
+      y: Math.random() * (height || window.innerHeight),
+      baseRadius: Math.random() * 1.6 + 1.2,
+      radius: 1.5,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: (Math.random() - 0.5) * 0.35 - 0.12,
+      alpha: Math.random() * 0.7 + 0.25,
+      pulseAngle: Math.random() * Math.PI * 2,
+      pulseSpeed: Math.random() * 0.022 + 0.014,
+      colorType: Math.floor(Math.random() * 3),
+    });
+
+    const init = () => {
+      resize();
+      fireflies.length = 0;
+      for (let i = 0; i < COUNT; i++) {
+        fireflies.push(createFirefly());
+      }
+    };
+
+    let lastScrollY = window.scrollY;
+    let scrollVelocity = 0;
+    window.addEventListener(
+      "scroll",
+      () => {
+        const current = window.scrollY;
+        scrollVelocity = (current - lastScrollY) * 0.035;
+        lastScrollY = current;
+      },
+      { passive: true },
+    );
+
+    const render = () => {
+      ctx.clearRect(0, 0, width, height);
+      scrollVelocity *= 0.92;
+
+      for (let i = 0; i < fireflies.length; i++) {
+        const f = fireflies[i];
+
+        f.pulseAngle += f.pulseSpeed;
+        f.x += f.vx + Math.sin(f.pulseAngle * 0.7) * 0.25;
+        f.y += f.vy - scrollVelocity + Math.cos(f.pulseAngle * 0.5) * 0.2;
+
+        const pulse = Math.sin(f.pulseAngle);
+        const currentAlpha = Math.max(0.06, Math.min(0.85, (pulse + 1) * 0.5 * f.alpha));
+        f.radius = f.baseRadius * (0.8 + 0.35 * (pulse + 1) * 0.5);
+
+        if (f.x < -25) f.x = width + 25;
+        else if (f.x > width + 25) f.x = -25;
+        if (f.y < -25) f.y = height + 25;
+        else if (f.y > height + 25) f.y = -25;
+
+        // Luces flotantes basadas estrictamente en la paleta oficial Kamasqa:
+        // #6E7D4E (Oliva), #D8E0C7 (Salvia), #AA7229 (Ámbar), #F0C48C (Arena)
+        let r = 240, g = 196, b = 140; // Arena #F0C48C por defecto
+        if (f.colorType === 1) {
+          r = 170; g = 114; b = 41; // Ámbar #AA7229
+        } else if (f.colorType === 2) {
+          r = 216; g = 224; b = 199; // Salvia #D8E0C7
+        }
+
+        if (!isDark) {
+          if (f.colorType === 0) {
+            r = 110; g = 125; b = 78; // Oliva #6E7D4E
+          } else if (f.colorType === 1) {
+            r = 170; g = 114; b = 41; // Ámbar #AA7229
+          } else {
+            r = 140; g = 92; b = 30; // Bronce suave
+          }
+        }
+
+        const glowGrad = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.radius * 3.8);
+        glowGrad.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${currentAlpha * 0.6})`);
+        glowGrad.addColorStop(0.5, `rgba(${r}, ${g}, ${b}, ${currentAlpha * 0.18})`);
+        glowGrad.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
+
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, f.radius * 3.8, 0, Math.PI * 2);
+        ctx.fillStyle = glowGrad;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, f.radius, 0, Math.PI * 2);
+        ctx.fillStyle = isDark
+          ? `rgba(255, 255, 255, ${currentAlpha * 0.95})`
+          : `rgba(${r}, ${g}, ${b}, ${currentAlpha * 0.85})`;
+        ctx.fill();
+      }
+
+      animId = requestAnimationFrame(render);
+    };
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        cancelAnimationFrame(animId);
+      } else {
+        animId = requestAnimationFrame(render);
+      }
+    });
+
+    window.addEventListener("resize", resize, { passive: true });
+
+    init();
+    animId = requestAnimationFrame(render);
+  };
+  initFireflies();
+
+  // ========================================================
+  // DICCIONARIO INTEGRAL ES (Perú) / EN (EE.UU.)
+  // Cubre el 100% de textos en Inicio, Servicios, Método,
+  // FAQ, Perfil, Cotizador, Detalles de Servicio, Header y Footer.
+  // ========================================================
+  const enDict: Record<string, string> = {
+    // Accesibilidad, Navegación & Header
+    "Saltar al contenido": "Skip to content",
+    "Inicio": "Home",
+    "Servicios": "Services",
+    "Método": "Method",
+    "Perfil": "Profile",
+    "Preguntas": "FAQ",
+    "Cotizador": "Estimator",
+    "Escríbenos": "Contact Us",
+    "Escribir por WhatsApp": "Chat on WhatsApp",
+    "Landing pages, tiendas y desarrollo": "Landing pages, online stores & custom dev",
+    "Proceso claro en 4 fases": "Clear 4-phase agile process",
+    "Dudas y cotizaciones resueltas": "Common questions & instant estimates",
+    "Filosofía, estándares y equipo": "Philosophy, standards & team",
+
+    // Hero Principal
+    "Agencia Digital · Lima, Perú": "Digital Agency · Lima, Peru",
+    "Agencia web · Lima, Perú": "Digital Agency · Lima, Peru",
+    "Tu negocio,": "Your business,",
+    "creciendo": "growing",
+    "en internet.": "online.",
+    "Diseñamos y desarrollamos páginas web a tu medida: landing pages, webs informativas y tiendas online. Primero conversamos, sin compromiso; después cotizamos.":
+      "We design and engineer bespoke websites: high-converting landing pages, corporate sites, and online stores. First we talk with zero obligation; then we quote.",
+    "Diseñamos y desarrollamos páginas web a tu medida: landing pages, webs informativas, tiendas online y sistemas a medida. Primero conversamos, sin compromiso; después cotizamos.":
+      "We design and engineer bespoke websites: high-converting landing pages, corporate sites, online stores, and custom software systems. First we talk with zero obligation; then we quote.",
+    "Agendar reunión sin compromiso": "Book a free discovery call",
+    "Calcular presupuesto": "Calculate budget",
+    "Reunión sin compromiso": "Free discovery call",
+    "Cotización transparente": "Transparent pricing",
+    "Pagos con Yape y Plin": "Local & card payments",
+
+    // TechMarquee
+    "STACK & HERRAMIENTAS": "TECH STACK & TOOLS",
+    "Desarrollo Web & CMS": "Web Dev & CMS",
+    "Interfaces Reactivas": "Reactive UI",
+    "Gráfica Vectorial": "Vector Graphics",
+    "Sitios Estáticos": "Static Sites",
+    "E-Commerce & Catálogo": "E-Commerce & Catalog",
+    "Operativo": "Active",
+    "Arquitectura Web": "Web Architecture",
+    "Tipado Seguro": "Type Safety",
+    "Interactividad": "Interactivity",
+    "Diseño UI/UX": "UI/UX Design",
+    "CMS & Gestión": "CMS & Content",
+    "Entorno Cloud": "Cloud Suite",
+    "Estilizado Avanzado": "Modern Styling",
+    "Backend & APIs": "Backend & APIs",
+    "Seguridad & SSL": "Security & SSL",
+    "Métricas & SEO": "Metrics & SEO",
+    "Conversión Directa": "Direct Conversion",
+    "Control de Versiones": "Version Control",
+
+    // Servicios (Home & Tarjetas Táctiles)
+    "Lo que hacemos": "What we do",
+    "Servicios pensados para": "Services designed to",
+    "avanzar": "move forward",
+    "avanzar.": "move forward.",
+    "Desde una primera cotización hasta la entrega final, tendrás un proceso claro, atención personalizada y soporte continuo.":
+      "From the initial quote to final delivery, you get a clear process, personalized attention, and ongoing support.",
+    "Cada negocio necesita una herramienta distinta. Elige la estructura que mejor acompañe el momento actual de tu marca.":
+      "Every business needs a distinct tool. Choose the structure that best supports your brand's current stage.",
+    "Páginas de alta conversión diseñadas para transformar clics de campañas y redes sociales en contactos reales por WhatsApp.":
+      "High-converting pages designed to turn ad and social media clicks into real WhatsApp contacts.",
+    "Sitios corporativos multipágina en WordPress o código a medida para presentar tu empresa, generar confianza y posicionar en Google.":
+      "Multi-page corporate websites in WordPress or custom code to showcase your company, build trust, and rank on Google.",
+    "Tiendas virtuales completas con catálogo autoadministrable, carrito de compras y pagos integrados con Yape, Plin y tarjetas.":
+      "Complete online stores with self-managed catalog, shopping cart, and integrated Yape, Plin, and card payments.",
+    "Plataformas web avanzadas, paneles administrativos, portales y sistemas con bases de datos e integraciones de software a medida.":
+      "Advanced web platforms, administrative dashboards, portals, and systems with databases and bespoke software integrations.",
+    "Plataformas web avanzadas, paneles administrativos, portales de clientes o sistemas con flujos e integraciones a medida.":
+      "Advanced web platforms, admin dashboards, client portals, or systems with tailored workflows and integrations.",
+    "Una sola página enfocada en transformar visitas y campañas de anuncios en clientes directos por WhatsApp.":
+      "A single focused page built to turn visits and ad campaigns into direct WhatsApp customers.",
+    "Tu sede digital multipágina para presentar tus servicios, generar respaldo comercial y posicionar en Google.":
+      "Your multi-page digital headquarters to showcase your services, build commercial trust, and rank on Google.",
+    "Catálogo completo con carrito de compras y pagos integrados con Yape, Plin y tarjetas las 24 horas.":
+      "Full catalog with shopping cart and integrated 24/7 checkout via Yape, Plin, and cards.",
+    "Campañas Ads": "Ad Campaigns",
+    "Anuncios Ads": "Ad Campaigns",
+    "WhatsApp": "WhatsApp",
+    "WhatsApp directo": "Direct WhatsApp",
+    "WhatsApp Directo": "Direct WhatsApp",
+    "Carga < 0.8s": "Load < 0.8s",
+    "Entrega 4-7 días": "4-7 days delivery",
+    "WordPress": "WordPress",
+    "Multipágina": "Multi-page",
+    "SEO Google": "Google SEO",
+    "SEO en Google": "Google SEO",
+    "SEO Google Perú": "Google SEO",
+    "Autogestionable": "Self-managed",
+    "WooCommerce": "WooCommerce",
+    "Yape & Plin": "Yape & Plin",
+    "Ventas 24/7": "24/7 Sales",
+    "Carrito 24/7": "24/7 Cart",
+    "Panel a Medida": "Custom Dashboard",
+    "APIs & Cloud": "APIs & Cloud",
+    "Escalable": "Scalable",
+    "Yape / Plin / Tarjetas": "Cards & Local Pay",
+    "Yape / Plin / Tarjeta": "Cards & Local Pay",
+    "Panel de pedidos": "Order dashboard",
+    "Conversión & Campañas": "Conversion & Ads",
+    "Autoridad Corporativa": "Corporate Authority",
+    "E-Commerce 24/7": "24/7 E-Commerce",
+    "Bespoke & Plataformas": "Bespoke & Platforms",
+    "⏱ 4 a 7 días hábiles": "⏱ 4 to 7 business days",
+    "⏱ 7 a 14 días hábiles": "⏱ 7 to 14 business days",
+    "⏱ 14 a 21 días hábiles": "⏱ 14 to 21 business days",
+    "⏱ 3 a 5 semanas": "⏱ 3 to 5 weeks",
+    "4 a 7 días hábiles": "4 to 7 business days",
+    "7 a 14 días hábiles": "7 to 14 business days",
+    "14 a 21 días hábiles": "14 to 21 business days",
+    "3 a 5 semanas": "3 to 5 weeks",
+    "A cotización": "Custom quote",
+    "A cotización formal": "Formal custom quote",
+    "Presupuesto": "Pricing",
+    "Inversión": "Investment",
+    "Desde S/": "From S/",
+    "Desde S/ 440": "From S/ 440",
+    "Desde S/ 880": "From S/ 880",
+    "Desde S/ 1440": "From S/ 1440",
+    "Desde S/ 1,440": "From S/ 1,440",
+    "Desde S/ 490": "From S/ 490",
+    "Desde S/ 950": "From S/ 950",
+    "Desde S/ 1490": "From S/ 1490",
+    "Soluciones Web": "Web Solutions",
+    "Nuestros Servicios": "Our Services",
+    "Ver proyecto": "View project",
+    "Ver proyecto →": "View project →",
+    "Destacado": "Featured",
+    "Ver detalles →": "View details →",
+    "Ver detalles": "View details",
+    "Páginas de alta conversión diseñadas para transformar clics de campañas en clientes reales.":
+      "High-converting pages built to turn ad clicks into real clients.",
+    "Tu sede digital multipágina para presentar tus servicios, generar respaldo y posicionar en Google.":
+      "Your multi-page digital headquarters to showcase services, build trust, and rank on Google.",
+    "Catálogo completo con carrito de compras y pagos integrados con Yape, Plin y tarjetas.":
+      "Full catalog with shopping cart and integrated local payments 24/7.",
+    "Plataformas web avanzadas, paneles administrativos y flujos de negocio a medida.":
+      "Advanced web platforms, administrative dashboards, and tailored business workflows.",
+    "Elige el formato ideal para tu negocio": "Choose the ideal format for your business",
+    "Landing Page": "Landing Page",
+    "Web Informativa": "Corporate Website",
+    "Tienda Online": "Online Store",
+    "Sistema o Plataforma a Medida": "Custom System or Platform",
+    "MOD // SISTEMA-MEDIDA": "MOD // SISTEMA-MEDIDA",
+    "Desde": "From",
+    "Explorar": "Explore",
+    "Popular now": "Popular now",
+
+    // Método (Fases, Widgets y Controles)
+    "Nuestra metodología": "Our methodology",
+    "Cómo trabajamos contigo en 4 pasos": "How we work with you in 4 steps",
+    "Te mostramos nuestra fórmula clara y sin rodeos para llevar tu negocio a internet.":
+      "Here is our clear, straightforward formula to bring your business online.",
+    "Conversamos": "We talk",
+    "15 min sin costo": "Free 15-min call",
+    "Nos reunimos 15 minutos sin compromiso para entender dónde estás, qué necesitas y a dónde quieres llegar.":
+      "We meet for 15 minutes with no obligation to understand where you are, what you need, and where you want to go.",
+    "Plan y propuesta": "Plan & proposal",
+    "En 24 horas": "Within 24 hours",
+    "Definimos juntos el alcance, los plazos de entrega y un presupuesto fijo por escrito, sin costos ocultos.":
+      "Together we define the scope, delivery timeline, and a fixed written budget with zero hidden fees.",
+    "Creamos tu web": "We build your site",
+    "Avances en vivo": "Live milestones",
+    "Diseñamos y programamos tu página a medida, mostrándote cada avance para que todo quede a tu gusto.":
+      "We custom-design and code your site, showing you every milestone so everything matches your vision.",
+    "Lista para vender": "Ready to grow",
+    "Dominio + SSL": "Domain + SSL",
+    "Publicamos tu web rápida y segura en tu propio dominio, lista para que tus clientes te encuentren.":
+      "We launch your fast, secure website on your own domain, ready for customers to find you.",
+    "Toca para avanzar →": "Tap to advance →",
+    "Siguiente paso": "Next step",
+    "Empezar con el paso 1 (15 min gratis)": "Start with step 1 (free 15-min call)",
+    "Metodología de Ingeniería & Diseño": "Engineering & Design Methodology",
+    "De tu primera idea a tu web publicada": "From your first idea to your live website",
+    "Un sistema transparente de 4 fases diseñado para que tengas claridad absoluta en plazos, entregables e inversión desde el primer día.":
+      "A transparent 4-phase system designed to give you complete clarity on timelines, deliverables, and investment from day one.",
+    "Etapas definidas": "Defined stages",
+    "4 a 14 días promedio": "4 to 14 days average",
+    "Transparente": "Transparent",
+    "Fase 01 · Diagnóstico": "Phase 01 · Discovery",
+    "Fase 02 · Estrategia": "Phase 02 · Strategy",
+    "Fase 03 · Ingeniería": "Phase 03 · Engineering",
+    "Fase 04 · Despegue": "Phase 04 · Launch",
+    "⏱ 15 a 20 min": "⏱ 15 to 20 min",
+    "⏱ En 24 horas": "⏱ Within 24 hours",
+    "⏱ 4 a 14 días": "⏱ 4 to 14 days",
+    "⏱ Puesta en Vivo": "⏱ Go Live",
+    "Sesión 1 a 1 · Meet o Llamada": "1-on-1 Session · Meet or Call",
+    "Tú": "You",
+    "Sin Compromiso": "No Obligation",
+    "Escuchamos tus objetivos comerciales": "We listen to your commercial goals",
+    "Asesoría honesta y sin presión": "Honest advice with zero pressure",
+    "Reunión inicial": "Discovery call",
+    "Conversamos sobre tu negocio, tu cliente ideal y tus metas de venta. Te orientamos con total claridad antes de tomar cualquier decisión.":
+      "We discuss your business, ideal customer, and sales goals. We guide you with total clarity before making any commitment.",
+    "100% libre de contratos forzosos": "100% free of forced contracts",
+    "PROPUESTA FORMAL": "FORMAL PROPOSAL",
+    "Documento Oficial": "Official Document",
+    "Alcance técnico:": "Technical scope:",
+    "Detallado": "Detailed",
+    "Cronograma:": "Timeline:",
+    "Garantizado": "Guaranteed",
+    "Inversión fija:": "Fixed investment:",
+    "Sin costos ocultos": "No hidden fees",
+    "PRESUPUESTO CERRADO GARANTIZADO": "GUARANTEED FIXED BUDGET",
+    "Cotización a medida": "Tailored proposal",
+    "Recibes una propuesta formal con el desglose exacto de secciones, funciones, plazos de entrega e inversión definitiva. Cero sorpresas.":
+      "You receive a formal proposal breaking down exact sections, features, delivery timelines, and fixed investment. Zero surprises.",
+    "Sabes qué recibes antes de iniciar": "Full clarity before starting",
+    "Velocidad": "Speed",
+    "Mobile": "Mobile",
+    "SEO": "SEO",
+    "Revisión interactiva en vivo contigo": "Live interactive review with you",
+    "Diseño y desarrollo": "Design & development",
+    "Diseñamos en Figma y programamos tu web desde cero con arquitectura ultrarrápida. Revisamos cada avance juntos antes de publicar.":
+      "We design in Figma and code your website from scratch with ultra-fast architecture. We review every milestone together before launch.",
+    "Aprobación directa paso a paso": "Step-by-step client approval",
+    "tu-empresa.pe": "your-company.com",
+    "Dominio + SSL + Hosting Global": "Domain + SSL + Global Hosting",
+    "📲 Embudo WhatsApp & Analítica activa": "📲 WhatsApp Funnel & Active Analytics",
+    "Lanzamiento y soporte": "Launch & support",
+    "Publicamos tu web en servidores de alta velocidad, conectamos tu dominio (.pe o .com) con certificado SSL y te brindamos soporte continuo.":
+      "We deploy on high-speed global servers, connect your custom domain with SSL security, and provide ongoing post-launch support.",
+    "Acompañamiento post-entrega real": "Dedicated post-launch support",
+    "Siguiente fase": "Next phase",
+    "Compromiso de Transparencia Kamasqa:": "Kamasqa Transparency Pledge:",
+    "La primera sesión dura 15 minutos, es gratuita y te entrega una hoja de ruta clara para tu proyecto.":
+      "The first session takes 15 minutes, is free of charge, and gives you a clear roadmap for your project.",
+    "Iniciar Fase 01 por WhatsApp": "Start Phase 01 on WhatsApp",
+
+    // FAQ
+    "Preguntas Frecuentes": "Frequently Asked Questions",
+    "Respuestas claras antes de dar el primer paso": "Clear answers before taking the first step",
+    "Creemos en la transparencia desde el primer minuto. Si tienes una consulta específica sobre tu rubro, escríbenos directo.":
+      "We believe in transparency from minute one. If you have a specific question about your industry, message us directly.",
+    "Atención directa · Lima, Perú": "Direct support · Lima, Peru",
+    "¿Prefieres resolver tus dudas por chat o agendar los 15 minutos gratuitos?":
+      "Prefer to clear up your questions via chat or book your free 15-minute call?",
+    "Consultar por WhatsApp": "Ask on WhatsApp",
+    "¿Cómo funciona la reunión sin compromiso?": "How does the free discovery call work?",
+    "Es una sesión breve de 15 a 20 minutos por Google Meet o llamada telefónica. Conversamos sobre tu negocio, tus objetivos comerciales y lo que necesitas lograr. Al finalizar, preparamos una cotización formal detallada. Tú decides con total libertad si avanzamos, sin ninguna presión.":
+      "It is a brief 15–20 minute session via Google Meet or phone call. We discuss your business, commercial goals, and what you need to achieve. Afterwards, we prepare a detailed formal quote. You decide freely whether to move forward, with zero pressure.",
+    "¿Cuánto tiempo toma tener mi página web lista?": "How long does it take to have my website ready?",
+    "Una Landing Page toma entre 4 y 7 días hábiles; una Web Informativa corporativa entre 7 y 14 días hábiles; y una Tienda Online completa entre 14 y 21 días hábiles. Cumplimos estrictamente el cronograma acordado.":
+      "A Landing Page takes 4 to 7 business days; a Corporate Website takes 7 to 14 business days; and a complete Online Store takes 14 to 21 business days. We strictly honor the agreed schedule.",
+    "Una Landing Page toma entre 4 y 7 días hábiles; una Web Informativa corporativa entre 7 y 14 días hábiles; una Tienda Online completa entre 14 y 21 días hábiles; y un Sistema o Plataforma a Medida entre 3 y 5 semanas. Cumplimos estrictamente el cronograma acordado.":
+      "A Landing Page takes 4 to 7 business days; a corporate Multi-Page Site 7 to 14 business days; a complete Online Store 14 to 21 business days; and a Custom System or Platform 3 to 5 weeks. We strictly honor the agreed schedule.",
+    "¿Cuánto cuesta desarrollar una web con Kamasqa?": "How much does it cost to build a website with Kamasqa?",
+    "Cada proyecto se cotiza de forma justa según su alcance real. Tras una breve reunión de 15 minutos te entregamos una propuesta técnica con presupuesto fijo por escrito, sin costos ocultos.":
+      "Every project is fairly quoted according to its true scope. After a brief 15-minute meeting we deliver a written technical proposal with fixed pricing and zero hidden fees.",
+    "¿Incluyen dominio (.pe o .com), hosting y certificado SSL?": "Do you include domain (.pe or .com), hosting, and SSL?",
+    "Sí. Te asesoramos en el registro de tu dominio propio (.pe o .com) a tu nombre, configuramos el despliegue en servidores de alta velocidad con certificado SSL seguro (candado https) y dejamos tus correos corporativos listos.":
+      "Yes. We guide you in registering your own domain under your name, configure high-speed global hosting with SSL security (https lock), and set up your corporate email accounts.",
+    "¿Qué facilidades y medios de pago aceptan?": "What payment terms and methods do you accept?",
+    "Trabajamos con el esquema 50% al iniciar el proyecto y 50% al entregarte tu web 100% terminada y aprobada por ti. Aceptamos transferencias bancarias (BCP, BBVA, Interbank, Scotiabank), Yape, Plin y tarjetas.":
+      "We work on a 50% deposit to start and 50% upon final approved delivery. We accept bank transfers, Yape, Plin, and credit/debit cards.",
+
+    // ContactBand & Footer Compacto
+    "Canal Oficial · Atención en Perú": "Official Channel · Lima, Peru",
+    "¿Hablamos sobre el próximo paso de tu": "Shall we talk about the next step for your",
+    "¿Hablamos sobre el próximo paso de tu negocio?": "Shall we talk about the next step for your business?",
+    "negocio": "business",
+    "Agenda tu reunión inicial de 15 minutos o escríbenos directo. Analizamos tu caso y te preparamos una propuesta clara.":
+      "Schedule your 15-minute discovery call or message us directly. We analyze your case and prepare a clear proposal.",
+    "Agenda tu reunión inicial de 15 minutos o escríbenos directo. Analizamos tu caso y te preparamos una propuesta clara sin compromiso.":
+      "Schedule your 15-minute discovery call or message us directly. We analyze your case and prepare a clear proposal with no obligation.",
+    "Iniciar chat": "Start chat",
+    "✓ Sin compromiso": "✓ No obligation",
+    "✓ Lunes a Sábado · 9:00 AM a 7:00 PM": "✓ Monday to Saturday · 9:00 AM to 7:00 PM",
+    "✓ Respuesta en menos de 15 min": "✓ Response in under 15 min",
+    "Respuesta en menos de 15 min": "Response in under 15 min",
+    "WHATSAPP DIRECTO": "DIRECT WHATSAPP",
+    "● En línea": "● Online now",
+    "Iniciar conversación ahora": "Start conversation now",
+    "Explorar Servicios →": "Explore Services →",
+    "Lima, Perú": "Lima, Peru",
+    "Ingeniería y diseño web a medida para negocios que buscan liderar en internet.":
+      "Bespoke web engineering and design for businesses looking to lead online.",
+    "Correo Oficial": "Official Email",
+    "Horario de Atención": "Business Hours",
+    "Lun – Sáb · 9:00 AM a 7:00 PM": "Mon – Sat · 9:00 AM to 7:00 PM",
+    "Volver arriba": "Back to top",
+    "Legal & Confianza": "Legal & Trust",
+    "Contacto Directo": "Direct Contact",
+    "Libro de Reclamaciones": "Complaints Book",
+    "Ley N.° 29733 (Perú) · Protección de Datos": "Law No. 29733 (Peru) · Data Protection",
+    "Términos de Servicio": "Terms of Service",
+    "Privacidad": "Privacy",
+    "Términos": "Terms",
+    "● Lima, Perú": "● Lima, Peru",
+
+    // Página de Perfil (/perfil)
+    "Perfil de Agencia · Lima, Perú": "Digital Agency · Lima, Peru",
+    "Damos": "We bring",
+    "vida": "life",
+    "y arquitectura digital a negocios con visión.": "and digital architecture to visionary businesses.",
+    "Kamasqa proviene del quechua y significa «aquello a lo que se le ha infundido vida, aliento y propósito». Como agencia digital, no fabricamos páginas en serie: creamos activos web con identidad propia, rendimiento superior y enfoque comercial.":
+      "Kamasqa comes from Quechua and means 'that which has been infused with life, breath, and purpose.' As a digital agency, we don't mass-produce sites: we craft digital assets with distinct identity, superior performance, and commercial focus.",
+    "Agendar reunión con el equipo": "Book a call with the team",
+    "Explorar Servicios": "Explore Services",
+    "Ver servicios": "View services",
+    "KAMASQA · AGENCIA DIGITAL": "KAMASQA · DIGITAL AGENCY",
+    "Lima, Perú · Estándar V3": "Lima, Peru · Standard V3",
+    "● Operativo": "● Active",
+    "«Infundir alma, energía vital y propósito a una creación para que cumpla su misión.»":
+      "“To infuse soul, vital energy, and purpose into a creation so it fulfills its mission.”",
+    "Velocidad media de carga": "Average load speed",
+    "Arquitectura optimizada de alto rendimiento": "High-performance optimized architecture",
+    "Diseño y desarrollo a medida": "Bespoke design & development",
+    "Código propio y WordPress profesional a tu medida": "Custom code & professional WordPress tailored to you",
+    "Trato directo sin intermediarios": "Direct 1-on-1 collaboration",
+    "Hablas directamente con el equipo que crea tu web": "You speak directly with the team building your site",
+    "Costos forzosos mensuales": "Forced monthly fees",
+    "Tú eres el único dueño de tu web y dominio": "You own 100% of your website and domain",
+    "ADN & Filosofía de Trabajo": "DNA & Work Philosophy",
+    "Cuatro pilares que separan una web común de un activo comercial":
+      "Four pillars that separate an ordinary site from a commercial asset",
+    "Combinamos rigor técnico de programación moderna con dirección de arte enfocada en el mercado peruano.":
+      "We combine modern software engineering rigor with art direction tailored to high-converting businesses.",
+    "PILAR // 01": "PILLAR // 01",
+    "PILAR // 02": "PILLAR // 02",
+    "PILAR // 03": "PILLAR // 03",
+    "PILAR // 04": "PILLAR // 04",
+    "Conversión Real": "Real Conversion",
+    "Cero Sorpresas": "Zero Surprises",
+    "Ingeniería Web & WordPress Optimizado": "Web Engineering & Optimized WordPress",
+    "Desarrollamos con código moderno (TypeScript, JavaScript) y entornos profesionales en WordPress para lograr carga veloz, autogestión y máxima conversión.":
+      "We build with modern code (TypeScript, JavaScript) and professional WordPress environments to achieve fast load times, self-management, and maximum conversion.",
+    "Diseño Editorial con Propósito": "Purposeful Editorial Design",
+    "Prototipamos en Figma cuidando la tipografía, el contraste y la psicología de color para que tu marca destaque frente a tu competencia.":
+      "We prototype in Figma crafting typography, contrast, and color psychology so your brand stands out from competitors.",
+    "Enfoque Comercial Peruano": "High-Conversion Commercial Focus",
+    "Conocemos cómo compra el cliente en Perú: integramos flujos nativos hacia WhatsApp, pagos con Yape/Plin y experiencias 100% móviles.":
+      "We integrate native conversational flows to WhatsApp, seamless local payments, and 100% mobile-first experiences.",
+    "Transparencia Total": "Total Transparency",
+    "Desde la primera reunión gratuita de 15 minutos hasta la entrega final: plazos cumplidos, presupuesto fijo por escrito y soporte cercano.":
+      "From the free 15-minute call to final delivery: honored deadlines, written fixed pricing, and close support.",
+    "Estándar de Calidad": "Quality Standard",
+    "Ingeniería Kamasqa frente a webs genéricas tradicionales": "Kamasqa Engineering vs. Traditional Generic Websites",
+    "5 Diferencias Clave": "5 Key Differences",
+    "FACTOR // 01": "FACTOR // 01",
+    "FACTOR // 02": "FACTOR // 02",
+    "FACTOR // 03": "FACTOR // 03",
+    "FACTOR // 04": "FACTOR // 04",
+    "FACTOR // 05": "FACTOR // 05",
+    "Velocidad de carga": "Loading speed",
+    "Menos de 1 segundo (Código y WordPress optimizado)": "Under 1 second (Optimized code & WordPress)",
+    "3 a 6 segundos sin optimización técnica": "3 to 6 seconds with no technical optimization",
+    "Seguridad técnica": "Technical security",
+    "100% blindada con SSL y protección en la nube": "100% hardened with SSL & cloud protection",
+    "Configuración básica expuesta a caídas": "Basic setup vulnerable to downtime",
+    "Autogestión y propiedad": "Self-management & ownership",
+    "100% tuya · Panel intuitivo sin cobros ocultos": "100% yours · Intuitive dashboard with no hidden fees",
+    "Costos sorpresa y dependencia constante": "Surprise fees and constant dependency",
+    "Identidad visual": "Visual identity",
+    "Diseño exclusivo creado para tu negocio": "Exclusive design crafted for your business",
+    "Diseño genérico repetido en cientos de webs": "Generic design repeated across hundreds of sites",
+    "Estrategia WhatsApp": "WhatsApp strategy",
+    "Embudo conversacional integrado en cada sección": "Conversational funnel integrated in every section",
+    "Solo un botón flotante básico sin estrategia": "Only a basic floating button with no strategy",
+    "✓ ESTÁNDAR KAMASQA": "✓ KAMASQA STANDARD",
+    "✕ Web Genérica Tradicional": "✕ Traditional Generic Site",
+    "Pasar siguiente": "Next card",
+    "Toca o desliza para pasar a la siguiente →": "Tap or swipe for next card →",
+
+    // Cotizador Interactivo (/cotizador)
+    "Laboratorio de Inversión · Kamasqa": "Investment Lab · Kamasqa",
+    "Cotizador Interactivo · Kamasqa": "Interactive Estimator · Kamasqa",
+    "Diseña el alcance de tu": "Design the scope of your",
+    "Calcula tu": "Calculate your",
+    "proyecto web": "web project",
+    "Elige tu proyecto y personaliza los extras en un solo panel.":
+      "Choose your project and customize extras in a single panel.",
+    "PROMOCIÓN LANZAMIENTO": "LAUNCH PROMOTION",
+    "-20% OFF": "-20% OFF",
+    "LANZAMIENTO -20%": "LAUNCH -20%",
+    "Tarifa preferencial activa": "Preferential launch rate active",
+    "✓ 50% al iniciar": "✓ 50% to start",
+    "✓ 50% al entregar": "✓ 50% upon delivery",
+    "✓ 50% al iniciar · 50% al entregar": "✓ 50% to start · 50% upon delivery",
+    "Proyecto y envergadura": "Project & scale",
+    "Extras y entrega": "Extras & delivery",
+    "PASO 01": "STEP 01",
+    "Elige tu arquitectura base": "Choose your base architecture",
+    "Tarifa lanzamiento (-20%)": "Launch rate (-20%)",
+    "Tipo de proyecto": "Project type",
+    "4 opciones": "4 options",
+    "ARQ-01 · Conversión": "ARQ-01 · Conversion",
+    "ARQ-02 · Institucional": "ARQ-02 · Corporate",
+    "ARQ-02 · Corporativa": "ARQ-02 · Corporate",
+    "ARQ-03 · E-Commerce": "ARQ-03 · E-Commerce",
+    "ARQ-04 · Bespoke": "ARQ-04 · Bespoke",
+    "ARQ-04 · A Medida": "ARQ-04 · Custom",
+    "Conversión": "Conversion",
+    "Institucional": "Corporate",
+    "Bespoke": "Bespoke",
+    "Una vista persuasiva enfocada en captar leads por WhatsApp.":
+      "A persuasive single-page layout focused on capturing WhatsApp leads.",
+    "Una sola vista para captar clientes desde anuncios hacia WhatsApp.":
+      "Single-page layout built to capture clients from ads to WhatsApp.",
+    "Web Corporativa": "Corporate Website",
+    "Sitio multipágina para presentar tu empresa y posicionar en Google.":
+      "Multi-page website to present your company and rank on Google.",
+    "Sede multipágina para presentar tu empresa y posicionar en Google.":
+      "Multi-page headquarters to present your company and rank on Google.",
+    "Catálogo, carrito y cobros automatizados listos para vender 24/7.":
+      "Catalog, shopping cart, and automated payments ready to sell 24/7.",
+    "Catálogo completo con carrito y cobros directos sin comisiones.":
+      "Complete catalog with shopping cart and zero-commission direct payments.",
+    "Web / Sistema a Medida": "Custom Web / System",
+    "Plataforma web, reservas o sistema programado para tu operación.":
+      "Web platform, booking system, or custom software built for your operation.",
+    "Plataforma, reservas o sistema web programado para tu operación.":
+      "Platform, booking system, or web app engineered for your operation.",
+    "Incluye de serie:": "Included by default:",
+    "✓ Diseño UI": "✓ UI Design",
+    "Diseño UI": "UI Design",
+    "✓ Embudo WhatsApp": "✓ WhatsApp Funnel",
+    "Embudo WhatsApp": "WhatsApp Funnel",
+    "✓ Formulario": "✓ Lead Form",
+    "Formulario": "Lead Form",
+    "✓ SSL": "✓ SSL Security",
+    "SSL": "SSL Security",
+    "✓ Multipágina": "✓ Multi-page",
+    "✓ Autoadministrable": "✓ Self-managed",
+    "✓ SEO base": "✓ Base SEO",
+    "SEO base": "Base SEO",
+    "✓ Catálogo": "✓ Product Catalog",
+    "Catálogo": "Product Catalog",
+    "✓ Carrito": "✓ Shopping Cart",
+    "Carrito": "Shopping Cart",
+    "✓ Pasarela Yape/Plin/Tarjetas": "✓ Yape/Plin/Card Gateway",
+    "Pasarela Yape/Plin/Tarjetas": "Yape/Plin/Card Gateway",
+    "✓ Panel": "✓ Order Panel",
+    "Panel": "Order Panel",
+    "✓ Ingeniería a medida": "✓ Custom Engineering",
+    "Ingeniería a medida": "Custom Engineering",
+    "✓ Panel admin": "✓ Admin Panel",
+    "Panel admin": "Admin Panel",
+    "✓ Pasarela pagos": "✓ Payment Gateway",
+    "Pasarela pagos": "Payment Gateway",
+    "✓ APIs": "✓ API Integrations",
+    "APIs": "API Integrations",
+    "Diseño UI, WhatsApp y SSL": "UI Design, WhatsApp & SSL",
+    "Multipágina, autogestión y SEO": "Multi-page, CMS & SEO",
+    "Catálogo + Carrito + Pasarela pagos": "Catalog + Cart + Payment Gateway",
+    "Sistema a medida + Panel + Pagos": "Custom System + Panel + Payments",
+    "Diseño UI, embudo WhatsApp y SSL": "UI Design, WhatsApp funnel & SSL",
+    "Multipágina, autogestión y SEO base": "Multi-page, CMS & base SEO",
+    "Catálogo + Carrito + Pasarela de pagos": "Catalog + Cart + Payment Gateway",
+    "Arquitectura a medida + Panel + Pagos": "Custom Architecture + Panel + Payments",
+    "ALCANCE": "SCOPE",
+    "PASO 02": "STEP 02",
+    "Nivel de profundidad y envergadura": "Depth & project scale",
+    "Base Operativa": "Operational Base",
+    "Base Operativa · ⚡ Sprint": "Operational Base · ⚡ Sprint",
+    "Lo indispensable para salir al aire": "The essentials to go live",
+    "Lo indispensable para salir al aire.": "The essentials to go live.",
+    "Expansión Comercial": "Commercial Expansion",
+    "Expansión Comercial · ⚡ Sprint": "Commercial Expansion · ⚡ Sprint",
+    "Más secciones, comparativas y animaciones": "More sections, comparisons & animations",
+    "Más secciones, comparativas y animaciones.": "More sections, comparisons & animations.",
+    "Corporativo Pro": "Corporate Pro",
+    "Corporativo Pro · ⚡ Sprint": "Corporate Pro · ⚡ Sprint",
+    "Máxima profundidad visual y escala": "Maximum visual depth & scalability",
+    "Máxima profundidad visual y escala.": "Maximum visual depth & scalability.",
+    "Base": "Base",
+    "Paso 1 de 2 · Continúa para personalizar extras": "Step 1 of 2 · Continue to customize extras",
+    "Siguiente: Extras y entrega": "Next: Extras & delivery",
+    "Continuar a Extras y entrega →": "Continue to Extras & delivery →",
+    "PASO 03": "STEP 03",
+    "Módulos y potenciadores": "Modules & enhancers",
+    "Módulos adicionales": "Extra modules",
+    "Limpiar extras": "Clear extras",
+    "Pasarela de pagos (Yape, Plin y tarjetas)": "Payment gateway (Yape, Plin & cards)",
+    "Cobros directos (Ya incluido gratis en Tienda Online).":
+      "Direct checkout (Already included free in Online Store).",
+    "Copywriting y textos comerciales": "Commercial copywriting & messaging",
+    "Redacción persuasiva enfocada en ventas.": "Persuasive sales-focused copywriting.",
+    "Redacción comercial & Copywriting": "Commercial copywriting",
+    "Redactamos los textos de venta por ti.": "We write all persuasive sales copy for you.",
+    "SEO Google Pro + Píxeles Ads": "Google SEO Pro + Ad Pixels",
+    "Posicionamiento en Google y medición Meta/Analytics.": "Google ranking setup and Meta/Analytics tracking.",
+    "Optimización en Google y medición de anuncios.": "Google optimization and ad conversion tracking.",
+    "Dominio (.pe / .com) + Correos": "Domain (.pe / .com) + Emails",
+    "Dominio anual propio y cuentas @tuempresa.": "Annual custom domain and @yourcompany email accounts.",
+    "Dominio anual y cuentas corporativas.": "Annual domain registration and corporate emails.",
+    "Versión Bilingüe (ES / EN)": "Bilingual Version (ES / EN)",
+    "Sitio completo en español e inglés.": "Complete website in Spanish and English.",
+    "Web completa en español e inglés.": "Complete website in Spanish and English.",
+    "✓ Incluido (S/ 0)": "✓ Included (S/ 0)",
+    "ENTREGA": "DELIVERY",
+    "PASO 04": "STEP 04",
+    "Prioridad de calendario": "Schedule priority",
+    "Ritmo de entrega": "Delivery pace",
+    "Cronograma Estándar": "Standard Schedule",
+    "Estándar": "Standard",
+    "Tarifa base": "Base rate",
+    "Plazo regular según la arquitectura elegida.": "Standard timeline according to the selected architecture.",
+    "Plazo habitual según proyecto.": "Standard timeline per project.",
+    "Sprint Prioritario ⚡": "Priority Sprint ⚡",
+    "Entrega acelerada para lanzamientos urgentes.": "Accelerated delivery for urgent launches.",
+    "Entrega acelerada urgente.": "Urgent accelerated delivery.",
+    "Volver a proyecto": "Back to project",
+    "← Volver a Proyecto y envergadura": "← Back to Project & scale",
+    "Tu presupuesto está listo en el Dossier →": "Your quote is ready in the Dossier →",
+    "DOSSIER DE INVERSIÓN": "INVESTMENT DOSSIER",
+    "Inversión estimada (PEN)": "Estimated investment (PEN)",
+    "50% al iniciar": "50% to start",
+    "50% al entregar": "50% upon delivery",
+    "Arquitectura": "Architecture",
+    "Proyecto": "Project",
+    "Envergadura": "Scale",
+    "De serie": "Standard",
+    "Extras": "Extras",
+    "Ninguno": "None",
+    "Plazo estimado": "Estimated timeline",
+    "4 a 7 días hábiles (Sprint Prioritario)": "4 to 7 business days (Priority Sprint)",
+    "7 a 14 días hábiles (Sprint Prioritario)": "7 to 14 business days (Priority Sprint)",
+    "14 a 21 días hábiles (Sprint Prioritario)": "14 to 21 business days (Priority Sprint)",
+    "3 a 5 semanas (Sprint Prioritario)": "3 to 5 weeks (Priority Sprint)",
+    "Solicitar este alcance por WhatsApp": "Request this scope via WhatsApp",
+    "🔒 Reunión inicial gratuita de 15 min para definir tu presupuesto fijo.":
+      "🔒 Free 15-min discovery call to confirm your exact fixed quote.",
+    "🔒 Reunión inicial gratuita de 15 min antes de cualquier compromiso.":
+      "🔒 Free 15-min discovery call before any commitment.",
+
+    // Páginas de Detalle de Servicios (/servicios/[slug])
+    "Volver a servicios": "Back to services",
+    "Plazo de entrega": "Delivery timeline",
+    "Inversión referencial": "Reference investment",
+    "Cotizar Landing Page por WhatsApp": "Quote Landing Page on WhatsApp",
+    "Cotizar Web Informativa por WhatsApp": "Quote Corporate Website on WhatsApp",
+    "Cotizar Tienda Online por WhatsApp": "Quote Online Store on WhatsApp",
+    "Ver proceso de trabajo": "View workflow",
+    "RENDIMIENTO & APLICACIÓN": "PERFORMANCE & APPLICATION",
+    "● Verificado": "● Verified",
+    "¿Para quién está diseñado?": "Who is it designed for?",
+    "Escenarios de máximo retorno:": "High-return scenarios:",
+    "Ingeniería de Detalle": "Detail Engineering",
+    "Pilares incluidos en tu Landing Page": "Pillars included in your Landing Page",
+    "Pilares incluidos en tu Web Informativa": "Pillars included in your Corporate Website",
+    "Pilares incluidos en tu Tienda Online": "Pillars included in your Online Store",
+    "Cada entregable se diseña desde cero para garantizar velocidad, estética editorial y conversión comercial.":
+      "Every deliverable is engineered from scratch to guarantee speed, editorial aesthetics, and commercial conversion.",
+    "Incluido": "Included",
+    "Checklist de Entrega": "Delivery Checklist",
+    "¿Qué incluye exactamente tu proyecto?": "What does your project include?",
+    "Proceso Sin Riesgo": "Risk-Free Process",
+    "Empieza con una reunión gratuita de 15 minutos": "Start with a free 15-minute discovery call",
+    "Antes de cualquier compromiso, nos reunimos por Google Meet o llamada para escuchar tu idea y enviarte una cotización formal cerrada.":
+      "Before any commitment, we meet via Google Meet or phone to hear your idea and send you a fixed formal quote.",
+    "Al iniciar el desarrollo": "To start development",
+    "Contra entrega aprobada": "Upon approved delivery",
+    "Agendar reunión para Landing Page": "Book a call for Landing Page",
+    "Agendar reunión para Web Informativa": "Book a call for Corporate Website",
+    "Agendar reunión para Tienda Online": "Book a call for Online Store",
+    "Explora Otras Arquitecturas": "Explore Other Architectures",
+    "Otros servicios que desarrollamos": "Other services we engineer",
+    "Una página de alto impacto diseñada con un único fin: convertir visitas en clientes reales por WhatsApp o formulario.":
+      "A high-impact page designed with a single goal: turning visits into real customers via WhatsApp or lead form.",
+    "Tu sede digital oficial: transmite solidez, presenta tus servicios en detalle y posiciona tu marca en Google.":
+      "Your official digital headquarters: convey authority, present your services in detail, and rank your brand on Google.",
+    "Tu catálogo digital con carrito de compras y pagos locales para vender todos los días en todo el Perú sin comisiones.":
+      "Your digital catalog with shopping cart and local payments to sell every day nationwide with zero commissions.",
+    "Explorar servicio": "Explore service",
+
+    // Textos de Landing Page (/servicios/landing-page)
+    "Estructura persuasiva de principio a fin. Ideal para rentabilizar tus campañas en Meta Ads, TikTok Ads y Google Ads con velocidad de carga instantánea.":
+      "Persuasive structure from start to finish. Ideal to maximize ROI on Meta Ads, TikTok Ads, and Google Ads with instant loading speed.",
+    "Lanzamientos de productos, servicios profesionales, campañas pagadas, inmobiliarias, clínicas y captación acelerada de leads.":
+      "Product launches, professional services, paid ad campaigns, real estate, clinics, and accelerated lead generation.",
+    "Arquitectura de persuasión y copywriting enfocado en conversión":
+      "Persuasive architecture and conversion-focused copywriting",
+    "Botones estratégicos y embudo directo hacia tu WhatsApp":
+      "Strategic CTA buttons and direct funnel to your WhatsApp",
+    "Formulario inteligente de contacto rápido sin fricción":
+      "Smart frictionless quick-contact form",
+    "Diseño 100% Mobile-First (optimizado para tráfico de redes sociales)":
+      "100% Mobile-First design (optimized for social media traffic)",
+    "Integración de Píxel de Meta, TikTok y Google Analytics 4":
+      "Meta Pixel, TikTok Pixel, and Google Analytics 4 integration",
+    "Certificado SSL de seguridad y despliegue en red global ultrarrápida":
+      "SSL security certificate and ultra-fast global CDN deployment",
+    "Diseño UI a medida en Figma": "Bespoke UI Design in Figma",
+    "Identidad visual única, sin plantillas repetidas, alineada a tu marca.":
+      "Unique visual identity, free of repeated templates, aligned with your brand.",
+    "Copywriting Comercial": "Commercial Copywriting",
+    "Titulares, argumentos de venta y llamados a la acción que conectan con tu cliente.":
+      "Headlines, sales arguments, and calls to action that connect with your customer.",
+    "Optimización Core Web Vitals": "Core Web Vitals Optimization",
+    "Carga en menos de 1 segundo para que no pierdas ningún clic de tus anuncios.":
+      "Loads in under 1 second so you never lose a single paid ad click.",
+    "Conexión Directa a WhatsApp": "Direct WhatsApp Connection",
+    "Mensajes pre-configurados según la sección desde donde te escriba el cliente.":
+      "Pre-configured messages tailored to the section the client contacts you from.",
+    "Tiempo de carga": "Load time",
+    "Adaptada a móvil": "Mobile optimized",
+    "Retención de clics": "Click retention",
+    "Campañas de anuncios en Instagram, Facebook y TikTok":
+      "Ad campaigns on Instagram, Facebook, and TikTok",
+    "Servicios médicos, odontológicos, legales o consultorías":
+      "Medical, dental, legal, or consulting services",
+    "Preventa de proyectos, talleres, eventos o infoproductos":
+      "Pre-sales of projects, workshops, events, or digital products",
+
+    // Textos de Web Informativa (/servicios/web-informativa)
+    "Un sitio web multipágina completo desarrollado a medida o con gestión en WordPress, que respalda la trayectoria de tu empresa, genera confianza en clientes corporativos y trabaja 24/7.":
+      "A complete multi-page website built with custom code or WordPress management, backing your company's track record, building corporate trust, and working 24/7.",
+    "Empresas consolidadas, constructoras, estudios contables/legales, clínicas, agencias, consultoras y marcas B2B o B2C.":
+      "Established companies, construction firms, accounting/law firms, clinics, agencies, consultancies, and B2B/B2C brands.",
+    "Múltiples páginas o secciones: Inicio, Nosotros, Servicios, Proyectos y Contacto":
+      "Multiple pages or sections: Home, About Us, Services, Projects, and Contact",
+    "Diseño editorial exclusivo alineado al manual de tu marca":
+      "Exclusive editorial design aligned with your brand guidelines",
+    "Estructura SEO técnica avanzada para indexar en Google Perú":
+      "Advanced technical SEO structure to rank on Google",
+    "Módulo de preguntas frecuentes, casos de éxito y respaldos de confianza":
+      "FAQ module, case studies, and trust endorsements",
+    "Integración de canales directos: WhatsApp, correos corporativos y mapa interactivo":
+      "Direct channel integration: WhatsApp, corporate emails, and interactive map",
+    "Capacitación de autogestión (WordPress / Panel) y soporte post-lanzamiento":
+      "Self-management training (WordPress / Dashboard) and post-launch support",
+    "Arquitectura Multipágina": "Multi-Page Architecture",
+    "Navegación intuitiva para que tus clientes conozcan cada línea de servicio a fondo.":
+      "Intuitive navigation so your clients can explore every service line in depth.",
+    "SEO Técnico & Semántico": "Technical & Semantic SEO",
+    "Metadatos, Schema.org, sitemap XML y estructura H1-H3 lista para posicionar.":
+      "Metadata, Schema.org, XML sitemap, and H1–H3 structure ready to rank.",
+    "Ecosistema Corporativo": "Corporate Ecosystem",
+    "Vinculación con Google Workspace, correos con tu dominio propio y formularios.":
+      "Google Workspace integration, custom domain emails, and lead forms.",
+    "Seguridad Blindada": "Hardened Security",
+    "Infraestructura optimizada de alto rendimiento y protegida con certificado SSL.":
+      "High-performance optimized infrastructure protected with SSL security.",
+    "Puntaje SEO Técnico": "Technical SEO Score",
+    "Presencia institucional": "Institutional presence",
+    "Empresas que licitan o atienden a clientes corporativos (B2B)":
+      "Companies bidding on tenders or serving corporate clients (B2B)",
+    "Marcas que buscan aparecer en Google cuando buscan su rubro en Perú":
+      "Brands looking to rank on Google when customers search their industry",
+    "Negocios que necesitan renovar una web antigua por una moderna y veloz":
+      "Businesses needing to upgrade an outdated site into a fast modern platform",
+
+    // Textos de Tienda Online (/servicios/tienda-online)
+    "Una plataforma de comercio electrónico ágil, intuitiva y pensada para el comprador peruano: compra rápida en celular, pagos con Yape/Plin/Tarjetas y panel autoadministrable.":
+      "An agile, intuitive e-commerce platform built for modern buyers: fast mobile checkout, local wallet & card payments, and self-managed dashboard.",
+    "Marcas de moda, calzado, cosmética, tecnología, suplementos, tiendas físicas que se expanden a internet y distribuidoras.":
+      "Fashion, footwear, cosmetics, tech, supplement brands, physical stores expanding online, and distributors.",
+    "Catálogo organizado por categorías, filtros, tallas, colores y variantes":
+      "Catalog organized by categories, filters, sizes, colors, and variants",
+    "Carrito de compras ultrarrápido y proceso de checkout sin trabas":
+      "Ultra-fast shopping cart and frictionless checkout flow",
+    "Pasarelas de pago locales: Yape, Plin, transferencia y tarjetas (Culqi / Niubiz / Izipay)":
+      "Local & card payment gateways: Yape, Plin, bank transfer, and cards",
+    "Notificación instantánea de cada pedido directo a tu WhatsApp y correo":
+      "Instant order notifications sent straight to your WhatsApp and email",
+    "Panel autoadministrable (WordPress / WooCommerce o a medida) para productos y stock":
+      "Self-managed dashboard (WordPress / WooCommerce or custom) for products and stock",
+    "Cálculo de envíos por distritos de Lima y provincias de todo el Perú":
+      "Automated shipping calculation across Lima districts and nationwide provinces",
+    "Catálogo & Variantes": "Catalog & Variants",
+    "Fichas de producto optimizadas con galería de fotos, precios de oferta y stock.":
+      "Optimized product pages with photo galleries, sale pricing, and stock control.",
+    "Checkout Local Peruano": "Seamless Local Checkout",
+    "Integración fluida con Yape, Plin y tarjetas de crédito/débito sin comisiones ocultas.":
+      "Smooth integration with Yape, Plin, and credit/debit cards with no hidden fees.",
+    "Panel de Autogestión": "Self-Management Dashboard",
+    "Administra tus pedidos, sube nuevos productos y crea cupones desde tu celular o PC.":
+      "Manage orders, upload new products, and create coupons from your phone or PC.",
+    "Pedidos por WhatsApp": "WhatsApp Hybrid Orders",
+    "Opción híbrida para clientes que prefieren finalizar su carrito directo en WhatsApp.":
+      "Hybrid option for customers who prefer completing their cart directly on WhatsApp.",
+    "Comisión por venta": "Sales commission",
+    "Autoadministrable": "Self-manageable",
+    "Todo Perú": "Nationwide",
+    "Cobertura de envíos": "Shipping coverage",
+    "Tiendas por Instagram o TikTok que quieren automatizar sus ventas y stock":
+      "Instagram or TikTok shops looking to automate their sales and inventory",
+    "Negocios con local físico que desean vender las 24 horas a nivel nacional":
+      "Physical stores looking to sell 24/7 across the entire country",
+    "Marcas propias que buscan independizarse de marketplaces con altas comisiones":
+      "Independent brands looking to break free from high-commission marketplaces",
+
+    // Textos de Web / Sistema a Medida (/servicios/sistema-medida)
+    "Desarrollo de ingeniería con arquitectura escalable, bases de datos relacionales, autenticación de usuarios, paneles de control y APIs para empresas con necesidades operativas únicas.":
+      "Engineering development with scalable architecture, relational databases, user authentication, control panels, and APIs for businesses with unique operational needs.",
+    "Empresas con flujos comerciales específicos, inmobiliarias con buscador avanzado, academias, portales de clientes y startups.":
+      "Companies with specific commercial workflows, real estate firms with advanced search, academies, client portals, and startups.",
+    "Arquitectura de software personalizada con React, Astro, Node.js o TypeScript":
+      "Custom software architecture with React, Astro, Node.js, or TypeScript",
+    "Panel de administración a medida con roles de usuario y permisos avanzados":
+      "Bespoke admin dashboard with user roles and advanced granular permissions",
+    "Base de datos escalable, modelado relacional y respaldos automáticos":
+      "Scalable database, relational data modeling, and automated backups",
+    "Autenticación segura de usuarios (login, registro y recuperación de accesos)":
+      "Secure user authentication (login, registration, and password recovery)",
+    "Integración de APIs de terceros (pasarelas de pago, CRM, ERP o WhatsApp)":
+      "Third-party API integrations (payment gateways, CRM, ERP, or WhatsApp)",
+    "Despliegue cloud de alta disponibilidad con monitoreo y soporte continuo":
+      "High-availability cloud deployment with monitoring and continuous support",
+    "Arquitectura & Backend a Medida": "Bespoke Architecture & Backend",
+    "Modelado relacional de datos y APIs optimizadas para máxima velocidad y seguridad.":
+      "Relational data modeling and optimized APIs built for maximum speed and security.",
+    "Panel de Gestión Administrativa": "Administrative Management Dashboard",
+    "Interfaz intuitiva para controlar usuarios, operaciones, reportes y métricas.":
+      "Intuitive interface to manage users, operational workflows, reports, and metrics.",
+    "Seguridad & Control de Roles": "Security & Role-Based Access Control",
+    "Cifrado de datos, autenticación robusta y permisos segmentados por usuario.":
+      "Data encryption, robust authentication, and segmented user permissions.",
+    "Integración de Ecosistemas": "Ecosystem Integrations",
+    "Conexión bidireccional con pasarelas de pago, facturación electrónica o CRM.":
+      "Bidirectional connection with payment gateways, electronic invoicing, or CRM.",
+    "Disponibilidad Cloud": "Cloud Uptime",
+    "Código propietario": "Proprietary code",
+    "Crecimiento sin límites": "Limitless growth",
+    "Plataformas de gestión interna, portales de clientes o extranets":
+      "Internal operations platforms, client portals, or extranets",
+    "Inmobiliarias o catálogos dinámicos con CRM sincronizado":
+      "Real estate agencies or dynamic catalogs synced with CRM",
+    "Empresas y startups que necesitan flujos y funcionalidades únicas":
+      "Enterprises and startups requiring unique workflows and bespoke features",
+    "Cotizar Web / Sistema a Medida por WhatsApp": "Quote Custom Web / System on WhatsApp",
+    "Agendar reunión para Web / Sistema a Medida": "Book a call for Custom Web / System",
+    "Pilares incluidos en tu Web / Sistema a Medida": "Pillars included in your Custom Web / System",
+
+    // Página 404 & Drawer Móvil
+    "Error 404": "Error 404",
+    "Esta página": "This page",
+    "no existe": "does not exist",
+    "Quizá el enlace cambió. Vuelve al inicio o escríbenos y te ayudamos.":
+      "Perhaps the link changed. Return home or message us and we will help you.",
+    "Volver al inicio": "Back to home",
+    "MENÚ DE NAVEGACIÓN": "NAVIGATION MENU",
+    "● Atención en línea": "● Online support",
+    "Portada y visión": "Home & overview",
+    "Soluciones a medida": "Custom solutions",
+    "Proceso en 4 fases": "4-stage process",
+    "ADN y estándares": "DNA & standards",
+    "Dudas frecuentes": "Common questions",
+    "Simulador en vivo": "Live simulator",
+    "CANAL DIRECTO WHATSAPP": "DIRECT WHATSAPP CHANNEL",
+    "Reunión de 15 min o cotización sin compromiso": "15-min meeting or no-commitment quote",
+    "✓ Lima, Perú": "✓ Lima, Peru",
+    "✓ Lun – Sáb · 9:00 AM a 7:00 PM": "✓ Mon – Sat · 9:00 AM to 7:00 PM",
+
+    // Páginas Legales & Footer
+    "Política de Privacidad": "Privacy Policy",
+    "Términos y Condiciones": "Terms and Conditions",
+    "Términos y Condiciones de Servicio": "Terms and Conditions of Service",
+    "DOCUMENTO LEGAL · PROTECCIÓN DE DATOS": "LEGAL DOCUMENT · DATA PROTECTION",
+    "DOCUMENTO LEGAL · CONTRATACIÓN DIGITAL": "LEGAL DOCUMENT · DIGITAL CONTRACTING",
+    "Ley N.° 29733 (Perú)": "Law No. 29733 (Peru)",
+    "Legislación de Perú": "Peruvian Legislation",
+    "ÍNDICE DE CONTENIDOS": "TABLE OF CONTENTS",
+    "ÍNDICE DE CLÁUSULAS": "TABLE OF CLAUSES",
+    "Última actualización:": "Last updated:",
+    "Todos los derechos reservados.": "All rights reserved.",
+    "1. Responsable del tratamiento y alcance": "1. Data Controller and Scope",
+    "2. Datos personales que recopilamos": "2. Personal Data We Collect",
+    "3. Para qué usamos tus datos y base legal": "3. Purposes and Legal Basis",
+    "4. Cookies y analítica web": "4. Cookies and Web Analytics",
+    "5. Con quién compartimos tus datos": "5. Who We Share Your Data With",
+    "6. Plazo de conservación y seguridad": "6. Retention Period and Security",
+    "7. Tus derechos y cómo ejercerlos": "7. Your Rights and How to Exercise Them",
+    "8. Menores de edad": "8. Minors",
+    "9. Datos por encargo de nuestros clientes": "9. Data Handled on Behalf of Clients",
+    "10. Contacto y cambios en esta política": "10. Contact and Policy Updates",
+    "1. Identificación de la empresa y aceptación": "1. Company Identification and Acceptance",
+    "2. Servicios que ofrece KAMASQA": "2. Services Offered by KAMASQA",
+    "3. Cotizaciones y proceso de contratación": "3. Quotes and Contracting Process",
+    "4. Precios, medios de pago y comprobantes": "4. Pricing, Payment Methods and Invoices",
+    "5. Plazos de entrega referenciales": "5. Estimated Delivery Timelines",
+    "6. Revisiones y cambios adicionales": "6. Revisions and Additional Changes",
+    "7. Obligaciones del cliente": "7. Client Obligations",
+    "8. Propiedad intelectual y autoría": "8. Intellectual Property and Authorship",
+    "9. Alojamiento, mantenimiento y correos": "9. Hosting, Maintenance and Corporate Emails",
+    "10. Cancelaciones y reembolsos": "10. Cancellations and Refunds",
+    "11. Limitación de responsabilidad": "11. Limitation of Liability",
+    "12. Uso web, privacidad y Libro de Reclamaciones": "12. Website Use, Privacy and Complaints Book",
+    "13. Ley aplicable, jurisdicción y contacto": "13. Applicable Law, Jurisdiction and Contact",
+
+    // Hero & Acciones
+    "Tu negocio, creciendo en internet.": "Your business, growing online.",
+    "Hablar con Kamasqa por WhatsApp": "Talk with Kamasqa on WhatsApp",
+    "Chatear con nosotros": "Chat with us",
+    "Equipo en línea": "Team online",
+
+    // WorldCoverage & Conectividad Global
+    "Proyectos y Cobertura Digital": "Global Digital Projects & Reach",
+    "sin fronteras.": "without boundaries.",
+    "Proyectos y Cobertura Digital sin fronteras.": "Global Digital Projects & Reach without boundaries.",
+    "Nuestras plataformas operan sobre infraestructura en la nube distribuida globalmente (Edge CDN). Tu web cargará a velocidad instantánea en Perú y cualquier parte del mundo, respaldada por atención directa en tu propio huso horario.":
+      "Our platforms operate on globally distributed cloud infrastructure (Edge CDN). Your website will load instantly in Peru and anywhere in the world, backed by direct support in your timezone.",
+    "Sede Central en Lima, Perú": "Headquarters in Lima, Peru",
+    "Atención técnica directa sin intermediarios de Lunes a Sábado.": "Direct technical support without intermediaries from Monday to Saturday.",
+    "Red de Distribución Edge CDN": "Edge CDN Distribution Network",
+    "Contenido servido desde los 300+ centros de datos más cercanos a cada usuario.": "Content served from 300+ data centers closest to each user.",
+    "99.9% de Disponibilidad y Seguridad SSL": "99.9% Uptime & SSL Security",
+    "Certificados criptográficos y protección nativa contra caídas de servidor.": "Cryptographic certificates and native server outage protection.",
+    "Lima (HQ) · En Línea · UTC-5": "Lima (HQ) · Online · UTC-5",
+    "Lima, PE (Sede Central)": "Lima, PE (Headquarters)",
+
+    // ContactReach
+    "Cómo Contactarnos": "How to Contact Us",
+    "Creemos en la atención técnica directa. Hablarás directamente con los ingenieros y diseñadores a cargo de tu proyecto, sin intermediarios ni bots que den respuestas genéricas.":
+      "We believe in direct technical communication. You speak directly with the engineers and designers building your site, without intermediaries or generic bots.",
+    "Atención Oficial · Perú": "Official Support · Peru",
+    "Iniciar chat directo": "Start direct chat",
+    "Correo Electrónico": "Email Address",
+    "Teléfono & WhatsApp": "Phone & WhatsApp",
+    "Lunes a Sábado · 9:00 a 19:00": "Monday to Saturday · 9:00 AM to 7:00 PM",
+    "Sede & Alcance": "Headquarters & Reach",
+    "Lima, Perú · Proyectos Globales": "Lima, Peru · Global Projects",
+    "Primero conversamos, sin compromiso; después cotizamos.": "First we talk with zero commitment; then we quote.",
+
+    // Metodología & EditorialBottom
+    "Fase 01: Reunión sin compromiso (15 min)": "Phase 01: Zero-commitment call (15 min)",
+    "Paso anterior": "Previous step",
+    "Paso siguiente": "Next step",
+
+    // FAQ Concierge
+    "Atención en directo · Perú": "Live support · Peru",
+    "¿Prefieres resolver tus dudas por chat o agendar los 15 minutos gratuitos? Te respondemos con transparencia técnica y cotización clara.":
+      "Prefer to resolve your questions via chat or book the free 15-minute call? We answer with technical transparency and clear quotes.",
+
+    // Footer
+    "Redes oficiales de Kamasqa": "Official Kamasqa Social Networks",
+
+    // Header Drawer
+    "ESTUDIO DIGITAL · LIMA, PE": "DIGITAL STUDIO · LIMA, PE",
+    "Online": "Online",
+    "Tema": "Theme",
+    "Modo Claro": "Light Mode",
+    "Modo Oscuro": "Dark Mode",
+    "01 // DESTACADO": "01 // FEATURED",
+    "Servicios & Desarrollo Web": "Services & Web Development",
+    "Arquitectura de código limpio, alto rendimiento y dirección visual profesional.":
+      "Clean code architecture, high performance, and professional art direction.",
+    "Landing Pages": "Landing Pages",
+    "Webs Corporativas": "Corporate Websites",
+    "E-Commerce": "E-Commerce",
+    "02 //": "02 //",
+    "03 //": "03 //",
+    "04 //": "04 //",
+    "05 //": "05 //",
+    "4 fases de trabajo": "4-phase workflow",
+    "Dudas resueltas": "Questions answered",
+    "ADN & estándares": "DNA & standards",
+    "Portada": "Cover",
+    "Visión inicial": "Initial vision",
+    "CANAL DIRECTO · SIN COMPROMISO": "DIRECT CHANNEL · ZERO COMMITMENT",
+    "¿Conversamos sobre tu proyecto?": "Shall we discuss your project?",
+    "Reunión de 15 min o cotización técnica por chat": "15-min discovery call or quote via chat",
+    "✦ LUN A SÁB · 9:00 A 19:00": "✦ MON TO SAT · 9:00 AM TO 7:00 PM",
+
+    // Perfil
+    "Damos vida y arquitectura digital a negocios con visión.": "We bring life and digital architecture to visionary businesses.",
+    "Performance First": "Performance First",
+    "UI / UX Bespoke": "UI / UX Bespoke",
+    "✕ Traditional Market": "✕ Traditional Market",
+    "Pilar anterior": "Previous pillar",
+    "Siguiente pilar": "Next pillar",
+
+    // Servicios Detail
+    "Ver especificación": "View specification",
+    "Siguiente entregable": "Next deliverable",
+    "Entregable anterior": "Previous deliverable",
+    "Formato anterior": "Previous format",
+    "Siguiente formato": "Next format",
+    "Diseño responsivo móvil, tablet y PC": "Responsive mobile, tablet & desktop design",
+    "Dominio .pe o .com incluido el primer año": ".pe or .com domain included for year 1",
+    "Alojamiento web de alta velocidad y SSL": "High-speed cloud hosting & SSL certificate",
+    "Correos corporativos profesionales": "Professional corporate emails",
+    "Capacitación en video para administrar tu web": "Video training to manage your website",
+    "Soporte técnico continuo post-lanzamiento": "Continuous post-launch technical support",
+  };
+
+  type TrackedText = Text & { __origEs?: string };
+
+  const normalizeText = (s: string) => s.replace(/\s+/g, " ").trim();
+
+  const translateDynamicEsToEn = (s: string): string | undefined => {
+    if (enDict[s] !== undefined) return enDict[s];
+
+    // Fallbacks para prefijos / sufijos comunes
+    if (s.startsWith("✓ ")) {
+      const rest = s.slice(2).trim();
+      if (enDict[rest]) return `✓ ${enDict[rest]}`;
+    }
+    if (s.startsWith("⏱ ")) {
+      const rest = s.slice(2).trim();
+      if (enDict[rest]) return `⏱ ${enDict[rest]}`;
+    }
+    if (s.endsWith(" →")) {
+      const rest = s.slice(0, -2).trim();
+      if (enDict[rest]) return `${enDict[rest]} →`;
+    }
+    if (s.endsWith(":")) {
+      const rest = s.slice(0, -1).trim();
+      if (enDict[rest]) return `${enDict[rest]}:`;
+    }
+
+    const mFrom = s.match(/^Desde\s+S\/\s*(.+)$/i);
+    if (mFrom) return `From S/ ${mFrom[1]}`;
+
+    const mSave = s.match(/^Ahorras hasta\s+(.+)\s+por lanzamiento$/i);
+    if (mSave) return `You save up to ${mSave[1]} (Launch Offer)`;
+
+    const mMods = s.match(/^(\d+)\s+módulos\s+\(\+(.+)\)$/i);
+    if (mMods) return `${mMods[1]} modules (+${mMods[2]})`;
+
+    const mYearCopy = s.match(/^©\s*(\d+)\s*KAMASQA\.\s*Todos los derechos reservados\.$/i);
+    if (mYearCopy) return `© ${mYearCopy[1]} KAMASQA. All rights reserved.`;
+
+    const mPilar = s.match(/^Ir al pilar\s*(\d+)$/i);
+    if (mPilar) return `Go to pillar ${mPilar[1]}`;
+
+    const mDeliv = s.match(/^Ir al entregable\s*(\d+)$/i);
+    if (mDeliv) return `Go to deliverable ${mDeliv[1]}`;
+
+    const mPaso = s.match(/^Paso\s*(\d+)$/i);
+    if (mPaso) return `Step ${mPaso[1]}`;
+
+    const mCard = s.match(/^Ver tarjeta\s*(\d+)$/i);
+    if (mCard) return `View card ${mCard[1]}`;
+
+    const mDetalles = s.match(/^Ver detalles completos de\s*(.+)$/i);
+    if (mDetalles) return `View full details of ${mDetalles[1]}`;
+
+    const mServicio = s.match(/^Ver servicio\s*(.+)$/i);
+    if (mServicio) return `View ${mServicio[1]} service`;
+
+    const mCotizarWa = s.match(/^Cotizar\s*(.+)\s*por WhatsApp$/i);
+    if (mCotizarWa) return `Quote ${mCotizarWa[1]} on WhatsApp`;
+
+    const mAgendar = s.match(/^Agendar reunión para\s*(.+)$/i);
+    if (mAgendar) return `Book discovery call for ${mAgendar[1]}`;
+
+    const mPillarsInc = s.match(/^Pilares incluidos en tu\s*(.+)$/i);
+    if (mPillarsInc) return `Pillars included in your ${mPillarsInc[1]}`;
+
+    const mLoQueInc = s.match(/^Lo que incluye tu proyecto de\s*(.+)$/i);
+    if (mLoQueInc) return `What is included in your ${mLoQueInc[1]}`;
+
+    const mTimeAvg = s.match(/^⏱\s*(.+)\s*promedio$/i);
+    if (mTimeAvg) return `⏱ ${mTimeAvg[1]} average`;
+
+    return undefined;
+  };
+
+  const translateDocument = (lang: "es" | "en") => {
+    document.documentElement.lang = lang;
+
+    // 1. Traducción exhaustiva del árbol de nodos de texto
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    const nodes: TrackedText[] = [];
+    let current = walker.nextNode();
+    while (current) {
+      nodes.push(current as TrackedText);
+      current = walker.nextNode();
+    }
+
+    nodes.forEach((node) => {
+      const parentTag = node.parentElement?.tagName;
+      if (parentTag === "SCRIPT" || parentTag === "STYLE") return;
+      if (node.parentElement?.closest("[data-no-translate]")) return;
+
+      const raw = node.nodeValue || "";
+      const norm = normalizeText(raw);
+      if (!norm) return;
+
+      const directMatch = translateDynamicEsToEn(norm);
+      if (directMatch !== undefined && !node.__origEs) {
+        node.__origEs = norm;
+      }
+
+      if (lang === "en") {
+        const esKey = node.__origEs || norm;
+        const translated = translateDynamicEsToEn(esKey);
+        if (translated) {
+          const leadSpace = /^\s/.test(raw) ? " " : "";
+          const trailSpace = /\s$/.test(raw) ? " " : "";
+          node.nodeValue = `${leadSpace}${translated}${trailSpace}`;
+        }
+      } else {
+        if (node.__origEs) {
+          const leadSpace = /^\s/.test(raw) ? " " : "";
+          const trailSpace = /\s$/.test(raw) ? " " : "";
+          node.nodeValue = `${leadSpace}${node.__origEs}${trailSpace}`;
+        }
+      }
+    });
+
+    // 2. Traducción de atributos visibles (aria-label, title, placeholder)
+    const attrElements = document.querySelectorAll<HTMLElement>("[aria-label], [title], [placeholder]");
+    attrElements.forEach((el) => {
+      ["aria-label", "title", "placeholder"].forEach((attr) => {
+        const val = el.getAttribute(attr);
+        if (!val) return;
+        const norm = normalizeText(val);
+        const dataKey = `orig${attr.replace(/-/g, "")}`;
+        if (!(el.dataset as Record<string, string>)[dataKey]) {
+          (el.dataset as Record<string, string>)[dataKey] = norm;
+        }
+        if (lang === "en") {
+          const baseVal = (el.dataset as Record<string, string>)[dataKey] || norm;
+          const trans = translateDynamicEsToEn(baseVal);
+          if (trans) el.setAttribute(attr, trans);
+        } else {
+          const original = (el.dataset as Record<string, string>)[dataKey];
+          if (original) el.setAttribute(attr, original);
+        }
+      });
+    });
+  };
+
+  (window as unknown as { __kamasqaTranslate?: () => void }).__kamasqaTranslate = () => {
+    const activeLang = (localStorage.getItem("kamasqa_lang") as "es" | "en") || "es";
+    translateDocument(activeLang);
+  };
+
+  window.addEventListener("kamasqa:lang", (e: Event) => {
+    const detail = (e as CustomEvent<{ lang: "es" | "en" }>).detail;
+    if (detail?.lang) {
+      translateDocument(detail.lang);
+    }
+  });
+
+  const initialLang = (localStorage.getItem("kamasqa_lang") as "es" | "en") || "es";
+  if (initialLang === "en") {
+    translateDocument("en");
+    window.dispatchEvent(new CustomEvent("kamasqa:lang", { detail: { lang: "en" } }));
+  }
+</script>
+
+<style is:global>
+  .skip { position: absolute; left: -999px; top: 0; background: #141911; color: #fff; padding: 0.6rem 1rem; z-index: 999; }
+  .skip:focus { left: 0.5rem; top: 0.5rem; }
+
+  .site-main {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ========================================================
+     ANIMACIÓN DE CARGA INICIAL (SOLO AL PRIMER INGRESO)
+     ======================================================== */
+  html.skip-preloader .kamasqa-preloader {
+    display: none !important;
+  }
+
+  .kamasqa-preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #080C07;
+    background-image: radial-gradient(circle at 50% 48%, rgba(110, 125, 78, 0.18) 0%, transparent 60%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+      filter 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      visibility 0.45s;
+    backdrop-filter: blur(12px);
+  }
+
+  html[data-theme="light"] .kamasqa-preloader {
+    background: #FAFBF9;
+    background-image: radial-gradient(circle at 50% 48%, rgba(216, 224, 199, 0.45) 0%, transparent 65%);
+  }
+
+  .kamasqa-preloader.is-done {
+    opacity: 0;
+    filter: blur(4px);
+    transform: scale(1.02);
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .preloader-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.65rem;
+    animation: preloader-pop 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .preloader-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .preloader-logo img {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    display: block;
+  }
+
+  .preloader-logo span {
+    font-family: var(--font-display);
+    font-size: 1.55rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    color: #FFFFFF;
+    line-height: 1;
+  }
+
+  html[data-theme="light"] .preloader-logo span {
+    color: var(--ink);
+  }
+
+  .preloader-sub {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--c-sand);
+    text-transform: uppercase;
+    margin-top: 0.1rem;
+  }
+
+  html[data-theme="light"] .preloader-sub {
+    color: var(--c-olive);
+  }
+
+  .preloader-bar {
+    margin-top: 0.5rem;
+    width: 140px;
+    height: 3px;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.12);
+    overflow: hidden;
+  }
+
+  html[data-theme="light"] .preloader-bar {
+    background: rgba(14, 20, 13, 0.08);
+  }
+
+  .preloader-fill {
+    width: 100%;
+    height: 100%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, #6E7D4E 0%, #AA7229 55%, #F0C48C 100%);
+    transform-origin: 0 50%;
+    animation: preloader-progress 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  @keyframes preloader-pop {
+    from { opacity: 0; transform: translateY(8px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes preloader-progress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+
+</style>

@@ -1,0 +1,1089 @@
+---
+import Base from "../layouts/Base.astro";
+import TechMarquee from "../components/sections/TechMarquee.astro";
+import { profileData, wa, site } from "../data/site";
+---
+
+<Base
+  title="Perfil de Agencia | KAMASQA — Arquitectura y Diseño Web Editorial"
+  description="Conoce la filosofía, arquitectura técnica y estándares de calidad de KAMASQA. Desarrollamos activos digitales rápidos y a medida en Lima, Perú."
+>
+  <!-- Hero Editorial de Perfil -->
+  <section class="perfil-editorial-hero">
+    <!-- Fondo Multimedia Idéntico al Hero -->
+    <div class="perfil-hero-media" aria-hidden="true">
+      <video
+        class="perfil-hero-video"
+        src="/background.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+      ></video>
+      <div class="perfil-hero-gradient-overlay"></div>
+      <div class="perfil-hero-grain-mesh"></div>
+    </div>
+
+    <div class="container-wide perfil-hero-content-wrap">
+      <div class="peh-top-nav">
+        <a href="/" class="peh-back-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 19"></polyline>
+          </svg>
+          <span>Volver al inicio</span>
+        </a>
+      </div>
+
+      <header class="peh-header">
+        <h1 class="peh-title">
+          Damos vida y arquitectura digital a negocios con visión.
+        </h1>
+
+        <p class="peh-lead">
+          {profileData.etymology}
+        </p>
+
+        <div class="peh-actions">
+          <a
+            href={wa(
+              "Hola equipo de Kamasqa Agencia Digital 👋\n\n" +
+                "Acabo de revisar su Perfil de Agencia y me encantaría agendar una reunión de 15 minutos con su equipo para conversar sobre el sitio web de mi empresa."
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-pill-action"
+          >
+            <span>Agendar reunión con el equipo</span>
+            <span class="action-arrow-circle" aria-hidden="true">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </span>
+          </a>
+
+          <a href="/#servicios" class="btn-editorial-ghost">
+            <span>Explorar Servicios</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- Panel de Métricas y Estándares de Agencia -->
+      <div class="peh-stats-wrapper">
+        <div class="peh-stats-grid" id="peh-stats-track">
+          {profileData.stats.map((st, i) => (
+            <div class={`peh-stat-card ${i === 0 ? "is-top" : ""}`} data-stat-idx={i} data-layer={i}>
+              <span class="peh-stat-val">{st.value}</span>
+              <strong class="peh-stat-label">{st.label}</strong>
+              <p class="peh-stat-detail">{st.detail}</p>
+            </div>
+          ))}
+        </div>
+
+        <!-- Indicadores & Controles para el carrusel de cartas apiladas en móvil -->
+        <div class="peh-stack-controls" id="peh-stack-controls" aria-label="Controles de métricas de perfil">
+          <button type="button" class="peh-ctrl-btn prev" id="peh-prev" aria-label="Métrica anterior">‹</button>
+          <div class="peh-stack-dots" id="peh-stack-dots">
+            {profileData.stats.map((_, i) => (
+              <span class={`peh-dot ${i === 0 ? "active" : ""}`} data-sdot={i}></span>
+            ))}
+          </div>
+          <button type="button" class="peh-ctrl-btn next" id="peh-next" aria-label="Métrica siguiente">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cinta Dinámica Editorial de Herramientas -->
+  <TechMarquee />
+
+  <!-- Sección: Los 4 Pilares de Trabajo -->
+  <section class="section perfil-pillars-section">
+    <div class="container-wide">
+      <header class="section-head-editorial">
+        <h2 class="she-title">Cuatro pilares que separan una web común de un activo comercial</h2>
+        <p class="she-lead">
+          Combinamos rigor técnico de programación moderna con dirección de arte enfocada en el mercado peruano.
+        </p>
+      </header>
+
+      <div class="pillars-carousel-wrapper" id="pillars-carousel-wrap">
+        <div class="pillars-editorial-grid" id="pillars-track">
+          {profileData.pillars.map((p, idx) => (
+            <article class="pillar-editorial-card" data-pillar-card={idx}>
+              <div class="pec-top">
+                <span class="pec-num">0{idx + 1}</span>
+                <span class="pec-tag">{p.tag}</span>
+              </div>
+
+              <h3 class="pec-title">{p.title}</h3>
+              <p class="pec-desc">{p.desc}</p>
+            </article>
+          ))}
+        </div>
+
+        <!-- Controles Móviles para Carrusel de Pilares -->
+        <div class="pillars-mobile-controls" id="pillars-controls">
+          <button type="button" class="pm-arrow-btn" id="pm-prev" aria-label="Pilar anterior">‹</button>
+          <div class="pm-dots" id="pm-dots">
+            {profileData.pillars.map((_, i) => (
+              <button
+                type="button"
+                class={`pm-dot ${i === 0 ? "active" : ""}`}
+                data-pdot={i}
+                aria-label={`Ir al pilar ${i + 1}`}
+              />
+            ))}
+          </div>
+          <button type="button" class="pm-arrow-btn" id="pm-next" aria-label="Siguiente pilar">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección: Comparativa de Estándar de Calidad -->
+  <section class="section perfil-compare-section">
+    <div class="container-wide">
+      <header class="section-head-editorial text-center">
+        <h2 class="she-title">Ingeniería Kamasqa frente a webs genéricas tradicionales</h2>
+      </header>
+
+      <div class="compare-editorial-table">
+        <div class="cet-header-row">
+          <span class="cet-col-topic">Factor evaluado</span>
+          <span class="cet-col-kamasqa">✓ Estándar Kamasqa</span>
+          <span class="cet-col-other">✕ Mercado Tradicional</span>
+        </div>
+
+        {profileData.compare.map((c) => (
+          <div class="cet-row">
+            <div class="cet-topic">
+              <strong>{c.topic}</strong>
+            </div>
+            <div class="cet-kamasqa">
+              <span class="cet-badge-k">✓ Superior</span>
+              <p>{c.kamasqa}</p>
+            </div>
+            <div class="cet-other">
+              <span class="cet-badge-o">✕ Común</span>
+              <p>{c.other}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Banner de Conversión Directo de Perfil -->
+      <div class="perfil-cta-banner">
+        <div class="pcb-content">
+          <h3 class="pcb-title">Agenda tu sesión inicial de 15 minutos sin compromiso</h3>
+          <p class="pcb-desc">
+            Evaluamos tu proyecto, revisamos tu modelo de negocio y te entregamos una propuesta clara con presupuesto cerrado.
+          </p>
+        </div>
+        <div class="pcb-action">
+          <a
+            href={wa(
+              "Hola equipo de Kamasqa 👋\n\n" +
+                "Estuve revisando su Perfil de Agencia y me gustaría agendar la reunión gratuita de 15 minutos para cotizar mi proyecto web."
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-pill-action"
+          >
+            <span>Iniciar chat de asesoría</span>
+            <span class="action-arrow-circle" aria-hidden="true">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ========================================================
+     HERO EDITORIAL DE PERFIL
+     ======================================================== */
+  .perfil-editorial-hero {
+    position: relative;
+    width: 100%;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    padding: clamp(7rem, 13vh, 9rem) 0 clamp(4rem, 7vh, 5.5rem);
+    background-color: #0d120a;
+    color: var(--c-white);
+    overflow: hidden;
+  }
+
+  .perfil-hero-media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .perfil-hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    transform: translate(-50%, -50%) scale(1.05);
+    filter: saturate(0.95) contrast(1.08);
+  }
+
+  .perfil-hero-gradient-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 50% 45%, rgba(13, 18, 11, 0.45) 0%, rgba(9, 13, 8, 0.78) 70%, rgba(7, 10, 6, 0.94) 100%),
+      linear-gradient(180deg, rgba(13, 18, 11, 0.75) 0%, rgba(13, 18, 11, 0.4) 40%, rgba(10, 14, 8, 0.88) 100%);
+  }
+
+  .perfil-hero-grain-mesh {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(216, 224, 199, 0.08) 1px, transparent 0);
+    background-size: 32px 32px;
+    opacity: 0.45;
+  }
+
+  .perfil-hero-content-wrap {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+  }
+
+  .peh-top-nav {
+    margin-bottom: 2rem;
+  }
+
+  .peh-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    padding: 0.45rem 1rem;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: all 0.2s ease;
+  }
+
+  .peh-back-link:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: #FFFFFF;
+    transform: translateX(-2px);
+  }
+
+  .peh-header {
+    max-width: 900px;
+    margin-bottom: 3.5rem;
+  }
+
+  .peh-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--c-sand);
+    background: rgba(170, 114, 41, 0.16);
+    border: 1px solid rgba(240, 196, 140, 0.35);
+    padding: 0.3rem 0.85rem;
+    border-radius: var(--radius-full);
+    margin-bottom: 1.25rem;
+  }
+
+  .peh-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 4.8vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: #FFFFFF;
+    margin-bottom: 1.25rem;
+  }
+
+  .peh-lead {
+    font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.78);
+    max-width: 760px;
+    margin-bottom: 2.2rem;
+  }
+
+  .peh-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-editorial-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 0.92rem;
+    padding: 0.85rem 1.5rem;
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.22s ease;
+  }
+
+  .btn-editorial-ghost:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  /* Grid de Estadísticas en Desktop */
+  .peh-stats-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .peh-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+
+  .peh-stat-card {
+    background: #141A12;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 1.6rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .peh-stack-controls {
+    display: none;
+  }
+
+  /* Modo Responsive: Carrusel de Cartas Apiladas (Stacked Cards con auto-play cada 3s) */
+  @media (max-width: 860px) {
+    .peh-stats-wrapper {
+      max-width: 380px;
+      margin: 1.5rem auto 0;
+    }
+
+    .peh-stats-grid {
+      position: relative;
+      height: 180px;
+      width: 100%;
+      display: block;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .peh-stat-card {
+      position: absolute;
+      inset: 0;
+      box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.65);
+      border-color: rgba(216, 224, 199, 0.2);
+      justify-content: center;
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease;
+      will-change: transform, opacity;
+      transform-origin: center bottom;
+      backface-visibility: hidden;
+      user-select: none;
+    }
+
+    /* Capas apiladas */
+    .peh-stat-card[data-layer="0"] {
+      transform: translateY(0px) scale(1);
+      opacity: 1;
+      z-index: 4;
+      pointer-events: auto;
+    }
+
+    .peh-stat-card[data-layer="1"] {
+      transform: translateY(-10px) scale(0.95);
+      opacity: 0.82;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .peh-stat-card[data-layer="2"] {
+      transform: translateY(-20px) scale(0.9);
+      opacity: 0.6;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .peh-stat-card[data-layer="3"] {
+      transform: translateY(-30px) scale(0.85);
+      opacity: 0.35;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .peh-stat-card.is-leaving {
+      transform: translateY(65px) scale(1.04);
+      opacity: 0;
+      z-index: 5;
+    }
+
+    .peh-stack-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+    }
+
+    .peh-ctrl-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #FFFFFF;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      line-height: 1;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .peh-ctrl-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: var(--c-sand);
+    }
+
+    .peh-stack-dots {
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .peh-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      transition: width 0.25s ease, background 0.25s ease;
+    }
+
+    .peh-dot.active {
+      width: 18px;
+      border-radius: 3px;
+      background: var(--c-amber);
+    }
+  }
+
+  .peh-stat-val {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.2vw, 2.6rem);
+    font-weight: 800;
+    color: var(--c-sand);
+    line-height: 1;
+    margin-bottom: 0.2rem;
+  }
+
+  .peh-stat-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #FFFFFF;
+  }
+
+  .peh-stat-detail {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 0;
+  }
+
+  /* ========================================================
+     PILARES DE TRABAJO
+     ======================================================== */
+  .perfil-pillars-section {
+    background: transparent;
+    padding: clamp(3.5rem, 7vw, 6.5rem) 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .section-head-editorial {
+    margin-bottom: clamp(2rem, 3.5vw, 3rem);
+    max-width: 760px;
+  }
+
+  .section-head-editorial.text-center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .she-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.6vw, 3rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 0.6rem;
+  }
+
+  .she-lead {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  .pillars-editorial-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+
+  .pillar-editorial-card {
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 1.8rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+  }
+
+  .pillar-editorial-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(110, 125, 78, 0.45);
+    box-shadow: 0 10px 24px rgba(14, 20, 13, 0.08);
+  }
+
+  .pec-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .pec-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--c-olive);
+    color: #FFFFFF;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.82rem;
+  }
+
+  .pec-tag {
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: var(--ink-muted);
+  }
+
+  .pec-title {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.55rem;
+    line-height: 1.25;
+  }
+
+  .pec-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  .pillars-mobile-controls {
+    display: none;
+  }
+
+  /* ========================================================
+     COMPARATIVA DE CALIDAD
+     ======================================================== */
+  .perfil-compare-section {
+    background: transparent;
+    padding: clamp(3.5rem, 7vw, 6.5rem) 0;
+  }
+
+  .compare-editorial-table {
+    max-width: 1040px;
+    margin: 0 auto 3.5rem;
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .cet-header-row {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr 1.3fr;
+    padding: 1.2rem 1.6rem;
+    background: #0E140D;
+    color: #FFFFFF;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .cet-col-kamasqa {
+    color: var(--c-sand);
+  }
+
+  .cet-col-other {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .cet-row {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr 1.3fr;
+    padding: 1.4rem 1.6rem;
+    border-bottom: 1px solid var(--line);
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .cet-row:last-child {
+    border-bottom: none;
+  }
+
+  .cet-topic strong {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .cet-kamasqa {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .cet-badge-k {
+    display: inline-flex;
+    align-self: flex-start;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--c-olive);
+    background: rgba(110, 125, 78, 0.15);
+    border: 1px solid rgba(110, 125, 78, 0.3);
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-full);
+  }
+
+  .cet-kamasqa p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .cet-other {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .cet-badge-o {
+    display: inline-flex;
+    align-self: flex-start;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #991B1B;
+    background: rgba(239, 68, 68, 0.1);
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-full);
+  }
+
+  .cet-other p {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--ink-muted);
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .cet-header-row {
+      display: none;
+    }
+
+    .cet-row {
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+    }
+  }
+
+  /* ========================================================
+     BANNER DE CONVERSIÓN
+     ======================================================== */
+  .perfil-cta-banner {
+    background: #0E140D;
+    color: #FFFFFF;
+    border-radius: 28px;
+    padding: clamp(2rem, 4vw, 3.5rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.4);
+    flex-wrap: wrap;
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+
+  .pcb-content {
+    max-width: 600px;
+  }
+
+  .pcb-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: #FFFFFF;
+    margin-bottom: 0.6rem;
+  }
+
+  .pcb-desc {
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  /* ========================================================
+     RESPONSIVE EN MÓVIL (<= 860px)
+     ======================================================== */
+  @media (max-width: 860px) {
+    .pillars-editorial-grid {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      gap: 1rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .pillars-editorial-grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .pillar-editorial-card {
+      flex: 0 0 calc(85% - 0.5rem);
+      min-width: 260px;
+      scroll-snap-align: center;
+    }
+
+    .pillars-mobile-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .pm-arrow-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--paper-card);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .pm-dots {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .pm-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--line-strong);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: all 0.2s ease;
+    }
+
+    .pm-dot.active {
+      width: 18px;
+      border-radius: 4px;
+      background: var(--c-amber);
+    }
+  }
+
+  html[data-theme="dark"] .perfil-pillars-section {
+    background: transparent;
+  }
+
+  html[data-theme="dark"] .perfil-compare-section {
+    background: transparent;
+  }
+
+  html[data-theme="dark"] .pillar-editorial-card,
+  html[data-theme="dark"] .compare-editorial-table {
+    background: rgba(255, 255, 255, 0.035);
+    backdrop-filter: blur(10px);
+    border-color: rgba(216, 224, 199, 0.12);
+  }
+
+  html[data-theme="dark"] .cet-header-row {
+    background: rgba(255, 255, 255, 0.06);
+  }
+</style>
+
+<script>
+  // Control de carrusel en móvil para los 4 pilares con interacción y autoplay cada 5 segundos
+  const track = document.getElementById("pillars-track");
+  const dots = document.querySelectorAll<HTMLButtonElement>("#pm-dots .pm-dot");
+  const prevBtn = document.getElementById("pm-prev");
+  const nextBtn = document.getElementById("pm-next");
+
+  if (track && dots.length > 0) {
+    let activeIdx = 0;
+    const total = dots.length;
+    let autoTimer: number | null = null;
+
+    const scrollTo = (idx: number) => {
+      const cards = track.children;
+      const card = cards[idx] as HTMLElement;
+      if (card) {
+        const left = card.offsetLeft - (track.clientWidth - card.clientWidth) / 2;
+        track.scrollTo({ left: Math.max(0, left), behavior: "smooth" });
+      }
+      activeIdx = idx;
+      dots.forEach((d, i) => d.classList.toggle("active", i === activeIdx));
+    };
+
+    const updateDotsOnScroll = () => {
+      const scrollLeft = track.scrollLeft;
+      const card = track.children[0] as HTMLElement;
+      const cardWidth = card ? card.offsetWidth + 16 : 280;
+      const calcIdx = Math.round(scrollLeft / cardWidth);
+      const clamped = Math.max(0, Math.min(total - 1, calcIdx));
+      if (clamped !== activeIdx) {
+        activeIdx = clamped;
+        dots.forEach((d, i) => d.classList.toggle("active", i === activeIdx));
+      }
+    };
+
+    const startAutoplay = () => {
+      if (autoTimer) clearInterval(autoTimer);
+      if (window.innerWidth <= 860) {
+        autoTimer = window.setInterval(() => {
+          const next = (activeIdx + 1) % total;
+          scrollTo(next);
+        }, 5000);
+      }
+    };
+
+    const stopAutoplay = () => {
+      if (autoTimer) {
+        clearInterval(autoTimer);
+        autoTimer = null;
+      }
+    };
+
+    track.addEventListener("scroll", updateDotsOnScroll, { passive: true });
+
+    let touchStartX = 0;
+    track.addEventListener("touchstart", (e) => {
+      stopAutoplay();
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+
+    track.addEventListener("touchend", (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const diff = touchEndX - touchStartX;
+      if (Math.abs(diff) > 40) {
+        if (diff < 0) {
+          scrollTo((activeIdx + 1) % total);
+        } else {
+          scrollTo((activeIdx - 1 + total) % total);
+        }
+      }
+      startAutoplay();
+    }, { passive: true });
+
+    dots.forEach((dot, idx) => {
+      dot.addEventListener("click", () => {
+        stopAutoplay();
+        scrollTo(idx);
+        startAutoplay();
+      });
+    });
+
+    prevBtn?.addEventListener("click", () => {
+      stopAutoplay();
+      const next = (activeIdx - 1 + total) % total;
+      scrollTo(next);
+      startAutoplay();
+    });
+
+    nextBtn?.addEventListener("click", () => {
+      stopAutoplay();
+      const next = (activeIdx + 1) % total;
+      scrollTo(next);
+      startAutoplay();
+    });
+
+    startAutoplay();
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 860) stopAutoplay();
+      else startAutoplay();
+    }, { passive: true });
+  }
+
+  // ========================================================
+  // Carrusel de Cartas Apiladas (Hero de Perfil en Móvil)
+  // Auto-play cada 3 segundos + interactivo por touch / click
+  // ========================================================
+  const statsTrack = document.getElementById("peh-stats-track");
+  const statCards = document.querySelectorAll<HTMLElement>(".peh-stat-card");
+  const statDots = document.querySelectorAll<HTMLElement>(".peh-dot");
+  const statPrev = document.getElementById("peh-prev");
+  const statNext = document.getElementById("peh-next");
+
+  if (statsTrack && statCards.length > 0) {
+    let topIndex = 0;
+    const totalStats = statCards.length;
+    let statTimer: number | null = null;
+
+    const updateStack = () => {
+      if (window.innerWidth > 860) return;
+
+      statCards.forEach((card, idx) => {
+        const relLayer = (idx - topIndex + totalStats) % totalStats;
+        card.setAttribute("data-layer", relLayer.toString());
+        card.classList.toggle("is-top", relLayer === 0);
+      });
+
+      statDots.forEach((dot, idx) => {
+        dot.classList.toggle("active", idx === topIndex);
+      });
+    };
+
+    const nextCard = () => {
+      const currentTop = statCards[topIndex];
+      if (currentTop) {
+        currentTop.classList.add("is-leaving");
+        window.setTimeout(() => {
+          currentTop.classList.remove("is-leaving");
+          topIndex = (topIndex + 1) % totalStats;
+          updateStack();
+        }, 220);
+      } else {
+        topIndex = (topIndex + 1) % totalStats;
+        updateStack();
+      }
+    };
+
+    const prevCard = () => {
+      topIndex = (topIndex - 1 + totalStats) % totalStats;
+      updateStack();
+    };
+
+    // Al hacer click en la carta pasa a la siguiente
+    statsTrack.addEventListener("click", () => {
+      resetStatTimer();
+      nextCard();
+    });
+
+    // Swipe táctil en móvil
+    let startX = 0;
+    statsTrack.addEventListener("touchstart", (e) => {
+      startX = e.touches[0].clientX;
+      stopStatTimer();
+    }, { passive: true });
+
+    statsTrack.addEventListener("touchend", (e) => {
+      const endX = e.changedTouches[0].clientX;
+      const diff = endX - startX;
+      if (Math.abs(diff) > 35) {
+        if (diff < 0) nextCard();
+        else prevCard();
+      }
+      startStatTimer();
+    }, { passive: true });
+
+    statNext?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      resetStatTimer();
+      nextCard();
+    });
+
+    statPrev?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      resetStatTimer();
+      prevCard();
+    });
+
+    // Autoplay estricto cada 3 segundos en responsive
+    const startStatTimer = () => {
+      stopStatTimer();
+      if (window.innerWidth <= 860) {
+        statTimer = window.setInterval(() => {
+          nextCard();
+        }, 3000);
+      }
+    };
+
+    const stopStatTimer = () => {
+      if (statTimer) {
+        clearInterval(statTimer);
+        statTimer = null;
+      }
+    };
+
+    const resetStatTimer = () => {
+      stopStatTimer();
+      startStatTimer();
+    };
+
+    startStatTimer();
+    updateStack();
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 860) {
+        stopStatTimer();
+      } else {
+        startStatTimer();
+        updateStack();
+      }
+    }, { passive: true });
+  }
+</script>
