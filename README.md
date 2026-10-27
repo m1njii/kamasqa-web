@@ -23,10 +23,10 @@ El sitio web de **KAMASQA** está construido como una aplicación estática ultr
 
 ### Características Principales
 
-- **Arquitectura SSG:** 9 rutas estáticas pre-renderizadas para máxima velocidad de entrega y seguridad sin base de datos expuesta.
+- **Arquitectura SSG:** Rutas estáticas pre-renderizadas para máxima velocidad de entrega y seguridad sin base de datos expuesta.
 - **Identidad Bimodal:** Selector dinámico entre modo día y modo noche con persistencia en `localStorage`, fondo ambiental interactivo y paleta coordinada.
-- **Experiencia Mobile-First:** Drawer de navegación táctil con gestos, carruseles optimizados con snap scrolling y controles ergonómicos para smartphones.
-- **Internacionalización (i18n):** Selector interactivo de idioma (Español / Inglés) con traducción dinámica de navegación y copys clave.
+- **Experiencia Mobile-First:** Drawer de navegación táctil con gestos, carruseles optimizados con snap scrolling y controles ergonómicos para smartphones ($\ge 44 \times 44\text{px}$).
+- **Internacionalización Integral (i18n):** Selector interactivo de idioma (Español / Inglés) con motor cliente reactivo que cubre el 100% de la navegación, fichas técnicas, portafolio y servicios.
 - **Rendimiento y Web Vitals:** Carga asíncrona de scripts de terceros (Google Tag Manager) en hilos separados mediante **Partytown** para evitar bloqueos del hilo principal.
 - **Cumplimiento Legal Integral:** Páginas formales de Términos y Condiciones y Política de Privacidad adaptadas a la legislación peruana (Ley N° 29733 de Protección de Datos Personales).
 
@@ -48,12 +48,13 @@ La identidad corporativa de Kamasqa está fundamentada en una paleta cromática 
 
 ## 💼 Servicios Especializados
 
-La plataforma presenta las 4 líneas principales de ingeniería y desarrollo web de Kamasqa:
+La plataforma presenta las líneas principales de ingeniería y desarrollo web de Kamasqa:
 
 1. **Landing Page (Conversión & Campañas):** Páginas monoproducto de alto impacto visual orientadas a captar prospectos y derivar tráfico de Meta Ads, Google Ads y TikTok directo a WhatsApp o formularios.
 2. **Web Informativa (Autoridad Corporativa):** Sedes digitales multipágina diseñadas para fortalecer el respaldo institucional de empresas, consultorías y firmas profesionales con optimización SEO on-page.
 3. **Tienda Online (E-Commerce 24/7):** Catálogos digitales completos con carrito de compras, pasarelas de pago peruanas (Yape, Plin, tarjetas) y gestión de pedidos.
 4. **Sistema a Medida (Bespoke & Plataformas):** Paneles administrativos, intranets, plataformas web y flujos operativos adaptados a la lógica del negocio.
+5. **Subservicios Especializados:** Alojamiento Web VPS con IP dedicada, Correos Corporativos oficiales y Mantenimiento / Soporte TI por horas.
 
 ---
 
@@ -61,9 +62,8 @@ La plataforma presenta las 4 líneas principales de ingeniería y desarrollo web
 
 - **Core Framework:** [Astro 4.x](https://astro.build/) en modo estático (`output: 'static'`).
 - **Lenguaje:** [TypeScript 5.x](https://www.typescriptlang.org/) con verificación estricta (`strict: true`).
-- **Estilos:** CSS3 modular con custom properties, metodología BEM simplificada y [Tailwind CSS 3.4](https://tailwindcss.com/).
-- **Micro-librerías:** React 18 para componentes interactivos puntuales donde se requiere gestión de estado.
-- **Rendimiento:** [@astrojs/partytown](https://partytown.builder.io/) para ejecución de scripts de analítica (GTM / GA4) en Web Workers.
+- **Estilos:** CSS3 modular con custom properties y metodología BEM por componentes.
+- **Rendimiento:** [@astrojs/partytown](https://partytown.builder.io/) para ejecución de analítica (GTM / GA4) en Web Workers.
 - **Tipografía:** [Fraunces](https://fonts.google.com/specimen/Fraunces), [Manrope](https://fonts.google.com/specimen/Manrope) y [JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono).
 
 ---
@@ -72,51 +72,71 @@ La plataforma presenta las 4 líneas principales de ingeniería y desarrollo web
 
 ```text
 kamasqa-web/
-├── public/                       # Archivos estáticos servidos directamente
+├── public/                       # Activos estáticos públicos
 │   ├── images/
-│   │   └── services/             # Mockups en perspectiva de servicios
+│   │   ├── portfolio/            # Capturas de casos de éxito
+│   │   └── services/             # Renders 3D de servicios y subservicios
 │   ├── background.mp4            # Video ambiental optimizado
 │   ├── favicon.svg               # Favicon vectorial
 │   ├── icon.png                  # Isotipo oficial de Kamasqa
-│   └── robots.txt                # Directivas para rastreadores de búsqueda
+│   ├── robots.txt                # Directivas para rastreadores de búsqueda
+│   └── whatsapp-fab.png          # Icono del botón flotante
 │
 ├── src/
 │   ├── components/               # Componentes modulares reutilizables
-│   │   ├── Header.astro          # Navegación principal, drawer móvil y selectores
-│   │   ├── Footer.astro          # Pie de página corporativo, enlaces y créditos
+│   │   ├── Header.astro          # Cabecera, navegación y selectores
+│   │   ├── Footer.astro          # Pie de página corporativo
 │   │   ├── SEO.astro             # Metadatos Open Graph, Twitter Cards y JSON-LD
 │   │   ├── WhatsAppFab.astro     # Botón flotante de contacto directo
-│   │   └── sections/             # Secciones de la página de inicio
+│   │   └── sections/             # Secciones modulares de la página principal
 │   │       ├── Hero.astro        # Portada principal con video de fondo
 │   │       ├── TechMarquee.astro # Cinta de tecnologías y herramientas
-│   │       ├── ServicesGrid.astro# Grilla vertical de servicios y carrusel móvil
-│   │       ├── WorldCoverage.astro# Mapa interactivo de alcance y cobertura
-│   │       ├── EditorialBottom.astro # Metodología de trabajo en 4 fases
-│   │       ├── ContactReach.astro# Canales y coordenadas de atención
+│   │       ├── ServicesGrid.astro# Módulo de soluciones y subservicios
+│   │       ├── WorldCoverage.astro# Cobertura técnica y alcance internacional
+│   │       ├── EditorialBottom.astro # Metodología de ingeniería en 4 fases
+│   │       ├── ContactBand.astro # Pabellón de contacto editorial
+│   │       ├── ContactReach.astro# Coordenadas y canales directos
 │   │       └── Faq.astro         # Preguntas frecuentes con acordeón nativo
 │   │
-│   ├── data/
-│   │   └── site.ts               # Contenido central, servicios, enlaces y constantes
+│   ├── data/                     # Modelos de contenido y traducción
+│   │   ├── portfolio.ts          # Casos de éxito y proyectos
+│   │   ├── site.ts               # Constantes, enlaces y servicios
+│   │   └── translations.ts       # Diccionario central ES/EN
 │   │
 │   ├── layouts/
 │   │   └── Base.astro            # Layout maestro (HTML shell, fuentes, GTM, fondo)
 │   │
-│   ├── pages/                    # Rutas de la aplicación (File-based routing)
-│   │   ├── index.astro           # Página de inicio
-│   │   ├── perfil.astro          # Perfil de agencia, pilares y comparativa
+│   ├── pages/                    # Rutas de la plataforma
+│   │   ├── index.astro           # Portada principal
+│   │   ├── perfil.astro          # Perfil de agencia y pilares de ingeniería
+│   │   ├── portafolio.astro      # Casos de éxito con tarjetas 3D interactivas
 │   │   ├── terminos-y-condiciones.astro # Términos y condiciones formales
 │   │   ├── politica-de-privacidad.astro # Política de privacidad y datos
 │   │   ├── 404.astro             # Página de error personalizada
 │   │   └── servicios/
-│   │       └── [slug].astro      # Páginas dinámicas de cada servicio
+│   │       └── [slug].astro      # Fichas técnicas dinámicas de cada servicio
 │   │
-│   └── styles/
-│       └── global.css            # Sistema de diseño, variables, reset y utilidades
+│   ├── scripts/                  # Controladores interactivos cliente
+│   │   ├── perfil.ts             # Control de pilares y métricas
+│   │   ├── portfolio.ts          # Giro 3D, filtros de sector y carrusel
+│   │   └── servicesGrid.ts       # Conmutador de vistas y carrusel móvil
+│   │
+│   ├── styles/                   # Hojas de estilo modulares por dominio
+│   │   ├── global.css            # Tokens, tipografía y utilidades globales
+│   │   ├── header.css            # Cabecera, drawer móvil y selectores
+│   │   ├── legal.css             # Estructura de términos y privacidad
+│   │   ├── perfil.css            # Estilos de perfil y pilares
+│   │   ├── portfolio.css         # Tarjetas 3D y grilla de portafolio
+│   │   ├── serviceDetail.css     # Fichas técnicas de servicio
+│   │   └── servicesGrid.css      # Soluciones principales y subservicios
+│   │
+│   └── utils/
+│       └── i18n.ts               # Motor de internacionalización cliente
 │
 ├── astro.config.mjs              # Configuración de Astro y plugins
-├── package.json                  # Dependencias y scripts de ejecución
-├── tsconfig.json                 # Configuración del compilador TypeScript
-└── README.md                     # Documentación oficial del repositorio
+├── package.json                  # Dependencias y scripts
+├── tsconfig.json                 # Configuración de TypeScript
+└── README.md                     # Documentación oficial
 ```
 
 ---
@@ -132,7 +152,7 @@ kamasqa-web/
 
 1. **Clonar el repositorio:**
    ```bash
-   git clone https://github.com/m1njii/kamasqa-web.git
+   git clone https://github.com/KAMASQA/kamasqa-web.git
    cd kamasqa-web
    ```
 
@@ -145,7 +165,7 @@ kamasqa-web/
    ```bash
    npm run dev
    ```
-   El entorno estará disponible localmente en `http://localhost:4321/` (o el puerto siguiente disponible).
+   El entorno estará disponible localmente en `http://localhost:4321/`.
 
 4. **Compilar para producción:**
    ```bash
