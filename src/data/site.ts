@@ -20,6 +20,7 @@ export const nav = [
   { href: "/#servicios", label: "Servicios" },
   { href: "/#metodo", label: "Método" },
   { href: "/#faq", label: "Preguntas" },
+  { href: "/portafolio", label: "Portafolio" },
   { href: "/perfil", label: "Perfil" },
 ];
 
