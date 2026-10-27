@@ -333,29 +333,14 @@ const categories = ["Todos", "B2B Industrial", "E-commerce", "Turismo & Bienesta
                 <span class="badge-sector badge-cta-status">DISPONIBILIDAD INMEDIATA</span>
               </div>
 
-              <!-- Media Preview Mockup Gráfico -->
+              <!-- Media Preview: Próximamente -->
               <div class="card-media cta-media-placeholder">
-                <div class="cta-grid-bg"></div>
-                <div class="cta-browser-mockup">
-                  <div class="mockup-header">
-                    <span class="mockup-dot red"></span>
-                    <span class="mockup-dot yellow"></span>
-                    <span class="mockup-dot green"></span>
-                    <span class="mockup-url">tuempresa.com</span>
-                  </div>
-                  <div class="mockup-content">
-                    <div class="mockup-badge">PRÓXIMO CASO DE ÉXITO</div>
-                    <h3 class="mockup-title">Tu Empresa Líder en Internet</h3>
-                    <div class="mockup-bars">
-                      <span class="bar bar-1"></span>
-                      <span class="bar bar-2"></span>
-                      <span class="bar bar-3"></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="cta-sparkle-pill">
-                  <span class="sparkle-icon">✨</span>
-                  <span>Oportunidad Activa</span>
+                <div class="cta-soon-box">
+                  <span class="cta-soon-badge">
+                    <span class="cta-soon-dot" aria-hidden="true"></span>
+                    <span class="cta-soon-label">Próximamente...</span>
+                  </span>
+                  <span class="cta-soon-hint">Tu proyecto aquí</span>
                 </div>
               </div>
 
@@ -1753,132 +1738,65 @@ const categories = ["Todos", "B2B Industrial", "E-commerce", "Turismo & Bienesta
   }
 
   .cta-media-placeholder {
-    background: radial-gradient(circle at 50% 20%, #1e281a 0%, #0c120a 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
-    border-color: rgba(170, 114, 41, 0.35);
+    background: radial-gradient(circle at 50% 50%, rgba(110, 125, 78, 0.08) 0%, rgba(14, 20, 13, 0.02) 100%), var(--paper-subtle);
+    border: 1.5px dashed rgba(170, 114, 41, 0.35);
+    border-radius: var(--radius-sm);
   }
 
-  .cta-grid-bg {
-    position: absolute;
-    inset: 0;
-    background-image: 
-      linear-gradient(rgba(240, 196, 140, 0.08) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(240, 196, 140, 0.08) 1px, transparent 1px);
-    background-size: 16px 16px;
-    pointer-events: none;
-  }
-
-  .cta-browser-mockup {
-    width: 82%;
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: 8px;
-    backdrop-filter: blur(8px);
-    padding: 0.65rem 0.85rem;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
-    position: relative;
-    z-index: 2;
-    transition: transform 0.3s ease;
-  }
-
-  .bento-card-cta-scene:hover .cta-browser-mockup {
-    transform: translateY(-3px) scale(1.02);
-  }
-
-  .mockup-header {
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-    margin-bottom: 0.5rem;
-    padding-bottom: 0.4rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .mockup-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-  }
-
-  .mockup-dot.red { background: #FF5F56; }
-  .mockup-dot.yellow { background: #FFBD2E; }
-  .mockup-dot.green { background: #27C93F; }
-
-  .mockup-url {
-    margin-left: 0.5rem;
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    color: rgba(255, 255, 255, 0.6);
-    background: rgba(0, 0, 0, 0.3);
-    padding: 0.1rem 0.5rem;
-    border-radius: 4px;
-  }
-
-  .mockup-content {
+  .cta-soon-box {
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-align: center;
+    padding: 1.25rem;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.25s ease;
   }
 
-  .mockup-badge {
-    align-self: flex-start;
-    font-family: var(--font-mono);
-    font-size: 0.58rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    color: var(--c-amber);
-    background: rgba(170, 114, 41, 0.25);
-    padding: 0.1rem 0.4rem;
-    border-radius: 3px;
+  .bento-card-cta-scene:hover .cta-soon-box {
+    transform: translateY(-2px);
   }
 
-  .mockup-title {
+  .cta-soon-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.45rem 1.15rem;
+    border-radius: var(--radius-full);
+    background: var(--paper-card);
+    border: 1px solid rgba(170, 114, 41, 0.25);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .cta-soon-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--c-amber);
+    box-shadow: 0 0 8px rgba(170, 114, 41, 0.6);
+  }
+
+  .cta-soon-label {
     font-family: var(--font-display);
     font-size: 0.92rem;
-    color: #FFFFFF;
-    margin: 0;
-    line-height: 1.25;
     font-weight: 700;
+    color: var(--ink);
     letter-spacing: -0.01em;
   }
 
-  .mockup-bars {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    margin-top: 0.2rem;
-  }
-
-  .bar {
-    height: 4px;
-    border-radius: 2px;
-    background: rgba(255, 255, 255, 0.18);
-  }
-
-  .bar-1 { width: 85%; }
-  .bar-2 { width: 60%; }
-  .bar-3 { width: 40%; background: var(--c-amber); }
-
-  .cta-sparkle-pill {
-    position: absolute;
-    top: 0.65rem;
-    right: 0.65rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    background: rgba(14, 20, 13, 0.85);
-    backdrop-filter: blur(6px);
-    border: 1px solid rgba(170, 114, 41, 0.5);
-    border-radius: var(--radius-full);
-    padding: 0.2rem 0.65rem;
-    font-size: 0.68rem;
-    font-weight: 700;
-    color: var(--c-sand);
-    z-index: 3;
+  .cta-soon-hint {
+    font-family: var(--font-body);
+    font-size: 0.76rem;
+    color: var(--ink-muted);
+    letter-spacing: 0.02em;
   }
 
   .cta-hl-box {
@@ -2582,6 +2500,25 @@ const categories = ["Todos", "B2B Industrial", "E-commerce", "Turismo & Bienesta
     border-color: var(--c-sand);
     border-style: solid;
     box-shadow: 0 12px 32px rgba(170, 114, 41, 0.25);
+  }
+
+  html[data-theme="dark"] .cta-media-placeholder {
+    background: radial-gradient(circle at 50% 50%, rgba(110, 125, 78, 0.12) 0%, rgba(14, 20, 13, 0.6) 100%), #10160D;
+    border-color: rgba(240, 196, 140, 0.3);
+  }
+
+  html[data-theme="dark"] .cta-soon-badge {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(240, 196, 140, 0.28);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  }
+
+  html[data-theme="dark"] .cta-soon-label {
+    color: var(--c-sand);
+  }
+
+  html[data-theme="dark"] .cta-soon-hint {
+    color: var(--ink-muted);
   }
 
   html[data-theme="dark"] .badge-cta-num {
