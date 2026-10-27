@@ -16,7 +16,10 @@ import { faqs, wa } from "../../data/site";
         <!-- Tarjeta Concierge Editorial de Consulta Rápida -->
         <div class="faq-concierge-card">
           <div class="fcc-badge">
-            <span class="fcc-pulse"></span>
+            <svg class="fcc-badge-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
             <span class="fcc-badge-text">Atención en directo · Perú</span>
           </div>
           <h3 class="fcc-title">¿Dudas sobre el alcance de tu proyecto?</h3>
@@ -176,18 +179,9 @@ import { faqs, wa } from "../../data/site";
     border-color: rgba(27, 33, 20, 0.08);
   }
 
-  .fcc-pulse {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--c-amber);
-    box-shadow: 0 0 7px rgba(170, 114, 41, 0.5);
-    animation: fcc-pulse-anim 2s infinite ease-in-out;
-  }
-
-  @keyframes fcc-pulse-anim {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(0.85); }
+  .fcc-badge-icon {
+    color: var(--c-amber);
+    flex-shrink: 0;
   }
 
   .fcc-badge-text {

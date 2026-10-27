@@ -3,16 +3,10 @@ import { site, wa } from "../../data/site";
 ---
 
 <section class="band-section">
-  <svg class="sec-vector-canvas" viewBox="0 0 1440 460" fill="none" preserveAspectRatio="none" aria-hidden="true">
-    <path class="vec-wave-olive" d="M-60 95 Q 480 240 960 90 T 1500 160" />
-    <path class="vec-beam-pulse" d="M-60 95 Q 480 240 960 90 T 1500 160" />
-    <path class="vec-wave-amber" d="M-60 365 Q 520 220 1020 380 T 1500 310" />
-  </svg>
   <div class="container">
     <div class="pavilion reveal">
-      <!-- Decoración geométrica sutil de fondo -->
+      <!-- Decoración de iluminación sutil de fondo -->
       <div class="pavilion-glow" aria-hidden="true"></div>
-      <div class="pavilion-grid-lines" aria-hidden="true"></div>
 
       <!-- Columna Editorial Izquierda -->
       <div class="pavilion-copy">
@@ -102,18 +96,6 @@ import { site, wa } from "../../data/site";
     height: 340px;
     border-radius: 50%;
     background: radial-gradient(circle, rgba(240, 196, 140, 0.45) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .pavilion-grid-lines {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(110, 125, 78, 0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(110, 125, 78, 0.06) 1px, transparent 1px);
-    background-size: 48px 48px;
-    mask-image: radial-gradient(ellipse at right, black 25%, transparent 75%);
-    -webkit-mask-image: radial-gradient(ellipse at right, black 25%, transparent 75%);
     pointer-events: none;
   }
 

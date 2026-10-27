@@ -1,0 +1,762 @@
+.services-editorial {
+    padding: clamp(4rem, 9vw, 7.5rem) 0;
+    position: relative;
+    background: transparent;
+  }
+
+  /* Encabezado */
+  .sec-head-editorial {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: clamp(2.2rem, 4.5vw, 3.4rem);
+  }
+
+  .she-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    max-width: 720px;
+  }
+
+  .she-badge-wrap {
+    margin-bottom: 0.15rem;
+  }
+
+  .she-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-amber);
+    background: rgba(170, 114, 41, 0.12);
+    border: 1px solid rgba(170, 114, 41, 0.28);
+    padding: 0.25rem 0.8rem;
+    border-radius: var(--radius-full);
+    transition: all 0.3s ease;
+  }
+
+  html[data-theme="dark"] .she-badge {
+    background: rgba(240, 196, 140, 0.12);
+    border-color: rgba(240, 196, 140, 0.26);
+    color: var(--c-sand);
+  }
+
+  .she-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4.2vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .she-desc {
+    font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  /* Botón Conmutador Superior Derecho */
+  .btn-toggle-services {
+    cursor: pointer;
+    border: 1.5px solid rgba(14, 20, 13, 0.18);
+    background: var(--ink);
+    color: var(--c-white);
+    padding: 0.6rem 0.75rem 0.6rem 1.4rem;
+    font-size: 0.88rem;
+    font-weight: 700;
+    white-space: nowrap;
+    border-radius: var(--radius-full);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), background 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn-toggle-services:hover {
+    transform: translateY(-2px);
+    background: #000000;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-toggle-services.is-sub-active {
+    background: var(--c-olive-dark);
+    border-color: var(--c-sand);
+  }
+
+  .btn-toggle-services.is-sub-active:hover {
+    background: var(--c-olive);
+  }
+
+  .toggle-arrow-wrap {
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.24s ease;
+  }
+
+  .btn-toggle-services.is-sub-active .toggle-arrow-wrap {
+    transform: rotate(135deg);
+    background: var(--c-amber);
+    color: #FFFFFF;
+  }
+
+  html[data-theme="dark"] .btn-toggle-services {
+    background: #172015;
+    border-color: rgba(216, 224, 199, 0.22);
+    color: #FFFFFF;
+  }
+
+  html[data-theme="dark"] .btn-toggle-services:hover {
+    background: #222f1f;
+    border-color: var(--c-sand);
+  }
+
+  html[data-theme="dark"] .btn-toggle-services.is-sub-active {
+    background: #253321;
+    border-color: var(--c-amber);
+  }
+
+  /* Escenario de Vistas */
+  .services-view-stage {
+    position: relative;
+    width: 100%;
+  }
+
+  .services-panel {
+    transition: opacity 0.26s cubic-bezier(0.16, 1, 0.3, 1), transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .services-panel.panel-sub {
+    display: none;
+  }
+
+  .services-panel.is-leaving {
+    opacity: 0 !important;
+    transform: translateY(-10px) scale(0.99) !important;
+    pointer-events: none;
+  }
+
+  .services-panel.is-entering {
+    animation: panel-enter 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes panel-enter {
+    from {
+      opacity: 0;
+      transform: translateY(16px) scale(0.99);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* ========================================================
+     VISTA 1 Y VISTA 2: GRID DE TARJETAS VERTICALES
+     ======================================================== */
+  .cards-carousel-container {
+    position: relative;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .cards-vertical-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(1.2rem, 2vw, 2rem);
+  }
+
+  /* Subservicios en Desktop: 3 columnas centradas y proporcionales */
+  .subservices-vertical-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1.4rem, 2.5vw, 2.4rem);
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+
+  .vertical-card {
+    position: relative;
+    border-radius: 28px;
+    height: clamp(470px, 32vw, 530px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.8rem;
+    color: var(--c-white);
+    box-shadow: 0 16px 36px -12px rgba(27, 33, 20, 0.16);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    isolation: isolate;
+  }
+
+  .vertical-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 48px -12px rgba(27, 33, 20, 0.35);
+  }
+
+  .vc-bg-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    background: #0B0F0B;
+  }
+
+  .vc-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 18%;
+    transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+    filter: brightness(0.94) contrast(1.05);
+  }
+
+  .vertical-card:hover .vc-bg-img {
+    transform: scale(1.06);
+    filter: brightness(1.02) contrast(1.08);
+  }
+
+  .vc-gradient {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      180deg,
+      rgba(11, 15, 11, 0.08) 0%,
+      rgba(11, 15, 11, 0.22) 36%,
+      rgba(8, 12, 8, 0.82) 70%,
+      rgba(8, 12, 8, 0.96) 92%,
+      #080C07 100%
+    );
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .vertical-card:hover .vc-gradient {
+    background: linear-gradient(
+      180deg,
+      rgba(11, 15, 11, 0.04) 0%,
+      rgba(11, 15, 11, 0.16) 32%,
+      rgba(8, 12, 8, 0.78) 68%,
+      rgba(8, 12, 8, 0.94) 90%,
+      #080C07 100%
+    );
+  }
+
+  .vc-arrow-btn {
+    position: absolute;
+    top: 1.4rem;
+    right: 1.4rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--c-sand);
+    color: #151D12;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s ease, color 0.2s ease;
+    z-index: 2;
+  }
+
+  .vertical-card:hover .vc-arrow-btn {
+    transform: scale(1.12) rotate(45deg);
+    background: var(--c-amber);
+    color: #FFFFFF;
+  }
+
+  .vc-num-tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--c-sand);
+    background: rgba(14, 20, 13, 0.7);
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(240, 196, 140, 0.35);
+  }
+
+  .vc-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .vc-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .vc-badge {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--c-white);
+  }
+
+  .vc-time {
+    font-size: 0.75rem;
+    color: rgba(242, 245, 236, 0.82);
+    font-weight: 500;
+  }
+
+  .vc-title {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--c-white);
+    margin-bottom: 0.6rem;
+  }
+
+  .vc-title-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .vc-title-link:hover {
+    color: var(--accent-card);
+  }
+
+  .vc-desc {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: rgba(242, 245, 236, 0.85);
+    margin-bottom: 0.85rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Píldoras compactas para características de subservicios */
+  .vc-pills-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .vc-pill-chip {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.22rem 0.6rem;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--c-white);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    line-height: 1.25;
+  }
+
+  .vc-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    font-size: 0.8125rem;
+  }
+
+  .vc-pricing {
+    color: rgba(242, 245, 236, 0.75);
+    font-weight: 600;
+  }
+
+  .vc-cta-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--accent-card);
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
+
+  .vertical-card:hover .vc-cta-text {
+    transform: translateX(3px);
+  }
+
+  .srv-carousel-dots,
+  .sub-carousel-dots {
+    display: none;
+  }
+
+  /* ========================================================
+     POPULAR NOW: EN ESCRITORIO (MIN-WIDTH: 841px)
+     ======================================================== */
+  @media (min-width: 841px) {
+    .popular-ticker-wrap {
+      padding-top: 2rem;
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .pt-tag {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .pt-items-stage {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(1.2rem, 2.5vw, 2.5rem);
+    }
+
+    .pt-items-stage.sub-popular-stage {
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 1240px;
+    }
+
+    .pt-item {
+      text-decoration: none;
+      color: inherit;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      display: block;
+      transition: transform 0.2s ease;
+    }
+
+    .pt-item:hover {
+      transform: translateY(-2px);
+    }
+
+    .pt-item-inner {
+      padding: 0.5rem 0;
+    }
+
+    .pt-item-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.35rem;
+    }
+
+    .pt-item-meta {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .pt-item-badge {
+      display: none;
+    }
+
+    .pt-item-title {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      line-height: 1.45;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+    }
+
+    .pop-stack-controls {
+      display: none;
+    }
+
+    html[data-theme="dark"] .popular-ticker-wrap {
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    html[data-theme="dark"] .pt-item {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+  }
+
+  /* ========================================================
+     MODO RESPONSIVE ESPECÍFICO (<= 840px)
+     ======================================================== */
+  @media (max-width: 840px) {
+    .sec-head-editorial {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.25rem;
+    }
+
+    .btn-toggle-services {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    /* 1. Carrusel de Tarjetas en Móvil (Servicios Principales y Subservicios) */
+    .cards-vertical-grid,
+    .subservices-vertical-grid {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      gap: 1.1rem;
+      padding: 0.5rem 0.25rem 1rem;
+      scroll-padding: 0.5rem;
+      scrollbar-width: none;
+      max-width: none;
+      margin: 0;
+    }
+
+    .cards-vertical-grid::-webkit-scrollbar,
+    .subservices-vertical-grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .vertical-card {
+      flex: 0 0 84vw;
+      max-width: 340px;
+      height: 480px;
+      scroll-snap-align: center;
+    }
+
+    /* Dots interactivos para servicios principales y subservicios */
+    .srv-carousel-dots,
+    .sub-carousel-dots {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .s-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--line-strong);
+      border: none;
+      cursor: pointer;
+      transition: width 0.2s ease, background 0.2s ease;
+      padding: 0;
+    }
+
+    .s-dot.active {
+      width: 22px;
+      border-radius: 4px;
+      background: var(--c-amber);
+    }
+
+    /* 2. Popular Now en Móvil: Stack superpuesto CON FONDO EN MODO CLARO Y OSCURO */
+    .popular-ticker-wrap {
+      display: block;
+      border-top: none;
+      padding-top: 1rem;
+    }
+
+    .pt-label-col {
+      display: none !important;
+    }
+
+    .pt-items-stage {
+      position: relative;
+      height: 155px;
+      width: 100%;
+      max-width: 370px;
+      margin: 0 auto;
+      display: block;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .pt-item {
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      background: var(--paper-card);
+      border: 1.5px solid var(--line);
+      box-shadow: 0 14px 30px -8px rgba(27, 33, 20, 0.16);
+      padding: 1.25rem 1.4rem;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+      will-change: transform, opacity;
+      transform-origin: center bottom;
+      backface-visibility: hidden;
+      color: inherit;
+    }
+
+    /* ADAPTACIÓN MODO OSCURO EN RESPONSIVE PARA PT-ITEM */
+    html[data-theme="dark"] .pt-item {
+      background: #171d13 !important;
+      border: 1.5px solid rgba(216, 224, 199, 0.22) !important;
+      box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.6) !important;
+      color: #FFFFFF !important;
+    }
+
+    .pt-item-inner {
+      padding: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .pt-item-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--c-amber);
+      background: rgba(170, 114, 41, 0.12);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .pt-item-title {
+      font-size: 0.95rem;
+      line-height: 1.45;
+      margin: 0.5rem 0 0;
+      color: var(--ink);
+    }
+
+    html[data-theme="dark"] .pt-item-title {
+      color: #FFFFFF;
+    }
+
+    .pop-stack-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+    }
+
+    .pop-ctrl-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--paper-card);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      line-height: 1;
+      box-shadow: var(--shadow-sm);
+    }
+
+    html[data-theme="dark"] .pop-ctrl-btn {
+      background: #151D12;
+      border-color: rgba(255, 255, 255, 0.12);
+      color: #FFFFFF;
+    }
+
+    .pop-mini-dots {
+      display: flex;
+      gap: 0.35rem;
+    }
+
+    .pm-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--line-strong);
+      transition: width 0.2s ease, background 0.2s ease;
+    }
+
+    .pm-dot.active {
+      width: 16px;
+      border-radius: 3px;
+      background: var(--c-amber);
+    }
+  }
+
+  html[data-theme="dark"] .services-editorial {
+    background: transparent;
+  }
+
+  html[data-theme="dark"] .vertical-card {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  html[data-theme="dark"] .she-title {
+    color: #FFFFFF;
+  }
+
+/* =========================================================
+   3. SERVICIOS (ServicesGrid.astro) EN MODO NOCHE
+   ========================================================= */
+html[data-theme="dark"] .ssh-title {
+  color: #F4F7EE !important;
+}
+
+html[data-theme="dark"] .ssh-lead {
+  color: #C2CCB5 !important;
+}
+
+html[data-theme="dark"] .srv-panel-card.is-olive {
+  background: linear-gradient(160deg, #526038 0%, #384325 100%) !important;
+  border-color: rgba(216, 224, 199, 0.24) !important;
+  box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.7) !important;
+}
+
+html[data-theme="dark"] .srv-panel-card.is-sage {
+  background: linear-gradient(160deg, #8F6022 0%, #684416 100%) !important;
+  color: #F4F7EE !important;
+  border-color: rgba(240, 196, 140, 0.3) !important;
+  box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.7) !important;
+}
+
+html[data-theme="dark"] .srv-panel-card.is-sage .spc-price-tag,
+html[data-theme="dark"] .srv-panel-card.is-sage .spc-icon-box {
+  background: rgba(255, 255, 255, 0.14) !important;
+  color: #F0C48C !important;
+}
+
+html[data-theme="dark"] .srv-panel-card.is-sage .spc-desc {
+  color: rgba(244, 247, 238, 0.88) !important;
+}
+
+html[data-theme="dark"] .srv-panel-card.is-sage .spc-pill {
+  border-color: rgba(240, 196, 140, 0.42) !important;
+  color: #F4F7EE !important;
+}
+
+html[data-theme="dark"] .srv-panel-card.is-obsidian {
+  background: linear-gradient(160deg, #192115 0%, #10150D 100%) !important;
+  border-color: rgba(216, 224, 199, 0.24) !important;
+  box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.8) !important;
+}
+
+html[data-theme="dark"] .srv-nav-arrow,
+html[data-theme="dark"] .srv-dot {
+  background: #1B2217 !important;
+  color: #F2F5EC !important;
+  border-color: rgba(216, 224, 199, 0.24) !important;
+}
+
+html[data-theme="dark"] .srv-dot.active {
+  background: var(--c-olive) !important;
+  color: #FFFFFF !important;
+}
+
