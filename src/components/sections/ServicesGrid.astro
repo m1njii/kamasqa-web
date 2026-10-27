@@ -1,7 +1,7 @@
 ---
-import { services, wa } from "../../data/site";
+import { services, subservices, wa } from "../../data/site";
 
-// Configuraciones visuales y de fondo para cada servicio
+// Configuraciones visuales y de fondo para cada servicio principal
 const serviceThemes = [
   {
     slug: "landing-page",
@@ -40,144 +40,376 @@ const serviceThemes = [
 
 <section id="servicios" class="section services-editorial">
   <div class="container-wide">
-    <!-- Encabezado de Sección: Nuestras Soluciones Web -->
+    <!-- Encabezado de Sección: Dinámico con conmutador -->
     <header class="sec-head-editorial">
       <div class="she-left">
-        <h2 class="she-title">Nuestras Soluciones Web</h2>
-        <p class="she-desc">
+        <div class="she-badge-wrap">
+          <span class="she-badge" id="services-view-badge">Soluciones Web Principales</span>
+        </div>
+        <h2 class="she-title" id="services-sec-title">Nuestras Soluciones Web</h2>
+        <p class="she-desc" id="services-sec-desc">
           Desde una primera cotización transparente hasta la entrega final, tendrás un proceso claro, atención personalizada y soporte continuo.
         </p>
       </div>
 
       <div class="she-right">
-        <a href={wa("Hola Kamasqa 👋 Quisiera calcular un presupuesto personalizado para la web de mi negocio.")} target="_blank" rel="noopener noreferrer" class="btn-pill-action">
-          <span>Calcular presupuesto</span>
-          <span class="action-arrow-circle" aria-hidden="true">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+        <button
+          type="button"
+          id="btn-toggle-services"
+          class="btn-pill-action btn-toggle-services"
+          aria-expanded="false"
+          aria-controls="services-view-stage"
+          title="Alternar entre servicios principales y subservicios especializados"
+        >
+          <span class="btn-toggle-text" id="toggle-btn-label">Ver subservicios y soporte</span>
+          <span class="action-arrow-circle toggle-arrow-wrap" aria-hidden="true">
+            <svg class="toggle-icon-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
               <line x1="7" y1="17" x2="17" y2="7"></line>
               <polyline points="7 7 17 7 17 17"></polyline>
             </svg>
           </span>
-        </a>
+        </button>
       </div>
     </header>
 
-    <!-- Grid de Tarjetas Verticales (Desktop: 4 cols | Mobile: Carrusel táctil snap) -->
-    <div class="cards-carousel-container">
-      <div class="cards-vertical-grid" id="services-grid-track">
-        {services.map((s, i) => {
-          const theme = serviceThemes[i] || serviceThemes[0];
-          return (
-            <article class="vertical-card" style={`--accent-card:${theme.accentTone}`} data-srv-card={i}>
-              <!-- Fondo Visual del Servicio -->
-              <div class="vc-bg-wrap" aria-hidden="true">
-                <img
-                  src={theme.imgSrc}
-                  alt={`Render 3D conceptual para ${s.name}`}
-                  class="vc-bg-img"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <div class="vc-gradient"></div>
-              </div>
+    <!-- Escenario de Vistas con animación cruzada -->
+    <div id="services-view-stage" class="services-view-stage" data-current-view="main">
+      
+      <!-- ========================================================
+           VISTA 1: SERVICIOS PRINCIPALES (GRID 4 COLS + POPULAR NOW)
+           ======================================================== -->
+      <div id="services-main-panel" class="services-panel panel-main is-active">
+        <!-- Grid de Tarjetas Verticales (Desktop: 4 cols | Mobile: Carrusel táctil snap) -->
+        <div class="cards-carousel-container">
+          <div class="cards-vertical-grid" id="services-grid-track">
+            {services.map((s, i) => {
+              const theme = serviceThemes[i] || serviceThemes[0];
+              return (
+                <article class="vertical-card" style={`--accent-card:${theme.accentTone}`} data-srv-card={i}>
+                  <!-- Fondo Visual del Servicio -->
+                  <div class="vc-bg-wrap" aria-hidden="true">
+                    <img
+                      src={theme.imgSrc}
+                      alt={`Render 3D conceptual para ${s.name}`}
+                      class="vc-bg-img"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="vc-gradient"></div>
+                  </div>
 
-              <!-- Botón de Flecha Circular Superior Derecha (↗) que lleva a la página de servicio -->
-              <a
-                href={`/servicios/${s.slug}`}
-                class="vc-arrow-btn"
-                aria-label={`Ver detalles completos de ${s.name}`}
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
-                  <line x1="7" y1="17" x2="17" y2="7"></line>
-                  <polyline points="7 7 17 7 17 17"></polyline>
-                </svg>
-              </a>
-
-              <!-- Contenido Anclado al Fondo -->
-              <div class="vc-content">
-                <div class="vc-meta">
-                  <span class="vc-num-tag">0{i + 1}</span>
-                  <span class="vc-badge">{theme.category}</span>
-                  <span class="vc-time">⏱ {theme.time}</span>
-                </div>
-
-                <h3 class="vc-title">
-                  <a href={`/servicios/${s.slug}`} class="vc-title-link">{s.name}</a>
-                </h3>
-
-                <p class="vc-desc">{s.short}</p>
-
-                <div class="vc-footer">
-                  <span class="vc-pricing">A cotización formal</span>
-                  <a href={`/servicios/${s.slug}`} class="vc-cta-text">
-                    <span>Ver proyecto</span>
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
-                      <line x1="5" y1="12" x2="19" y2="12"></line>
-                      <polyline points="12 5 19 12 12 19"></polyline>
+                  <!-- Botón de Flecha Circular Superior Derecha (↗) -->
+                  <a
+                    href={`/servicios/${s.slug}`}
+                    class="vc-arrow-btn"
+                    aria-label={`Ver detalles completos de ${s.name}`}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
                     </svg>
                   </a>
-                </div>
-              </div>
-            </article>
-          );
-        })}
-      </div>
 
-      <!-- Indicadores de Carrusel en Móvil -->
-      <div class="srv-carousel-dots" id="srv-dots" aria-hidden="true">
-        {services.map((_, idx) => (
-          <button type="button" class={`s-dot ${idx === 0 ? "active" : ""}`} data-idx={idx} aria-label={`Ver tarjeta ${idx + 1}`}></button>
-        ))}
-      </div>
-    </div>
+                  <!-- Contenido Anclado al Fondo -->
+                  <div class="vc-content">
+                    <div class="vc-meta">
+                      <span class="vc-num-tag">0{i + 1}</span>
+                      <span class="vc-badge">{theme.category}</span>
+                      <span class="vc-time">⏱ {theme.time}</span>
+                    </div>
 
-    <!-- Ticker 'Popular now': En Desktop: Fila horizontal. En Mobile: Stack superpuesto de tarjetas con auto-play cada 5s -->
-    <div class="popular-ticker-wrap">
-      <div class="pt-label-col">
-        <span class="pt-tag">Popular now</span>
-      </div>
+                    <h3 class="vc-title">
+                      <a href={`/servicios/${s.slug}`} class="vc-title-link">{s.name}</a>
+                    </h3>
 
-      <div class="pt-items-stage" id="popular-stage">
-        {services.map((s, i) => {
-          const theme = serviceThemes[i];
-          return (
-            <a
-              href={`/servicios/${s.slug}`}
-              class={`pt-item ${i === 0 ? "is-top" : ""}`}
-              data-pop-idx={i}
-              data-layer={i}
-              aria-label={`Ver servicio ${s.name}`}
-            >
-              <div class="pt-item-inner">
-                <div class="pt-item-head">
-                  <span class="pt-item-meta">{s.name} · {theme.time}</span>
-                  <span class="pt-item-badge">Destacado</span>
-                </div>
-                <p class="pt-item-title">{theme.leadShort}</p>
-              </div>
-            </a>
-          );
-        })}
-      </div>
+                    <p class="vc-desc">{s.short}</p>
 
-      <!-- Controles móviles para el stack superpuesto de Popular Now -->
-      <div class="pop-stack-controls" id="pop-controls" aria-label="Controles de tarjetas destacadas">
-        <button type="button" class="pop-ctrl-btn prev" id="pop-prev" aria-label="Anterior destacada">‹</button>
-        <div class="pop-mini-dots" id="pop-mini-dots">
-          {services.map((_, i) => (
-            <span class={`pm-dot ${i === 0 ? "active" : ""}`} data-pdot={i}></span>
-          ))}
+                    <div class="vc-footer">
+                      <span class="vc-pricing">A cotización formal</span>
+                      <a href={`/servicios/${s.slug}`} class="vc-cta-text">
+                        <span>Ver proyecto</span>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                          <line x1="5" y1="12" x2="19" y2="12"></line>
+                          <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+
+          <!-- Indicadores de Carrusel en Móvil -->
+          <div class="srv-carousel-dots" id="srv-dots" aria-hidden="true">
+            {services.map((_, idx) => (
+              <button type="button" class={`s-dot ${idx === 0 ? "active" : ""}`} data-idx={idx} aria-label={`Ver tarjeta ${idx + 1}`}></button>
+            ))}
+          </div>
         </div>
-        <button type="button" class="pop-ctrl-btn next" id="pop-next" aria-label="Siguiente destacada">›</button>
+
+        <!-- Ticker 'Popular now': En Desktop: Fila horizontal. En Mobile: Stack superpuesto -->
+        <div class="popular-ticker-wrap">
+          <div class="pt-label-col">
+            <span class="pt-tag">Popular now</span>
+          </div>
+
+          <div class="pt-items-stage" id="popular-stage">
+            {services.map((s, i) => {
+              const theme = serviceThemes[i];
+              return (
+                <a
+                  href={`/servicios/${s.slug}`}
+                  class={`pt-item ${i === 0 ? "is-top" : ""}`}
+                  data-pop-idx={i}
+                  data-layer={i}
+                  aria-label={`Ver servicio ${s.name}`}
+                >
+                  <div class="pt-item-inner">
+                    <div class="pt-item-head">
+                      <span class="pt-item-meta">{s.name} · {theme.time}</span>
+                      <span class="pt-item-badge">Destacado</span>
+                    </div>
+                    <p class="pt-item-title">{theme.leadShort}</p>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+
+          <!-- Controles móviles para el stack superpuesto de Popular Now -->
+          <div class="pop-stack-controls" id="pop-controls" aria-label="Controles de tarjetas destacadas">
+            <button type="button" class="pop-ctrl-btn prev" id="pop-prev" aria-label="Anterior destacada">‹</button>
+            <div class="pop-mini-dots" id="pop-mini-dots">
+              {services.map((_, i) => (
+                <span class={`pm-dot ${i === 0 ? "active" : ""}`} data-pdot={i}></span>
+              ))}
+            </div>
+            <button type="button" class="pop-ctrl-btn next" id="pop-next" aria-label="Siguiente destacada">›</button>
+          </div>
+        </div>
       </div>
+
+      <!-- ========================================================
+           VISTA 2: SUBSERVICIOS ESPECIALIZADOS (3 TARJETAS EN GRID)
+           ======================================================== -->
+      <div id="services-sub-panel" class="services-panel panel-sub" aria-hidden="true">
+        <div class="subservices-editorial-grid">
+          
+          <!-- SUB 1: ALOJAMIENTO WEB VPS DEDICADO -->
+          <article class="sub-card" style={`--sub-accent: ${subservices[0].accentTone};`}>
+            <div class="sub-card-topline"></div>
+            
+            <div class="sub-card-header">
+              <div class="sub-meta">
+                <span class="sub-num">01</span>
+                <span class="sub-badge">{subservices[0].badge}</span>
+              </div>
+              <span class="sub-time">⏱ {subservices[0].time}</span>
+            </div>
+
+            <div class="sub-card-body">
+              <div class="sub-tagline">{subservices[0].tagline}</div>
+              <h3 class="sub-title">{subservices[0].name}</h3>
+              <p class="sub-desc">{subservices[0].description}</p>
+
+              <!-- Lista de especificaciones VPS -->
+              <div class="sub-features-block">
+                <span class="sub-block-caption">Especificaciones Técnicas Incluidas:</span>
+                <ul class="sub-features-list">
+                  {subservices[0].highlights.map((feat) => (
+                    <li class="sub-feature-item">
+                      <span class="sub-check-icon" aria-hidden="true">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </span>
+                      <span>{feat}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div class="sub-callout-pill">
+                <span class="scp-dot"></span>
+                <span>Arquitectura aislada sin caídas ni sobrecarga de vecinos.</span>
+              </div>
+            </div>
+
+            <div class="sub-card-footer">
+              <div class="sub-footer-meta">
+                <span class="sub-pricing-label">Tarifa mensual o anual</span>
+                <span class="sub-status-tag">IP Dedicada</span>
+              </div>
+              <a
+                href={wa(subservices[0].msg)}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-pill-action sub-cta-action"
+              >
+                <span>Cotizar Alojamiento VPS</span>
+                <span class="action-arrow-circle" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </span>
+              </a>
+            </div>
+          </article>
+
+          <!-- SUB 2: CORREOS CORPORATIVOS (3 OPCIONES DIRECTAMENTE VISIBLES) -->
+          <article class="sub-card" style={`--sub-accent: ${subservices[1].accentTone};`}>
+            <div class="sub-card-topline"></div>
+
+            <div class="sub-card-header">
+              <div class="sub-meta">
+                <span class="sub-num">02</span>
+                <span class="sub-badge">{subservices[1].badge}</span>
+              </div>
+              <span class="sub-time">⏱ {subservices[1].time}</span>
+            </div>
+
+            <div class="sub-card-body">
+              <div class="sub-tagline">{subservices[1].tagline}</div>
+              <h3 class="sub-title">{subservices[1].name}</h3>
+              <p class="sub-desc">{subservices[1].description}</p>
+
+              <!-- Las 3 Opciones Visibles Directamente -->
+              <div class="sub-options-block">
+                <span class="sub-block-caption">3 Modalidades Disponibles:</span>
+                <div class="sub-options-stack">
+                  {subservices[1].options?.map((opt, optIdx) => (
+                    <div class={`sub-option-box ${optIdx === 1 ? "is-featured" : ""}`}>
+                      <div class="sob-top">
+                        <strong class="sob-name">{opt.name}</strong>
+                        <span class="sob-badge">{opt.badge}</span>
+                      </div>
+                      <p class="sob-desc">{opt.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <!-- Píldoras de Compatibilidad -->
+              <div class="sub-pills-row">
+                <span class="sub-mini-pill">✓ DKIM / SPF / DMARC</span>
+                <span class="sub-mini-pill">✓ Outlook / Gmail / Móvil</span>
+                <span class="sub-mini-pill">✓ Antivirus 24/7</span>
+              </div>
+            </div>
+
+            <div class="sub-card-footer">
+              <div class="sub-footer-meta">
+                <span class="sub-pricing-label">Bajo tu propio dominio</span>
+                <span class="sub-status-tag">Cero Spam</span>
+              </div>
+              <a
+                href={wa(subservices[1].msg)}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-pill-action sub-cta-action"
+              >
+                <span>Cotizar Correos por WhatsApp</span>
+                <span class="action-arrow-circle" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </span>
+              </a>
+            </div>
+          </article>
+
+          <!-- SUB 3: MANTENIMIENTO PUNTUAL / BOLSA DE HORAS (BISECCIONADO) -->
+          <article class="sub-card" style={`--sub-accent: ${subservices[2].accentTone};`}>
+            <div class="sub-card-topline"></div>
+
+            <div class="sub-card-header">
+              <div class="sub-meta">
+                <span class="sub-num">03</span>
+                <span class="sub-badge">{subservices[2].badge}</span>
+              </div>
+              <span class="sub-time">⏱ {subservices[2].time}</span>
+            </div>
+
+            <div class="sub-card-body">
+              <div class="sub-tagline">{subservices[2].tagline}</div>
+              <h3 class="sub-title">{subservices[2].name}</h3>
+              <p class="sub-desc">{subservices[2].description}</p>
+
+              <!-- Desglose Biseccionado de Alcances -->
+              <div class="sub-scopes-block">
+                <span class="sub-block-caption">Alcance según tu Tipo de Web:</span>
+                
+                <div class="sub-scopes-grid">
+                  <!-- Scope 1: Landing / Web Informativa -->
+                  <div class="sub-scope-card">
+                    <div class="ssc-head">
+                      <span class="ssc-dot"></span>
+                      <strong class="ssc-title">{subservices[2].scopes?.[0].title}</strong>
+                    </div>
+                    <ul class="ssc-items">
+                      {subservices[2].scopes?.[0].items.map((it) => (
+                        <li>• {it}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <!-- Scope 2: E-commerce -->
+                  <div class="sub-scope-card">
+                    <div class="ssc-head">
+                      <span class="ssc-dot"></span>
+                      <strong class="ssc-title">{subservices[2].scopes?.[1].title}</strong>
+                    </div>
+                    <ul class="ssc-items">
+                      {subservices[2].scopes?.[1].items.map((it) => (
+                        <li>• {it}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sub-callout-pill">
+                <span class="scp-dot"></span>
+                <span>Resolución de bugs, código complejo y desinfección de malware a pedido.</span>
+              </div>
+            </div>
+
+            <div class="sub-card-footer">
+              <div class="sub-footer-meta">
+                <span class="sub-pricing-label">Bolsa de horas o puntual</span>
+                <span class="sub-status-tag">Sin mensualidades</span>
+              </div>
+              <a
+                href={wa(subservices[2].msg)}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-pill-action sub-cta-action"
+              >
+                <span>Consultar Soporte Técnico</span>
+                <span class="action-arrow-circle" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </span>
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
 <script>
-  // ==========================================
+  // ========================================================
   // 1. Carrusel de Tarjetas de Servicios en Móvil
-  // ==========================================
+  // ========================================================
   const srvGrid = document.getElementById("services-grid-track");
   const srvDots = document.querySelectorAll(".srv-carousel-dots .s-dot");
 
@@ -204,9 +436,9 @@ const serviceThemes = [
     });
   }
 
-  // ==========================================
-  // 2. Popular Now: Stack Superpuesto en Móvil (Auto-advance cada 5 segundos)
-  // ==========================================
+  // ========================================================
+  // 2. Popular Now: Stack Superpuesto en Móvil
+  // ========================================================
   const popStage = document.getElementById("popular-stage");
   const popCards = Array.from(document.querySelectorAll<HTMLElement>(".pt-item"));
   const popMiniDots = Array.from(document.querySelectorAll<HTMLElement>(".pop-mini-dots .pm-dot"));
@@ -219,7 +451,6 @@ const serviceThemes = [
     let autoTimer: number | null = null;
 
     const renderStack = () => {
-      // Solo aplicamos stack en móvil (<= 840px)
       const isMobile = window.innerWidth <= 840;
       if (!isMobile) {
         popCards.forEach((c) => {
@@ -232,28 +463,23 @@ const serviceThemes = [
       }
 
       popCards.forEach((card, i) => {
-        // Distancia relativa respecto al índice activo
         const rel = (i - currentIdx + total) % total;
         if (rel === 0) {
-          // Activo al frente
           card.style.transform = "translate3d(0, 0, 0) scale(1)";
           card.style.opacity = "1";
           card.style.zIndex = "10";
           card.style.pointerEvents = "auto";
         } else if (rel === 1) {
-          // Segundo detrás
           card.style.transform = "translate3d(0, 12px, -20px) scale(0.95)";
           card.style.opacity = "0.78";
           card.style.zIndex = "8";
           card.style.pointerEvents = "none";
         } else if (rel === 2) {
-          // Tercero más atrás
           card.style.transform = "translate3d(0, 24px, -40px) scale(0.90)";
           card.style.opacity = "0.52";
           card.style.zIndex = "6";
           card.style.pointerEvents = "none";
         } else {
-          // Cuarto al fondo
           card.style.transform = "translate3d(0, 36px, -60px) scale(0.85)";
           card.style.opacity = "0.25";
           card.style.zIndex = "4";
@@ -267,7 +493,6 @@ const serviceThemes = [
     };
 
     const nextPopCard = () => {
-      // Animación de salida de la carta frontal hacia el fondo
       const topCard = popCards[currentIdx];
       if (window.innerWidth <= 840 && topCard) {
         topCard.style.transform = "translate3d(-100px, -20px, 0) rotate(-6deg) scale(0.88)";
@@ -296,7 +521,6 @@ const serviceThemes = [
       }, 5000);
     };
 
-    // Eventos de interacción
     popMiniDots.forEach((dot, idx) => {
       dot.addEventListener("click", (e) => {
         e.stopPropagation();
@@ -320,7 +544,6 @@ const serviceThemes = [
       resetTimer();
     });
 
-    // Touch swipe en móvil
     let touchStartX = 0;
     let touchStartY = 0;
     popStage.addEventListener("touchstart", (e) => {
@@ -344,6 +567,87 @@ const serviceThemes = [
     renderStack();
     resetTimer();
   }
+
+  // ========================================================
+  // 3. Conmutador Dinámico: Servicios Principales <-> Subservicios
+  // ========================================================
+  const toggleBtn = document.getElementById("btn-toggle-services");
+  const toggleBtnLabel = document.getElementById("toggle-btn-label");
+  const viewStage = document.getElementById("services-view-stage");
+  const mainPanel = document.getElementById("services-main-panel");
+  const subPanel = document.getElementById("services-sub-panel");
+  const secTitle = document.getElementById("services-sec-title");
+  const secDesc = document.getElementById("services-sec-desc");
+  const viewBadge = document.getElementById("services-view-badge");
+
+  if (toggleBtn && viewStage && mainPanel && subPanel) {
+    let currentView: "main" | "sub" = "main";
+    let isTransitioning = false;
+
+    toggleBtn.addEventListener("click", () => {
+      if (isTransitioning) return;
+      isTransitioning = true;
+
+      const goingToSub = currentView === "main";
+
+      // 1. Estado de salida en el panel activo
+      const outgoingPanel = goingToSub ? mainPanel : subPanel;
+      const incomingPanel = goingToSub ? subPanel : mainPanel;
+
+      outgoingPanel.classList.add("is-leaving");
+      outgoingPanel.classList.remove("is-active", "is-entering");
+
+      // Microanimación en el botón
+      toggleBtn.classList.toggle("is-sub-active", goingToSub);
+      toggleBtn.setAttribute("aria-expanded", String(goingToSub));
+
+      window.setTimeout(() => {
+        outgoingPanel.style.display = "none";
+        outgoingPanel.classList.remove("is-leaving");
+        outgoingPanel.setAttribute("aria-hidden", "true");
+
+        incomingPanel.style.display = "block";
+        incomingPanel.removeAttribute("aria-hidden");
+        // Reflow forzado para asegurar disparo de la animación CSS
+        void incomingPanel.offsetWidth;
+        incomingPanel.classList.add("is-active", "is-entering");
+
+        // 2. Actualizar textos de cabecera y botón
+        if (goingToSub) {
+          if (toggleBtnLabel) toggleBtnLabel.textContent = "← Volver a servicios principales";
+          if (viewBadge) viewBadge.textContent = "Infraestructura & Soporte Dedicado";
+          if (secTitle) secTitle.textContent = "Subservicios & Soporte Técnico";
+          if (secDesc) {
+            secDesc.textContent =
+              "Alojamiento cloud de alto rendimiento, identidades corporativas bajo tu dominio y bolsas de horas para soporte especializado.";
+          }
+          currentView = "sub";
+          viewStage.setAttribute("data-current-view", "sub");
+        } else {
+          if (toggleBtnLabel) toggleBtnLabel.textContent = "Ver subservicios y soporte";
+          if (viewBadge) viewBadge.textContent = "Soluciones Web Principales";
+          if (secTitle) secTitle.textContent = "Nuestras Soluciones Web";
+          if (secDesc) {
+            secDesc.textContent =
+              "Desde una primera cotización transparente hasta la entrega final, tendrás un proceso claro, atención personalizada y soporte continuo.";
+          }
+          currentView = "main";
+          viewStage.setAttribute("data-current-view", "main");
+        }
+
+        // Si la página tiene sistema bilingüe activo, sincronizar traducciones
+        const translator = (window as unknown as { __kamasqaTranslate?: () => void }).__kamasqaTranslate;
+        if (typeof translator === "function") {
+          translator();
+        }
+
+        window.setTimeout(() => {
+          incomingPanel.classList.remove("is-entering");
+          isTransitioning = false;
+        }, 320);
+      }, 190);
+    });
+  }
 </script>
 
 <style>
@@ -359,14 +663,40 @@ const serviceThemes = [
     align-items: flex-end;
     justify-content: space-between;
     gap: 1.5rem;
-    margin-bottom: clamp(2rem, 4vw, 3.2rem);
+    margin-bottom: clamp(2.2rem, 4.5vw, 3.4rem);
   }
 
   .she-left {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    max-width: 680px;
+    gap: 0.55rem;
+    max-width: 720px;
+  }
+
+  .she-badge-wrap {
+    margin-bottom: 0.15rem;
+  }
+
+  .she-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-amber);
+    background: rgba(170, 114, 41, 0.12);
+    border: 1px solid rgba(170, 114, 41, 0.28);
+    padding: 0.25rem 0.8rem;
+    border-radius: var(--radius-full);
+    transition: all 0.3s ease;
+  }
+
+  html[data-theme="dark"] .she-badge {
+    background: rgba(240, 196, 140, 0.12);
+    border-color: rgba(240, 196, 140, 0.26);
+    color: var(--c-sand);
   }
 
   .she-title {
@@ -376,6 +706,7 @@ const serviceThemes = [
     line-height: 1.1;
     letter-spacing: -0.025em;
     color: var(--ink);
+    transition: opacity 0.25s ease, transform 0.25s ease;
   }
 
   .she-desc {
@@ -383,42 +714,107 @@ const serviceThemes = [
     color: var(--ink-soft);
     line-height: 1.6;
     margin: 0;
+    transition: opacity 0.25s ease;
   }
 
-  .she-btn-pill {
+  /* Botón Conmutador Superior Derecho */
+  .btn-toggle-services {
+    cursor: pointer;
+    border: 1.5px solid rgba(14, 20, 13, 0.18);
+    background: var(--ink);
+    color: var(--c-white);
+    padding: 0.6rem 0.75rem 0.6rem 1.4rem;
+    font-size: 0.88rem;
+    font-weight: 700;
+    white-space: nowrap;
+    border-radius: var(--radius-full);
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.65rem 1.4rem;
-    border-radius: var(--radius-full);
-    border: 1.5px solid var(--ink);
-    background: transparent;
-    color: var(--ink);
-    font-size: 0.875rem;
-    font-weight: 700;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    white-space: nowrap;
+    gap: 0.85rem;
+    transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), background 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  .she-btn-pill:hover {
-    background: var(--ink);
-    color: var(--paper);
+  .btn-toggle-services:hover {
     transform: translateY(-2px);
+    background: #000000;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   }
 
-  html[data-theme="dark"] .she-btn-pill {
-    border-color: rgba(255, 255, 255, 0.25);
-    color: var(--ink);
-  }
-
-  html[data-theme="dark"] .she-btn-pill:hover {
-    background: var(--c-sand);
+  .btn-toggle-services.is-sub-active {
+    background: var(--c-olive-dark);
     border-color: var(--c-sand);
-    color: #121610;
   }
 
-  /* Carrusel / Grid de Tarjetas Verticales */
+  .btn-toggle-services.is-sub-active:hover {
+    background: var(--c-olive);
+  }
+
+  .toggle-arrow-wrap {
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.24s ease;
+  }
+
+  .btn-toggle-services.is-sub-active .toggle-arrow-wrap {
+    transform: rotate(135deg);
+    background: var(--c-amber);
+    color: #FFFFFF;
+  }
+
+  html[data-theme="dark"] .btn-toggle-services {
+    background: #172015;
+    border-color: rgba(216, 224, 199, 0.22);
+    color: #FFFFFF;
+  }
+
+  html[data-theme="dark"] .btn-toggle-services:hover {
+    background: #222f1f;
+    border-color: var(--c-sand);
+  }
+
+  html[data-theme="dark"] .btn-toggle-services.is-sub-active {
+    background: #253321;
+    border-color: var(--c-amber);
+  }
+
+  /* Escenario de Vistas */
+  .services-view-stage {
+    position: relative;
+    width: 100%;
+  }
+
+  .services-panel {
+    transition: opacity 0.26s cubic-bezier(0.16, 1, 0.3, 1), transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .services-panel.panel-sub {
+    display: none;
+  }
+
+  .services-panel.is-leaving {
+    opacity: 0 !important;
+    transform: translateY(-10px) scale(0.99) !important;
+    pointer-events: none;
+  }
+
+  .services-panel.is-entering {
+    animation: panel-enter 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes panel-enter {
+    from {
+      opacity: 0;
+      transform: translateY(16px) scale(0.99);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* ========================================================
+     VISTA 1: SERVICIOS PRINCIPALES (CARDS VERTICALES)
+     ======================================================== */
   .cards-carousel-container {
     position: relative;
     margin-bottom: clamp(2.5rem, 5vw, 4rem);
@@ -430,7 +826,6 @@ const serviceThemes = [
     gap: clamp(1.2rem, 2vw, 2rem);
   }
 
-  /* Tarjeta Vertical Individual */
   .vertical-card {
     position: relative;
     border-radius: 28px;
@@ -451,7 +846,6 @@ const serviceThemes = [
     box-shadow: 0 24px 48px -12px rgba(27, 33, 20, 0.35);
   }
 
-  /* Fondo con Mockups Digitales en Perspectiva (Propietarios y Locales) */
   .vc-bg-wrap {
     position: absolute;
     inset: 0;
@@ -501,7 +895,6 @@ const serviceThemes = [
     );
   }
 
-  /* Botón de Flecha Superior Derecha (↗) con Acento Arena de la Paleta */
   .vc-arrow-btn {
     position: absolute;
     top: 1.4rem;
@@ -537,7 +930,6 @@ const serviceThemes = [
     border: 1px solid rgba(240, 196, 140, 0.35);
   }
 
-  /* Contenido Inferior */
   .vc-content {
     position: relative;
     z-index: 1;
@@ -626,7 +1018,6 @@ const serviceThemes = [
     transform: translateX(3px);
   }
 
-  /* Dots de Carrusel Ocultos en Desktop */
   .srv-carousel-dots {
     display: none;
   }
@@ -699,19 +1090,463 @@ const serviceThemes = [
     margin-bottom: 0.4rem;
   }
 
-  .pt-item-action {
+  .pop-stack-controls {
     display: none;
   }
 
-  .pop-stack-controls {
-    display: none;
+  /* ========================================================
+     VISTA 2: SUBSERVICIOS ESPECIALIZADOS (GRID DE 3 COLUMNAS)
+     ======================================================== */
+  .subservices-editorial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1.3rem, 2.5vw, 2.2rem);
+  }
+
+  .sub-card {
+    position: relative;
+    border-radius: 28px;
+    background: var(--paper-card);
+    border: 1.5px solid var(--line);
+    box-shadow: 0 16px 36px -12px rgba(27, 33, 20, 0.12);
+    padding: clamp(1.7rem, 2.4vw, 2.2rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.6rem;
+    overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  .sub-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 48px -12px rgba(27, 33, 20, 0.22);
+    border-color: rgba(170, 114, 41, 0.35);
+  }
+
+  /* Línea decorativa superior */
+  .sub-card-topline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--sub-accent), transparent 85%);
+  }
+
+  .sub-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .sub-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .sub-num {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 800;
+    color: var(--c-amber);
+    background: rgba(170, 114, 41, 0.12);
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(170, 114, 41, 0.25);
+  }
+
+  .sub-badge {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--radius-full);
+    background: var(--paper-subtle);
+    border: 1px solid var(--line);
+    color: var(--ink);
+  }
+
+  .sub-time {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    font-weight: 600;
+  }
+
+  .sub-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex: 1;
+  }
+
+  .sub-tagline {
+    font-size: 0.74rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--sub-accent);
+  }
+
+  .sub-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 1.8vw, 1.7rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    letter-spacing: -0.015em;
+  }
+
+  .sub-desc {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: 0.5rem;
+  }
+
+  .sub-block-caption {
+    font-size: 0.74rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    display: block;
+    margin-bottom: 0.65rem;
+  }
+
+  /* Lista de especificaciones VPS */
+  .sub-features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .sub-feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    font-size: 0.835rem;
+    line-height: 1.45;
+    color: var(--ink-soft);
+  }
+
+  .sub-check-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: rgba(110, 125, 78, 0.16);
+    color: var(--c-olive-dark);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* Píldora de llamada de atención */
+  .sub-callout-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 0.9rem;
+    border-radius: var(--radius-sm);
+    background: var(--paper-subtle);
+    border: 1px solid var(--line);
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    line-height: 1.4;
+    margin-top: auto;
+  }
+
+  .scp-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--c-amber);
+    flex-shrink: 0;
+  }
+
+  /* Opciones de Correos Corporativos (Las 3 Visibles Directamente) */
+  .sub-options-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .sub-option-box {
+    padding: 0.65rem 0.85rem;
+    border-radius: var(--radius-sm);
+    background: var(--paper-subtle);
+    border: 1px solid var(--line);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .sub-option-box:hover {
+    border-color: rgba(110, 125, 78, 0.35);
+    transform: translateX(2px);
+  }
+
+  .sub-option-box.is-featured {
+    background: rgba(110, 125, 78, 0.08);
+    border-color: rgba(110, 125, 78, 0.3);
+  }
+
+  .sob-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .sob-name {
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .sob-badge {
+    font-size: 0.68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--c-olive-dark);
+    background: rgba(110, 125, 78, 0.16);
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-full);
+  }
+
+  .sob-desc {
+    font-size: 0.77rem;
+    line-height: 1.4;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  .sub-pills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .sub-mini-pill {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.25rem 0.55rem;
+    border-radius: var(--radius-full);
+    background: var(--paper-subtle);
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+  }
+
+  /* Desglose Biseccionado de Mantenimiento */
+  .sub-scopes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .sub-scope-card {
+    padding: 0.75rem 0.8rem;
+    border-radius: var(--radius-sm);
+    background: var(--paper-subtle);
+    border: 1px solid var(--line);
+  }
+
+  .ssc-head {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.45rem;
+  }
+
+  .ssc-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--c-amber);
+    flex-shrink: 0;
+  }
+
+  .ssc-title {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1.25;
+  }
+
+  .ssc-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .ssc-items li {
+    font-size: 0.74rem;
+    line-height: 1.35;
+    color: var(--ink-soft);
+  }
+
+  /* Footer de Sub-card */
+  .sub-card-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .sub-footer-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.78rem;
+  }
+
+  .sub-pricing-label {
+    color: var(--ink-muted);
+    font-weight: 600;
+  }
+
+  .sub-status-tag {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--c-amber);
+    background: rgba(170, 114, 41, 0.1);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  .sub-cta-action {
+    width: 100%;
+    justify-content: space-between;
+    padding: 0.6rem 0.75rem 0.6rem 1.2rem;
+    font-size: 0.85rem;
+  }
+
+  /* ========================================================
+     MODO OSCURO (DARK THEME)
+     ======================================================== */
+  html[data-theme="dark"] .she-title {
+    color: #FFFFFF;
+  }
+
+  html[data-theme="dark"] .sub-card {
+    background: #141B12;
+    border-color: rgba(216, 224, 199, 0.15);
+    box-shadow: 0 20px 42px -12px rgba(0, 0, 0, 0.6);
+  }
+
+  html[data-theme="dark"] .sub-card:hover {
+    border-color: rgba(240, 196, 140, 0.35);
+    box-shadow: 0 26px 54px -12px rgba(0, 0, 0, 0.8);
+  }
+
+  html[data-theme="dark"] .sub-badge {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: #FFFFFF;
+  }
+
+  html[data-theme="dark"] .sub-time {
+    color: rgba(242, 245, 236, 0.65);
+  }
+
+  html[data-theme="dark"] .sub-title {
+    color: #FFFFFF;
+  }
+
+  html[data-theme="dark"] .sub-desc {
+    color: rgba(242, 245, 236, 0.8);
+  }
+
+  html[data-theme="dark"] .sub-feature-item {
+    color: rgba(242, 245, 236, 0.82);
+  }
+
+  html[data-theme="dark"] .sub-check-icon {
+    background: rgba(216, 224, 199, 0.15);
+    color: var(--c-sand);
+  }
+
+  html[data-theme="dark"] .sub-callout-pill {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.08);
+    color: rgba(242, 245, 236, 0.78);
+  }
+
+  html[data-theme="dark"] .sub-option-box {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  html[data-theme="dark"] .sub-option-box.is-featured {
+    background: rgba(110, 125, 78, 0.2);
+    border-color: rgba(110, 125, 78, 0.4);
+  }
+
+  html[data-theme="dark"] .sob-name {
+    color: #FFFFFF;
+  }
+
+  html[data-theme="dark"] .sob-badge {
+    background: rgba(216, 224, 199, 0.2);
+    color: var(--c-sand);
+  }
+
+  html[data-theme="dark"] .sob-desc {
+    color: rgba(242, 245, 236, 0.75);
+  }
+
+  html[data-theme="dark"] .sub-mini-pill {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.08);
+    color: rgba(242, 245, 236, 0.78);
+  }
+
+  html[data-theme="dark"] .sub-scope-card {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  html[data-theme="dark"] .ssc-title {
+    color: #FFFFFF;
+  }
+
+  html[data-theme="dark"] .ssc-items li {
+    color: rgba(242, 245, 236, 0.75);
+  }
+
+  html[data-theme="dark"] .sub-card-footer {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  html[data-theme="dark"] .sub-pricing-label {
+    color: rgba(242, 245, 236, 0.6);
   }
 
   /* ========================================================
      MODO RESPONSIVE ESPECÍFICO (<= 840px)
      ======================================================== */
   @media (max-width: 840px) {
-    /* 1. Carrusel de Tarjetas de Servicios */
+    .sec-head-editorial {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.25rem;
+    }
+
+    .btn-toggle-services {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    /* 1. Carrusel de Tarjetas de Servicios Principales */
     .cards-vertical-grid {
       display: flex;
       overflow-x: auto;
@@ -734,7 +1569,6 @@ const serviceThemes = [
       scroll-snap-align: center;
     }
 
-    /* Dots interactivos para servicios */
     .srv-carousel-dots {
       display: flex;
       align-items: center;
@@ -760,7 +1594,7 @@ const serviceThemes = [
       background: var(--c-amber);
     }
 
-    /* 2. Popular Now en Móvil: El texto "Popular now" NO se verá en responsive */
+    /* 2. Popular Now en Móvil */
     .popular-ticker-wrap {
       display: block;
       border-top: none;
@@ -771,7 +1605,6 @@ const serviceThemes = [
       display: none !important;
     }
 
-    /* Stack de tarjetas superpuestas */
     .pt-items-stage {
       position: relative;
       height: 155px;
@@ -835,7 +1668,6 @@ const serviceThemes = [
       color: var(--ink);
     }
 
-    /* Controles de Stack */
     .pop-stack-controls {
       display: flex;
       align-items: center;
@@ -877,6 +1709,16 @@ const serviceThemes = [
       width: 16px;
       border-radius: 3px;
       background: var(--c-amber);
+    }
+
+    /* 3. Subservicios en Móvil */
+    .subservices-editorial-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .sub-scopes-grid {
+      grid-template-columns: 1fr;
     }
   }
 

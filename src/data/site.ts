@@ -326,3 +326,119 @@ export const faqs = [
     a: "Trabajamos con el esquema 50% al iniciar el proyecto y 50% al entregarte tu web 100% terminada y aprobada por ti. Aceptamos transferencias bancarias (BCP, BBVA, Interbank, Scotiabank), Yape, Plin y tarjetas.",
   },
 ];
+
+export type SubserviceOption = {
+  name: string;
+  badge?: string;
+  desc: string;
+};
+
+export type SubserviceScope = {
+  title: string;
+  tag: string;
+  items: string[];
+};
+
+export type Subservice = {
+  id: string;
+  name: string;
+  badge: string;
+  tagline: string;
+  accentTone: string;
+  time: string;
+  description: string;
+  highlights: string[];
+  options?: SubserviceOption[];
+  scopes?: SubserviceScope[];
+  msg: string;
+};
+
+export const subservices: Subservice[] = [
+  {
+    id: "hosting-vps",
+    name: "Alojamiento Web VPS",
+    badge: "Infraestructura & Servidores",
+    tagline: "Rendimiento Aislado",
+    accentTone: "var(--c-amber)",
+    time: "Activación en 24h",
+    description: "Hosting de alto rendimiento sobre servidor VPS optimizado. Recursos dedicados sin compartir IP, garantizando velocidad y estabilidad continua.",
+    highlights: [
+      "IP independiente dedicada (máxima reputación)",
+      "Certificado de seguridad SSL vitalicio (HTTPS)",
+      "Backups automatizados diarios con restauración ágil",
+      "Arquitectura Nginx / LiteSpeed con caché HTTP/3",
+      "Monitoreo proactivo 24/7 y 99.98% de disponibilidad",
+    ],
+    msg: "Hola equipo de Kamasqa 👋 Quisiera consultar y cotizar el servicio de *Alojamiento Web VPS Dedicado* (con IP independiente, SSL y backups).",
+  },
+  {
+    id: "correos-corporativos",
+    name: "Correos Corporativos",
+    badge: "Identidad & Marca",
+    tagline: "3 Opciones Flexibles",
+    accentTone: "var(--c-olive)",
+    time: "Entrega en 24 a 48h",
+    description: "Cuentas oficiales con tu dominio propio (@tuempresa.pe). Transmite solidez institucional y evita que tus correos comerciales caigan en spam.",
+    highlights: [
+      "Firma digital y protocolos DKIM, SPF y DMARC activos",
+      "Sincronización con Outlook, Gmail, iPhone y Android",
+      "Filtro corporativo antispam y antivirus en tiempo real",
+    ],
+    options: [
+      {
+        name: "Opción Individual",
+        badge: "1 Cuenta",
+        desc: "Ideal para profesionales independientes, gerentes o fundadores.",
+      },
+      {
+        name: "Paquete 3 Correos",
+        badge: "3 Cuentas",
+        desc: "Equipos clave (administración, ventas y atención al cliente).",
+      },
+      {
+        name: "Paquete 5 Correos",
+        badge: "5 Cuentas",
+        desc: "Solución completa para empresas con múltiples áreas o sucursales.",
+      },
+    ],
+    msg: "Hola equipo de Kamasqa 👋 Me gustaría cotizar el servicio de *Correos Corporativos* (@tuempresa.pe) para mi negocio.",
+  },
+  {
+    id: "mantenimiento-soporte",
+    name: "Mantenimiento & Soporte TI",
+    badge: "Bolsa de Horas & Soporte",
+    tagline: "Resolución Puntual",
+    accentTone: "var(--c-sand)",
+    time: "Atención prioritaria",
+    description: "Ajustes complejos en código, resolución de errores (bugs), desinfección de malware o configuraciones de servidor a pedido sin ataduras mensuales.",
+    highlights: [
+      "Diagnóstico técnico profundo y resolución garantizada",
+      "Sin contratos forzosos: cotiza solo lo que necesitas",
+      "Reporte de cambios y pruebas en staging antes de publicar",
+    ],
+    scopes: [
+      {
+        title: "Landing Page / Web Informativa",
+        tag: "Webs Institucionales",
+        items: [
+          "Actualización de textos comerciales e imágenes",
+          "Ajustes de paleta de colores, tipografías y estilos",
+          "Creación o modificación de formularios y botones WhatsApp",
+          "Corrección de errores de visualización móvil (responsive)",
+        ],
+      },
+      {
+        title: "E-commerce (Tienda en Línea)",
+        tag: "Comercio Electrónico",
+        items: [
+          "Gestión y subida de nuevos productos y categorías",
+          "Control de inventario, stock y atributos variantes",
+          "Configuración de cupones, promociones y descuentos",
+          "Pruebas y mantenimiento de pasarelas de pago (Culqi, Niubiz, Mercado Pago)",
+        ],
+      },
+    ],
+    msg: "Hola equipo de Kamasqa 👋 Necesito cotizar una intervención de *Mantenimiento Web Puntual / Soporte Técnico* para mi sitio web.",
+  },
+];
+
