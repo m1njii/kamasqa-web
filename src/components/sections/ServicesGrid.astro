@@ -1,5 +1,5 @@
 ---
-import { services, subservices, wa } from "../../data/site";
+import { services, wa } from "../../data/site";
 
 // Configuraciones visuales y de fondo para cada servicio principal
 const serviceThemes = [
@@ -34,6 +34,49 @@ const serviceThemes = [
     imgSrc: "/images/services/sistema-medida.jpg",
     accentTone: "var(--c-sage)",
     leadShort: "Plataformas web avanzadas, paneles administrativos y flujos de negocio a medida.",
+  },
+];
+
+// Configuraciones visuales idénticas para los 3 subservicios
+const subserviceThemes = [
+  {
+    id: "hosting-vps",
+    name: "Alojamiento Web VPS",
+    category: "Infraestructura & Servidores",
+    time: "Activación en 24h",
+    imgSrc: "/images/services/hosting-vps.jpg",
+    accentTone: "var(--c-amber)",
+    short: "Hosting en servidor VPS optimizado con recursos aislados, IP fija independiente, SSL vitalicio y backups automáticos diarios.",
+    pills: ["IP Dedicada", "SSL Vitalicio", "Backups Diarios", "Caché HTTP/3"],
+    pricing: "Tarifa mensual o anual",
+    ctaText: "Cotizar Alojamiento VPS",
+    msg: "Hola equipo de Kamasqa 👋 Quisiera consultar y cotizar el servicio de *Alojamiento Web VPS Dedicado* (con IP independiente, SSL y backups).",
+  },
+  {
+    id: "correos-corporativos",
+    name: "Correos Corporativos",
+    category: "Identidad & Marca",
+    time: "24 a 48 horas",
+    imgSrc: "/images/services/correos-corporativos.jpg",
+    accentTone: "var(--c-olive)",
+    short: "Cuentas con tu propio dominio (@tuempresa.pe) para proyectar máxima solvencia comercial y evitar filtros de spam.",
+    pills: ["Opción Individual (1 cuenta)", "Paquete de 3 Correos", "Paquete de 5 Correos"],
+    pricing: "Bajo dominio propio",
+    ctaText: "Cotizar Correos Pro",
+    msg: "Hola equipo de Kamasqa 👋 Me gustaría cotizar el servicio de *Correos Corporativos* (@tuempresa.pe) para mi negocio.",
+  },
+  {
+    id: "mantenimiento-soporte",
+    name: "Mantenimiento & Soporte TI",
+    category: "Bolsa de Horas & Soporte",
+    time: "Atención prioritaria",
+    imgSrc: "/images/services/mantenimiento-soporte.jpg",
+    accentTone: "var(--c-sand)",
+    short: "Ajustes de código, resolución de bugs, desinfección de malware o soporte de servidor a pedido sin mensualidades forzosas.",
+    pills: ["Landing / Informativa", "Tienda E-commerce", "Bugs & Malware"],
+    pricing: "Puntual o bolsa de horas",
+    ctaText: "Consultar Soporte Técnico",
+    msg: "Hola equipo de Kamasqa 👋 Necesito cotizar una intervención de *Mantenimiento Web Puntual / Soporte Técnico* para mi sitio web.",
   },
 ];
 ---
@@ -191,214 +234,81 @@ const serviceThemes = [
       </div>
 
       <!-- ========================================================
-           VISTA 2: SUBSERVICIOS ESPECIALIZADOS (3 TARJETAS EN GRID)
+           VISTA 2: SUBSERVICIOS (TARJETAS IDÉNTICAS + CARRUSEL MÓVIL)
            ======================================================== -->
       <div id="services-sub-panel" class="services-panel panel-sub" aria-hidden="true">
-        <div class="subservices-editorial-grid">
-          
-          <!-- SUB 1: ALOJAMIENTO WEB VPS DEDICADO -->
-          <article class="sub-card" style={`--sub-accent: ${subservices[0].accentTone};`}>
-            <div class="sub-card-topline"></div>
-            
-            <div class="sub-card-header">
-              <div class="sub-meta">
-                <span class="sub-num">01</span>
-                <span class="sub-badge">{subservices[0].badge}</span>
-              </div>
-              <span class="sub-time">⏱ {subservices[0].time}</span>
-            </div>
-
-            <div class="sub-card-body">
-              <div class="sub-tagline">{subservices[0].tagline}</div>
-              <h3 class="sub-title">{subservices[0].name}</h3>
-              <p class="sub-desc">{subservices[0].description}</p>
-
-              <!-- Lista de especificaciones VPS -->
-              <div class="sub-features-block">
-                <span class="sub-block-caption">Especificaciones Técnicas Incluidas:</span>
-                <ul class="sub-features-list">
-                  {subservices[0].highlights.map((feat) => (
-                    <li class="sub-feature-item">
-                      <span class="sub-check-icon" aria-hidden="true">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                          <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                      </span>
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div class="sub-callout-pill">
-                <span class="scp-dot"></span>
-                <span>Arquitectura aislada sin caídas ni sobrecarga de vecinos.</span>
-              </div>
-            </div>
-
-            <div class="sub-card-footer">
-              <div class="sub-footer-meta">
-                <span class="sub-pricing-label">Tarifa mensual o anual</span>
-                <span class="sub-status-tag">IP Dedicada</span>
-              </div>
-              <a
-                href={wa(subservices[0].msg)}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-pill-action sub-cta-action"
-              >
-                <span>Cotizar Alojamiento VPS</span>
-                <span class="action-arrow-circle" aria-hidden="true">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
-                    <line x1="7" y1="17" x2="17" y2="7"></line>
-                    <polyline points="7 7 17 7 17 17"></polyline>
-                  </svg>
-                </span>
-              </a>
-            </div>
-          </article>
-
-          <!-- SUB 2: CORREOS CORPORATIVOS (3 OPCIONES DIRECTAMENTE VISIBLES) -->
-          <article class="sub-card" style={`--sub-accent: ${subservices[1].accentTone};`}>
-            <div class="sub-card-topline"></div>
-
-            <div class="sub-card-header">
-              <div class="sub-meta">
-                <span class="sub-num">02</span>
-                <span class="sub-badge">{subservices[1].badge}</span>
-              </div>
-              <span class="sub-time">⏱ {subservices[1].time}</span>
-            </div>
-
-            <div class="sub-card-body">
-              <div class="sub-tagline">{subservices[1].tagline}</div>
-              <h3 class="sub-title">{subservices[1].name}</h3>
-              <p class="sub-desc">{subservices[1].description}</p>
-
-              <!-- Las 3 Opciones Visibles Directamente -->
-              <div class="sub-options-block">
-                <span class="sub-block-caption">3 Modalidades Disponibles:</span>
-                <div class="sub-options-stack">
-                  {subservices[1].options?.map((opt, optIdx) => (
-                    <div class={`sub-option-box ${optIdx === 1 ? "is-featured" : ""}`}>
-                      <div class="sob-top">
-                        <strong class="sob-name">{opt.name}</strong>
-                        <span class="sob-badge">{opt.badge}</span>
-                      </div>
-                      <p class="sob-desc">{opt.desc}</p>
-                    </div>
-                  ))}
+        <div class="cards-carousel-container">
+          <div class="subservices-vertical-grid" id="subservices-grid-track">
+            {subserviceThemes.map((sub, i) => (
+              <article class="vertical-card" style={`--accent-card:${sub.accentTone}`} data-sub-card={i}>
+                <!-- Fondo Visual 3D del Subservicio -->
+                <div class="vc-bg-wrap" aria-hidden="true">
+                  <img
+                    src={sub.imgSrc}
+                    alt={`Render 3D conceptual para ${sub.name}`}
+                    class="vc-bg-img"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div class="vc-gradient"></div>
                 </div>
-              </div>
 
-              <!-- Píldoras de Compatibilidad -->
-              <div class="sub-pills-row">
-                <span class="sub-mini-pill">✓ DKIM / SPF / DMARC</span>
-                <span class="sub-mini-pill">✓ Outlook / Gmail / Móvil</span>
-                <span class="sub-mini-pill">✓ Antivirus 24/7</span>
-              </div>
-            </div>
-
-            <div class="sub-card-footer">
-              <div class="sub-footer-meta">
-                <span class="sub-pricing-label">Bajo tu propio dominio</span>
-                <span class="sub-status-tag">Cero Spam</span>
-              </div>
-              <a
-                href={wa(subservices[1].msg)}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-pill-action sub-cta-action"
-              >
-                <span>Cotizar Correos por WhatsApp</span>
-                <span class="action-arrow-circle" aria-hidden="true">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                <!-- Botón de Flecha Circular Superior Derecha (↗) -->
+                <a
+                  href={wa(sub.msg)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="vc-arrow-btn"
+                  aria-label={`Cotizar ${sub.name} por WhatsApp`}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
                     <line x1="7" y1="17" x2="17" y2="7"></line>
                     <polyline points="7 7 17 7 17 17"></polyline>
                   </svg>
-                </span>
-              </a>
-            </div>
-          </article>
+                </a>
 
-          <!-- SUB 3: MANTENIMIENTO PUNTUAL / BOLSA DE HORAS (BISECCIONADO) -->
-          <article class="sub-card" style={`--sub-accent: ${subservices[2].accentTone};`}>
-            <div class="sub-card-topline"></div>
-
-            <div class="sub-card-header">
-              <div class="sub-meta">
-                <span class="sub-num">03</span>
-                <span class="sub-badge">{subservices[2].badge}</span>
-              </div>
-              <span class="sub-time">⏱ {subservices[2].time}</span>
-            </div>
-
-            <div class="sub-card-body">
-              <div class="sub-tagline">{subservices[2].tagline}</div>
-              <h3 class="sub-title">{subservices[2].name}</h3>
-              <p class="sub-desc">{subservices[2].description}</p>
-
-              <!-- Desglose Biseccionado de Alcances -->
-              <div class="sub-scopes-block">
-                <span class="sub-block-caption">Alcance según tu Tipo de Web:</span>
-                
-                <div class="sub-scopes-grid">
-                  <!-- Scope 1: Landing / Web Informativa -->
-                  <div class="sub-scope-card">
-                    <div class="ssc-head">
-                      <span class="ssc-dot"></span>
-                      <strong class="ssc-title">{subservices[2].scopes?.[0].title}</strong>
-                    </div>
-                    <ul class="ssc-items">
-                      {subservices[2].scopes?.[0].items.map((it) => (
-                        <li>• {it}</li>
-                      ))}
-                    </ul>
+                <!-- Contenido Anclado al Fondo -->
+                <div class="vc-content">
+                  <div class="vc-meta">
+                    <span class="vc-num-tag">0{i + 1}</span>
+                    <span class="vc-badge">{sub.category}</span>
+                    <span class="vc-time">⏱ {sub.time}</span>
                   </div>
 
-                  <!-- Scope 2: E-commerce -->
-                  <div class="sub-scope-card">
-                    <div class="ssc-head">
-                      <span class="ssc-dot"></span>
-                      <strong class="ssc-title">{subservices[2].scopes?.[1].title}</strong>
-                    </div>
-                    <ul class="ssc-items">
-                      {subservices[2].scopes?.[1].items.map((it) => (
-                        <li>• {it}</li>
-                      ))}
-                    </ul>
+                  <h3 class="vc-title">
+                    <a href={wa(sub.msg)} target="_blank" rel="noopener noreferrer" class="vc-title-link">{sub.name}</a>
+                  </h3>
+
+                  <p class="vc-desc">{sub.short}</p>
+
+                  <!-- Píldoras mínimas y elegantes de opciones / características -->
+                  <div class="vc-pills-wrap">
+                    {sub.pills.map((pill) => (
+                      <span class="vc-pill-chip">{pill}</span>
+                    ))}
+                  </div>
+
+                  <div class="vc-footer">
+                    <span class="vc-pricing">{sub.pricing}</span>
+                    <a href={wa(sub.msg)} target="_blank" rel="noopener noreferrer" class="vc-cta-text">
+                      <span>{sub.ctaText}</span>
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                      </svg>
+                    </a>
                   </div>
                 </div>
-              </div>
+              </article>
+            ))}
+          </div>
 
-              <div class="sub-callout-pill">
-                <span class="scp-dot"></span>
-                <span>Resolución de bugs, código complejo y desinfección de malware a pedido.</span>
-              </div>
-            </div>
-
-            <div class="sub-card-footer">
-              <div class="sub-footer-meta">
-                <span class="sub-pricing-label">Bolsa de horas o puntual</span>
-                <span class="sub-status-tag">Sin mensualidades</span>
-              </div>
-              <a
-                href={wa(subservices[2].msg)}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-pill-action sub-cta-action"
-              >
-                <span>Consultar Soporte Técnico</span>
-                <span class="action-arrow-circle" aria-hidden="true">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
-                    <line x1="7" y1="17" x2="17" y2="7"></line>
-                    <polyline points="7 7 17 7 17 17"></polyline>
-                  </svg>
-                </span>
-              </a>
-            </div>
-          </article>
-
+          <!-- Indicadores de Carrusel en Móvil para Subservicios -->
+          <div class="sub-carousel-dots" id="sub-dots" aria-hidden="true">
+            {subserviceThemes.map((_, idx) => (
+              <button type="button" class={`s-dot ${idx === 0 ? "active" : ""}`} data-sub-idx={idx} aria-label={`Ver subservicio ${idx + 1}`}></button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -408,7 +318,7 @@ const serviceThemes = [
 
 <script>
   // ========================================================
-  // 1. Carrusel de Tarjetas de Servicios en Móvil
+  // 1. Carrusel de Tarjetas de Servicios Principales en Móvil
   // ========================================================
   const srvGrid = document.getElementById("services-grid-track");
   const srvDots = document.querySelectorAll(".srv-carousel-dots .s-dot");
@@ -437,7 +347,36 @@ const serviceThemes = [
   }
 
   // ========================================================
-  // 2. Popular Now: Stack Superpuesto en Móvil
+  // 2. Carrusel de Tarjetas de Subservicios en Móvil
+  // ========================================================
+  const subGrid = document.getElementById("subservices-grid-track");
+  const subDots = document.querySelectorAll(".sub-carousel-dots .s-dot");
+
+  if (subGrid && subDots.length > 0) {
+    const updateSubDots = () => {
+      const scrollLeft = subGrid.scrollLeft;
+      const cardWidth = subGrid.querySelector<HTMLElement>(".vertical-card")?.offsetWidth || 300;
+      const activeIdx = Math.round(scrollLeft / cardWidth);
+      subDots.forEach((dot, idx) => {
+        dot.classList.toggle("active", idx === activeIdx);
+      });
+    };
+
+    subGrid.addEventListener("scroll", updateSubDots, { passive: true });
+
+    subDots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        const idx = Number(dot.getAttribute("data-sub-idx") || 0);
+        const card = subGrid.querySelectorAll<HTMLElement>(".vertical-card")[idx];
+        if (card) {
+          card.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+        }
+      });
+    });
+  }
+
+  // ========================================================
+  // 3. Popular Now: Stack Superpuesto en Móvil
   // ========================================================
   const popStage = document.getElementById("popular-stage");
   const popCards = Array.from(document.querySelectorAll<HTMLElement>(".pt-item"));
@@ -569,7 +508,7 @@ const serviceThemes = [
   }
 
   // ========================================================
-  // 3. Conmutador Dinámico: Servicios Principales <-> Subservicios
+  // 4. Conmutador Dinámico: Servicios Principales <-> Subservicios
   // ========================================================
   const toggleBtn = document.getElementById("btn-toggle-services");
   const toggleBtnLabel = document.getElementById("toggle-btn-label");
@@ -611,6 +550,13 @@ const serviceThemes = [
         // Reflow forzado para asegurar disparo de la animación CSS
         void incomingPanel.offsetWidth;
         incomingPanel.classList.add("is-active", "is-entering");
+
+        // Centrar carrusel al inicio si está en móvil
+        if (goingToSub) {
+          if (subGrid) subGrid.scrollLeft = 0;
+        } else {
+          if (srvGrid) srvGrid.scrollLeft = 0;
+        }
 
         // 2. Actualizar textos de cabecera y botón
         if (goingToSub) {
@@ -813,7 +759,7 @@ const serviceThemes = [
   }
 
   /* ========================================================
-     VISTA 1: SERVICIOS PRINCIPALES (CARDS VERTICALES)
+     VISTA 1 Y VISTA 2: GRID DE TARJETAS VERTICALES
      ======================================================== */
   .cards-carousel-container {
     position: relative;
@@ -824,6 +770,15 @@ const serviceThemes = [
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: clamp(1.2rem, 2vw, 2rem);
+  }
+
+  /* Subservicios en Desktop: 3 columnas centradas y proporcionales */
+  .subservices-vertical-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1.4rem, 2.5vw, 2.4rem);
+    max-width: 1240px;
+    margin: 0 auto;
   }
 
   .vertical-card {
@@ -952,6 +907,7 @@ const serviceThemes = [
     border-radius: var(--radius-full);
     background: rgba(255, 255, 255, 0.16);
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     color: var(--c-white);
   }
 
@@ -983,11 +939,32 @@ const serviceThemes = [
     font-size: 0.875rem;
     line-height: 1.5;
     color: rgba(242, 245, 236, 0.85);
-    margin-bottom: 1.1rem;
+    margin-bottom: 0.85rem;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+
+  /* Píldoras compactas para características de subservicios */
+  .vc-pills-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .vc-pill-chip {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.22rem 0.6rem;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--c-white);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    line-height: 1.25;
   }
 
   .vc-footer {
@@ -1018,517 +995,95 @@ const serviceThemes = [
     transform: translateX(3px);
   }
 
-  .srv-carousel-dots {
-    display: none;
-  }
-
-  /* Popular Now Strip */
-  .popular-ticker-wrap {
-    padding-top: 2rem;
-    border-top: 1px solid var(--line);
-    display: grid;
-    grid-template-columns: 160px 1fr;
-    gap: 2rem;
-    align-items: flex-start;
-  }
-
-  .pt-tag {
-    font-family: var(--font-display);
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--ink);
-  }
-
-  .pt-items-stage {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: clamp(1.2rem, 2.5vw, 2.5rem);
-  }
-
-  .pt-item {
-    text-decoration: none;
-    color: inherit;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    display: block;
-    transition: transform 0.2s ease;
-  }
-
-  .pt-item:hover {
-    transform: translateY(-2px);
-  }
-
-  .pt-item-inner {
-    padding: 0.5rem 0;
-  }
-
-  .pt-item-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 0.35rem;
-  }
-
-  .pt-item-meta {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--ink-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .pt-item-badge {
-    display: none;
-  }
-
-  .pt-item-title {
-    font-size: 0.9375rem;
-    font-weight: 700;
-    line-height: 1.45;
-    color: var(--ink);
-    margin-bottom: 0.4rem;
-  }
-
-  .pop-stack-controls {
+  .srv-carousel-dots,
+  .sub-carousel-dots {
     display: none;
   }
 
   /* ========================================================
-     VISTA 2: SUBSERVICIOS ESPECIALIZADOS (GRID DE 3 COLUMNAS)
+     POPULAR NOW: EN ESCRITORIO (MIN-WIDTH: 841px)
      ======================================================== */
-  .subservices-editorial-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(1.3rem, 2.5vw, 2.2rem);
-  }
+  @media (min-width: 841px) {
+    .popular-ticker-wrap {
+      padding-top: 2rem;
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 2rem;
+      align-items: flex-start;
+    }
 
-  .sub-card {
-    position: relative;
-    border-radius: 28px;
-    background: var(--paper-card);
-    border: 1.5px solid var(--line);
-    box-shadow: 0 16px 36px -12px rgba(27, 33, 20, 0.12);
-    padding: clamp(1.7rem, 2.4vw, 2.2rem);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 1.6rem;
-    overflow: hidden;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
-  }
+    .pt-tag {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
 
-  .sub-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 24px 48px -12px rgba(27, 33, 20, 0.22);
-    border-color: rgba(170, 114, 41, 0.35);
-  }
+    .pt-items-stage {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(1.2rem, 2.5vw, 2.5rem);
+    }
 
-  /* Línea decorativa superior */
-  .sub-card-topline {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--sub-accent), transparent 85%);
-  }
+    .pt-item {
+      text-decoration: none;
+      color: inherit;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      display: block;
+      transition: transform 0.2s ease;
+    }
 
-  .sub-card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-  }
+    .pt-item:hover {
+      transform: translateY(-2px);
+    }
 
-  .sub-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.55rem;
-  }
+    .pt-item-inner {
+      padding: 0.5rem 0;
+    }
 
-  .sub-num {
-    font-family: var(--font-mono);
-    font-size: 0.76rem;
-    font-weight: 800;
-    color: var(--c-amber);
-    background: rgba(170, 114, 41, 0.12);
-    padding: 0.2rem 0.55rem;
-    border-radius: var(--radius-full);
-    border: 1px solid rgba(170, 114, 41, 0.25);
-  }
+    .pt-item-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.35rem;
+    }
 
-  .sub-badge {
-    font-size: 0.72rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 0.25rem 0.65rem;
-    border-radius: var(--radius-full);
-    background: var(--paper-subtle);
-    border: 1px solid var(--line);
-    color: var(--ink);
-  }
+    .pt-item-meta {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
 
-  .sub-time {
-    font-size: 0.78rem;
-    color: var(--ink-muted);
-    font-weight: 600;
-  }
+    .pt-item-badge {
+      display: none;
+    }
 
-  .sub-card-body {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    flex: 1;
-  }
+    .pt-item-title {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      line-height: 1.45;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+    }
 
-  .sub-tagline {
-    font-size: 0.74rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--sub-accent);
-  }
+    .pop-stack-controls {
+      display: none;
+    }
 
-  .sub-title {
-    font-family: var(--font-display);
-    font-size: clamp(1.4rem, 1.8vw, 1.7rem);
-    font-weight: 700;
-    line-height: 1.2;
-    color: var(--ink);
-    letter-spacing: -0.015em;
-  }
+    html[data-theme="dark"] .popular-ticker-wrap {
+      border-color: rgba(255, 255, 255, 0.08);
+    }
 
-  .sub-desc {
-    font-size: 0.88rem;
-    line-height: 1.55;
-    color: var(--ink-soft);
-    margin-bottom: 0.5rem;
-  }
-
-  .sub-block-caption {
-    font-size: 0.74rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--ink-muted);
-    display: block;
-    margin-bottom: 0.65rem;
-  }
-
-  /* Lista de especificaciones VPS */
-  .sub-features-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.55rem;
-  }
-
-  .sub-feature-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.55rem;
-    font-size: 0.835rem;
-    line-height: 1.45;
-    color: var(--ink-soft);
-  }
-
-  .sub-check-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 17px;
-    height: 17px;
-    border-radius: 50%;
-    background: rgba(110, 125, 78, 0.16);
-    color: var(--c-olive-dark);
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  /* Píldora de llamada de atención */
-  .sub-callout-pill {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.7rem 0.9rem;
-    border-radius: var(--radius-sm);
-    background: var(--paper-subtle);
-    border: 1px solid var(--line);
-    font-size: 0.78rem;
-    color: var(--ink-soft);
-    line-height: 1.4;
-    margin-top: auto;
-  }
-
-  .scp-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--c-amber);
-    flex-shrink: 0;
-  }
-
-  /* Opciones de Correos Corporativos (Las 3 Visibles Directamente) */
-  .sub-options-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 0.55rem;
-    margin-bottom: 0.8rem;
-  }
-
-  .sub-option-box {
-    padding: 0.65rem 0.85rem;
-    border-radius: var(--radius-sm);
-    background: var(--paper-subtle);
-    border: 1px solid var(--line);
-    transition: border-color 0.2s ease, transform 0.2s ease;
-  }
-
-  .sub-option-box:hover {
-    border-color: rgba(110, 125, 78, 0.35);
-    transform: translateX(2px);
-  }
-
-  .sub-option-box.is-featured {
-    background: rgba(110, 125, 78, 0.08);
-    border-color: rgba(110, 125, 78, 0.3);
-  }
-
-  .sob-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
-    margin-bottom: 0.2rem;
-  }
-
-  .sob-name {
-    font-size: 0.84rem;
-    font-weight: 700;
-    color: var(--ink);
-  }
-
-  .sob-badge {
-    font-size: 0.68rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--c-olive-dark);
-    background: rgba(110, 125, 78, 0.16);
-    padding: 0.15rem 0.5rem;
-    border-radius: var(--radius-full);
-  }
-
-  .sob-desc {
-    font-size: 0.77rem;
-    line-height: 1.4;
-    color: var(--ink-soft);
-    margin: 0;
-  }
-
-  .sub-pills-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-  }
-
-  .sub-mini-pill {
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 0.25rem 0.55rem;
-    border-radius: var(--radius-full);
-    background: var(--paper-subtle);
-    border: 1px solid var(--line);
-    color: var(--ink-soft);
-  }
-
-  /* Desglose Biseccionado de Mantenimiento */
-  .sub-scopes-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.65rem;
-    margin-bottom: 0.8rem;
-  }
-
-  .sub-scope-card {
-    padding: 0.75rem 0.8rem;
-    border-radius: var(--radius-sm);
-    background: var(--paper-subtle);
-    border: 1px solid var(--line);
-  }
-
-  .ssc-head {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-bottom: 0.45rem;
-  }
-
-  .ssc-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--c-amber);
-    flex-shrink: 0;
-  }
-
-  .ssc-title {
-    font-size: 0.78rem;
-    font-weight: 800;
-    color: var(--ink);
-    line-height: 1.25;
-  }
-
-  .ssc-items {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-
-  .ssc-items li {
-    font-size: 0.74rem;
-    line-height: 1.35;
-    color: var(--ink-soft);
-  }
-
-  /* Footer de Sub-card */
-  .sub-card-footer {
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
-    padding-top: 1.1rem;
-    border-top: 1px solid var(--line);
-  }
-
-  .sub-footer-meta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 0.78rem;
-  }
-
-  .sub-pricing-label {
-    color: var(--ink-muted);
-    font-weight: 600;
-  }
-
-  .sub-status-tag {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: var(--c-amber);
-    background: rgba(170, 114, 41, 0.1);
-    padding: 0.15rem 0.5rem;
-    border-radius: 4px;
-  }
-
-  .sub-cta-action {
-    width: 100%;
-    justify-content: space-between;
-    padding: 0.6rem 0.75rem 0.6rem 1.2rem;
-    font-size: 0.85rem;
-  }
-
-  /* ========================================================
-     MODO OSCURO (DARK THEME)
-     ======================================================== */
-  html[data-theme="dark"] .she-title {
-    color: #FFFFFF;
-  }
-
-  html[data-theme="dark"] .sub-card {
-    background: #141B12;
-    border-color: rgba(216, 224, 199, 0.15);
-    box-shadow: 0 20px 42px -12px rgba(0, 0, 0, 0.6);
-  }
-
-  html[data-theme="dark"] .sub-card:hover {
-    border-color: rgba(240, 196, 140, 0.35);
-    box-shadow: 0 26px 54px -12px rgba(0, 0, 0, 0.8);
-  }
-
-  html[data-theme="dark"] .sub-badge {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.12);
-    color: #FFFFFF;
-  }
-
-  html[data-theme="dark"] .sub-time {
-    color: rgba(242, 245, 236, 0.65);
-  }
-
-  html[data-theme="dark"] .sub-title {
-    color: #FFFFFF;
-  }
-
-  html[data-theme="dark"] .sub-desc {
-    color: rgba(242, 245, 236, 0.8);
-  }
-
-  html[data-theme="dark"] .sub-feature-item {
-    color: rgba(242, 245, 236, 0.82);
-  }
-
-  html[data-theme="dark"] .sub-check-icon {
-    background: rgba(216, 224, 199, 0.15);
-    color: var(--c-sand);
-  }
-
-  html[data-theme="dark"] .sub-callout-pill {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(255, 255, 255, 0.08);
-    color: rgba(242, 245, 236, 0.78);
-  }
-
-  html[data-theme="dark"] .sub-option-box {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(255, 255, 255, 0.08);
-  }
-
-  html[data-theme="dark"] .sub-option-box.is-featured {
-    background: rgba(110, 125, 78, 0.2);
-    border-color: rgba(110, 125, 78, 0.4);
-  }
-
-  html[data-theme="dark"] .sob-name {
-    color: #FFFFFF;
-  }
-
-  html[data-theme="dark"] .sob-badge {
-    background: rgba(216, 224, 199, 0.2);
-    color: var(--c-sand);
-  }
-
-  html[data-theme="dark"] .sob-desc {
-    color: rgba(242, 245, 236, 0.75);
-  }
-
-  html[data-theme="dark"] .sub-mini-pill {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.08);
-    color: rgba(242, 245, 236, 0.78);
-  }
-
-  html[data-theme="dark"] .sub-scope-card {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(255, 255, 255, 0.08);
-  }
-
-  html[data-theme="dark"] .ssc-title {
-    color: #FFFFFF;
-  }
-
-  html[data-theme="dark"] .ssc-items li {
-    color: rgba(242, 245, 236, 0.75);
-  }
-
-  html[data-theme="dark"] .sub-card-footer {
-    border-color: rgba(255, 255, 255, 0.08);
-  }
-
-  html[data-theme="dark"] .sub-pricing-label {
-    color: rgba(242, 245, 236, 0.6);
+    html[data-theme="dark"] .pt-item {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
   }
 
   /* ========================================================
@@ -1546,8 +1101,9 @@ const serviceThemes = [
       justify-content: space-between;
     }
 
-    /* 1. Carrusel de Tarjetas de Servicios Principales */
-    .cards-vertical-grid {
+    /* 1. Carrusel de Tarjetas en Móvil (Servicios Principales y Subservicios) */
+    .cards-vertical-grid,
+    .subservices-vertical-grid {
       display: flex;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
@@ -1556,9 +1112,12 @@ const serviceThemes = [
       padding: 0.5rem 0.25rem 1rem;
       scroll-padding: 0.5rem;
       scrollbar-width: none;
+      max-width: none;
+      margin: 0;
     }
 
-    .cards-vertical-grid::-webkit-scrollbar {
+    .cards-vertical-grid::-webkit-scrollbar,
+    .subservices-vertical-grid::-webkit-scrollbar {
       display: none;
     }
 
@@ -1569,7 +1128,9 @@ const serviceThemes = [
       scroll-snap-align: center;
     }
 
-    .srv-carousel-dots {
+    /* Dots interactivos para servicios principales y subservicios */
+    .srv-carousel-dots,
+    .sub-carousel-dots {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1594,7 +1155,7 @@ const serviceThemes = [
       background: var(--c-amber);
     }
 
-    /* 2. Popular Now en Móvil */
+    /* 2. Popular Now en Móvil: Stack superpuesto CON FONDO EN MODO CLARO Y OSCURO */
     .popular-ticker-wrap {
       display: block;
       border-top: none;
@@ -1635,10 +1196,12 @@ const serviceThemes = [
       color: inherit;
     }
 
+    /* ADAPTACIÓN MODO OSCURO EN RESPONSIVE PARA PT-ITEM */
     html[data-theme="dark"] .pt-item {
-      background: #171d13;
-      border-color: rgba(216, 224, 199, 0.22);
-      box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.6);
+      background: #171d13 !important;
+      border: 1.5px solid rgba(216, 224, 199, 0.22) !important;
+      box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.6) !important;
+      color: #FFFFFF !important;
     }
 
     .pt-item-inner {
@@ -1668,6 +1231,10 @@ const serviceThemes = [
       color: var(--ink);
     }
 
+    html[data-theme="dark"] .pt-item-title {
+      color: #FFFFFF;
+    }
+
     .pop-stack-controls {
       display: flex;
       align-items: center;
@@ -1692,6 +1259,12 @@ const serviceThemes = [
       box-shadow: var(--shadow-sm);
     }
 
+    html[data-theme="dark"] .pop-ctrl-btn {
+      background: #151D12;
+      border-color: rgba(255, 255, 255, 0.12);
+      color: #FFFFFF;
+    }
+
     .pop-mini-dots {
       display: flex;
       gap: 0.35rem;
@@ -1710,16 +1283,6 @@ const serviceThemes = [
       border-radius: 3px;
       background: var(--c-amber);
     }
-
-    /* 3. Subservicios en Móvil */
-    .subservices-editorial-grid {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-
-    .sub-scopes-grid {
-      grid-template-columns: 1fr;
-    }
   }
 
   html[data-theme="dark"] .services-editorial {
@@ -1730,19 +1293,7 @@ const serviceThemes = [
     border-color: rgba(255, 255, 255, 0.1);
   }
 
-  html[data-theme="dark"] .popular-ticker-wrap {
-    border-color: rgba(255, 255, 255, 0.08);
-  }
-
-  html[data-theme="dark"] .pt-item {
-    background: transparent;
-    border: none;
-    box-shadow: none;
-  }
-
-  html[data-theme="dark"] .pop-ctrl-btn {
-    background: #151D12;
-    border-color: rgba(255, 255, 255, 0.1);
+  html[data-theme="dark"] .she-title {
     color: #FFFFFF;
   }
 </style>
