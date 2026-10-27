@@ -47,6 +47,7 @@ const subserviceThemes = [
     imgSrc: "/images/services/hosting-vps.jpg",
     accentTone: "var(--c-amber)",
     short: "Hosting en servidor VPS optimizado con recursos aislados, IP fija independiente, SSL vitalicio y backups automáticos diarios.",
+    leadShort: "Servidor cloud VPS con IP fija dedicada, SSL vitalicio y copias de seguridad automáticas diarias.",
     pills: ["IP Dedicada", "SSL Vitalicio", "Backups Diarios", "Caché HTTP/3"],
     pricing: "Tarifa mensual o anual",
     ctaText: "Cotizar Alojamiento VPS",
@@ -59,7 +60,8 @@ const subserviceThemes = [
     time: "24 a 48 horas",
     imgSrc: "/images/services/correos-corporativos.jpg",
     accentTone: "var(--c-olive)",
-    short: "Cuentas con tu propio dominio (@tuempresa.pe) para proyectar máxima solvencia comercial y evitar filtros de spam.",
+    short: "Cuentas oficiales con tu propio dominio (@tuempresa.pe) para proyectar máxima solvencia comercial y evitar filtros de spam.",
+    leadShort: "Cuentas oficiales con tu dominio @tuempresa.pe en 1 cuenta, pack de 3 o pack de 5.",
     pills: ["Opción Individual (1 cuenta)", "Paquete de 3 Correos", "Paquete de 5 Correos"],
     pricing: "Bajo dominio propio",
     ctaText: "Cotizar Correos Pro",
@@ -73,6 +75,7 @@ const subserviceThemes = [
     imgSrc: "/images/services/mantenimiento-soporte.jpg",
     accentTone: "var(--c-sand)",
     short: "Ajustes de código, resolución de bugs, desinfección de malware o soporte de servidor a pedido sin mensualidades forzosas.",
+    leadShort: "Soporte bajo demanda para corregir bugs, desinfectar malware o actualizar tu web sin planes fijos.",
     pills: ["Landing / Informativa", "Tienda E-commerce", "Bugs & Malware"],
     pricing: "Puntual o bolsa de horas",
     ctaText: "Consultar Soporte Técnico",
@@ -234,7 +237,7 @@ const subserviceThemes = [
       </div>
 
       <!-- ========================================================
-           VISTA 2: SUBSERVICIOS (TARJETAS IDÉNTICAS + CARRUSEL MÓVIL)
+           VISTA 2: SUBSERVICIOS (TARJETAS IDÉNTICAS + CARRUSEL MÓVIL + POPULAR NOW)
            ======================================================== -->
       <div id="services-sub-panel" class="services-panel panel-sub" aria-hidden="true">
         <div class="cards-carousel-container">
@@ -259,7 +262,7 @@ const subserviceThemes = [
                   target="_blank"
                   rel="noopener noreferrer"
                   class="vc-arrow-btn"
-                  aria-label={`Cotizar ${sub.name} por WhatsApp`}
+                  aria-label={`Cotizar subservicio ${sub.name}`}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
                     <line x1="7" y1="17" x2="17" y2="7"></line>
@@ -308,6 +311,46 @@ const subserviceThemes = [
             {subserviceThemes.map((_, idx) => (
               <button type="button" class={`s-dot ${idx === 0 ? "active" : ""}`} data-sub-idx={idx} aria-label={`Ver subservicio ${idx + 1}`}></button>
             ))}
+          </div>
+        </div>
+
+        <!-- Ticker 'Popular now' para Subservicios -->
+        <div class="popular-ticker-wrap">
+          <div class="pt-label-col">
+            <span class="pt-tag">Popular now</span>
+          </div>
+
+          <div class="pt-items-stage sub-popular-stage" id="sub-popular-stage">
+            {subserviceThemes.map((sub, i) => (
+              <a
+                href={wa(sub.msg)}
+                target="_blank"
+                rel="noopener noreferrer"
+                class={`pt-item ${i === 0 ? "is-top" : ""}`}
+                data-sub-pop-idx={i}
+                data-sub-layer={i}
+                aria-label={`Cotizar subservicio ${sub.name}`}
+              >
+                <div class="pt-item-inner">
+                  <div class="pt-item-head">
+                    <span class="pt-item-meta">{sub.name} · {sub.time}</span>
+                    <span class="pt-item-badge">Especializado</span>
+                  </div>
+                  <p class="pt-item-title">{sub.leadShort}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          <!-- Controles móviles para el stack superpuesto de Popular Now en subservicios -->
+          <div class="pop-stack-controls" id="sub-pop-controls" aria-label="Controles de subservicios destacados">
+            <button type="button" class="pop-ctrl-btn prev" id="sub-pop-prev" aria-label="Anterior subservicio destacado">‹</button>
+            <div class="pop-mini-dots" id="sub-pop-mini-dots">
+              {subserviceThemes.map((_, i) => (
+                <span class={`pm-dot ${i === 0 ? "active" : ""}`} data-sub-pdot={i}></span>
+              ))}
+            </div>
+            <button type="button" class="pop-ctrl-btn next" id="sub-pop-next" aria-label="Siguiente subservicio destacado">›</button>
           </div>
         </div>
       </div>
@@ -376,23 +419,31 @@ const subserviceThemes = [
   }
 
   // ========================================================
-  // 3. Popular Now: Stack Superpuesto en Móvil
+  // 3. Helper para Stack Móvil de Popular Now
   // ========================================================
-  const popStage = document.getElementById("popular-stage");
-  const popCards = Array.from(document.querySelectorAll<HTMLElement>(".pt-item"));
-  const popMiniDots = Array.from(document.querySelectorAll<HTMLElement>(".pop-mini-dots .pm-dot"));
-  const popPrevBtn = document.getElementById("pop-prev");
-  const popNextBtn = document.getElementById("pop-next");
+  function initPopularStack(
+    stageId: string,
+    itemSelector: string,
+    dotsSelector: string,
+    prevId: string,
+    nextId: string
+  ) {
+    const stage = document.getElementById(stageId);
+    const cards = Array.from(document.querySelectorAll<HTMLElement>(itemSelector));
+    const dots = Array.from(document.querySelectorAll<HTMLElement>(dotsSelector));
+    const prevBtn = document.getElementById(prevId);
+    const nextBtn = document.getElementById(nextId);
 
-  if (popStage && popCards.length > 0) {
+    if (!stage || cards.length === 0) return { render: () => {} };
+
     let currentIdx = 0;
-    const total = popCards.length;
+    const total = cards.length;
     let autoTimer: number | null = null;
 
     const renderStack = () => {
       const isMobile = window.innerWidth <= 840;
       if (!isMobile) {
-        popCards.forEach((c) => {
+        cards.forEach((c) => {
           c.style.removeProperty("transform");
           c.style.removeProperty("opacity");
           c.style.removeProperty("z-index");
@@ -401,7 +452,7 @@ const subserviceThemes = [
         return;
       }
 
-      popCards.forEach((card, i) => {
+      cards.forEach((card, i) => {
         const rel = (i - currentIdx + total) % total;
         if (rel === 0) {
           card.style.transform = "translate3d(0, 0, 0) scale(1)";
@@ -426,13 +477,13 @@ const subserviceThemes = [
         }
       });
 
-      popMiniDots.forEach((dot, idx) => {
+      dots.forEach((dot, idx) => {
         dot.classList.toggle("active", idx === currentIdx);
       });
     };
 
-    const nextPopCard = () => {
-      const topCard = popCards[currentIdx];
+    const nextCard = () => {
+      const topCard = cards[currentIdx];
       if (window.innerWidth <= 840 && topCard) {
         topCard.style.transform = "translate3d(-100px, -20px, 0) rotate(-6deg) scale(0.88)";
         topCard.style.opacity = "0";
@@ -446,7 +497,7 @@ const subserviceThemes = [
       }
     };
 
-    const prevPopCard = () => {
+    const prevCard = () => {
       currentIdx = (currentIdx - 1 + total) % total;
       renderStack();
     };
@@ -455,12 +506,12 @@ const subserviceThemes = [
       if (autoTimer) window.clearInterval(autoTimer);
       autoTimer = window.setInterval(() => {
         if (window.innerWidth <= 840) {
-          nextPopCard();
+          nextCard();
         }
       }, 5000);
     };
 
-    popMiniDots.forEach((dot, idx) => {
+    dots.forEach((dot, idx) => {
       dot.addEventListener("click", (e) => {
         e.stopPropagation();
         currentIdx = idx;
@@ -469,35 +520,35 @@ const subserviceThemes = [
       });
     });
 
-    popNextBtn?.addEventListener("click", (e) => {
+    nextBtn?.addEventListener("click", (e) => {
       e.stopPropagation();
       e.preventDefault();
-      nextPopCard();
+      nextCard();
       resetTimer();
     });
 
-    popPrevBtn?.addEventListener("click", (e) => {
+    prevBtn?.addEventListener("click", (e) => {
       e.stopPropagation();
       e.preventDefault();
-      prevPopCard();
+      prevCard();
       resetTimer();
     });
 
     let touchStartX = 0;
     let touchStartY = 0;
-    popStage.addEventListener("touchstart", (e) => {
+    stage.addEventListener("touchstart", (e) => {
       touchStartX = e.touches[0].clientX;
       touchStartY = e.touches[0].clientY;
     }, { passive: true });
 
-    popStage.addEventListener("touchend", (e) => {
+    stage.addEventListener("touchend", (e) => {
       const touchEndX = e.changedTouches[0].clientX;
       const touchEndY = e.changedTouches[0].clientY;
       const diffX = touchEndX - touchStartX;
       const diffY = touchEndY - touchStartY;
       if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 35) {
-        if (diffX < 0) nextPopCard();
-        else prevPopCard();
+        if (diffX < 0) nextCard();
+        else prevCard();
         resetTimer();
       }
     }, { passive: true });
@@ -505,10 +556,28 @@ const subserviceThemes = [
     window.addEventListener("resize", renderStack, { passive: true });
     renderStack();
     resetTimer();
+
+    return { render: renderStack };
   }
 
+  const mainPopularStack = initPopularStack(
+    "popular-stage",
+    "#popular-stage .pt-item",
+    "#pop-mini-dots .pm-dot",
+    "pop-prev",
+    "pop-next"
+  );
+
+  const subPopularStack = initPopularStack(
+    "sub-popular-stage",
+    "#sub-popular-stage .pt-item",
+    "#sub-pop-mini-dots .pm-dot",
+    "sub-pop-prev",
+    "sub-pop-next"
+  );
+
   // ========================================================
-  // 4. Conmutador Dinámico: Servicios Principales <-> Subservicios
+  // 4. Conmutador Dinámico: Servicios Principales <-> Subservicios (Bilingüe)
   // ========================================================
   const toggleBtn = document.getElementById("btn-toggle-services");
   const toggleBtnLabel = document.getElementById("toggle-btn-label");
@@ -522,6 +591,57 @@ const subserviceThemes = [
   if (toggleBtn && viewStage && mainPanel && subPanel) {
     let currentView: "main" | "sub" = "main";
     let isTransitioning = false;
+
+    const updateHeaderLabels = (view: "main" | "sub") => {
+      const isEn = document.documentElement.lang === "en" || localStorage.getItem("kamasqa_lang") === "en";
+
+      if (view === "sub") {
+        if (toggleBtnLabel) {
+          (toggleBtnLabel as any).__origEs = "← Volver a servicios principales";
+          toggleBtnLabel.textContent = isEn ? "← Back to main services" : "← Volver a servicios principales";
+        }
+        if (viewBadge) {
+          (viewBadge as any).__origEs = "Infraestructura & Soporte Dedicado";
+          viewBadge.textContent = isEn ? "Dedicated Infrastructure & Support" : "Infraestructura & Soporte Dedicado";
+        }
+        if (secTitle) {
+          (secTitle as any).__origEs = "Subservicios & Soporte Técnico";
+          secTitle.textContent = isEn ? "Subservices & Technical Support" : "Subservicios & Soporte Técnico";
+        }
+        if (secDesc) {
+          (secDesc as any).__origEs =
+            "Alojamiento cloud de alto rendimiento, identidades corporativas bajo tu dominio y bolsas de horas para soporte especializado.";
+          secDesc.textContent = isEn
+            ? "High-performance cloud hosting, custom-domain corporate email, and on-demand hours for specialized technical support."
+            : "Alojamiento cloud de alto rendimiento, identidades corporativas bajo tu dominio y bolsas de horas para soporte especializado.";
+        }
+      } else {
+        if (toggleBtnLabel) {
+          (toggleBtnLabel as any).__origEs = "Ver subservicios y soporte";
+          toggleBtnLabel.textContent = isEn ? "View subservices & support" : "Ver subservicios y soporte";
+        }
+        if (viewBadge) {
+          (viewBadge as any).__origEs = "Soluciones Web Principales";
+          viewBadge.textContent = isEn ? "Core Web Solutions" : "Soluciones Web Principales";
+        }
+        if (secTitle) {
+          (secTitle as any).__origEs = "Nuestras Soluciones Web";
+          secTitle.textContent = isEn ? "Our Web Solutions" : "Nuestras Soluciones Web";
+        }
+        if (secDesc) {
+          (secDesc as any).__origEs =
+            "Desde una primera cotización transparente hasta la entrega final, tendrás un proceso claro, atención personalizada y soporte continuo.";
+          secDesc.textContent = isEn
+            ? "From a transparent initial quote to final delivery, you will enjoy a clear process, personalized attention, and continuous support."
+            : "Desde una primera cotización transparente hasta la entrega final, tendrás un proceso claro, atención personalizada y soporte continuo.";
+        }
+      }
+    };
+
+    // Escuchar cambios de idioma en caliente desde el header
+    window.addEventListener("kamasqa:lang", () => {
+      updateHeaderLabels(currentView);
+    });
 
     toggleBtn.addEventListener("click", () => {
       if (isTransitioning) return;
@@ -554,34 +674,18 @@ const subserviceThemes = [
         // Centrar carrusel al inicio si está en móvil
         if (goingToSub) {
           if (subGrid) subGrid.scrollLeft = 0;
+          subPopularStack.render();
         } else {
           if (srvGrid) srvGrid.scrollLeft = 0;
+          mainPopularStack.render();
         }
 
-        // 2. Actualizar textos de cabecera y botón
-        if (goingToSub) {
-          if (toggleBtnLabel) toggleBtnLabel.textContent = "← Volver a servicios principales";
-          if (viewBadge) viewBadge.textContent = "Infraestructura & Soporte Dedicado";
-          if (secTitle) secTitle.textContent = "Subservicios & Soporte Técnico";
-          if (secDesc) {
-            secDesc.textContent =
-              "Alojamiento cloud de alto rendimiento, identidades corporativas bajo tu dominio y bolsas de horas para soporte especializado.";
-          }
-          currentView = "sub";
-          viewStage.setAttribute("data-current-view", "sub");
-        } else {
-          if (toggleBtnLabel) toggleBtnLabel.textContent = "Ver subservicios y soporte";
-          if (viewBadge) viewBadge.textContent = "Soluciones Web Principales";
-          if (secTitle) secTitle.textContent = "Nuestras Soluciones Web";
-          if (secDesc) {
-            secDesc.textContent =
-              "Desde una primera cotización transparente hasta la entrega final, tendrás un proceso claro, atención personalizada y soporte continuo.";
-          }
-          currentView = "main";
-          viewStage.setAttribute("data-current-view", "main");
-        }
+        // 2. Actualizar textos de cabecera y botón con soporte bilingüe
+        currentView = goingToSub ? "sub" : "main";
+        viewStage.setAttribute("data-current-view", currentView);
+        updateHeaderLabels(currentView);
 
-        // Si la página tiene sistema bilingüe activo, sincronizar traducciones
+        // Si la página tiene sistema bilingüe activo, sincronizar traducciones del panel entrante
         const translator = (window as unknown as { __kamasqaTranslate?: () => void }).__kamasqaTranslate;
         if (typeof translator === "function") {
           translator();
@@ -1024,6 +1128,11 @@ const subserviceThemes = [
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: clamp(1.2rem, 2.5vw, 2.5rem);
+    }
+
+    .pt-items-stage.sub-popular-stage {
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 1240px;
     }
 
     .pt-item {
